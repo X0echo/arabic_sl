@@ -15,14 +15,18 @@
  */
 package com.google.mediapipe.examples.gesturerecognizer
 
+import android.content.res.Configuration
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.mediapipe.examples.gesturerecognizer.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+import com.google.mediapipe.examples.gesturerecognizer.DictionaryFragment
+import com.google.mediapipe.examples.gesturerecognizer.HomeFragment
+import com.google.mediapipe.examples.gesturerecognizer.TrainFragment
+import com.google.mediapipe.examples.gesturerecognizer.TranslatFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+/*class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
@@ -43,4 +47,38 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         finish()
     }
+}*/
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val locale = Locale("ar")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        setContentView(R.layout.activity_main)
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        loadFragment(HomeFragment())    // أول شاشة
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> loadFragment(HomeFragment())
+                R.id.nav_dictionary -> loadFragment(DictionaryFragment())
+                R.id.nav_translate -> loadFragment(TranslatFragment())
+                R.id.nav_train -> loadFragment(TrainFragment())
+            }
+            true
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment): Boolean {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+        return true
+    }
 }
+
