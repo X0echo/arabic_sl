@@ -15,7 +15,7 @@
     ~ limitations under the License.
 -->
 <resources>
-    <color name="mp_color_primary">#007F8B</color>
+    <color name="mp_color_primary">@android:color/white</color>
     <color name="mp_color_primary_variant">#12B5CB</color>
     <color name="mp_color_primary_dark">#00676D</color>
     <color name="mp_color_secondary">#FBBC04</color>
@@ -28,4 +28,5 @@
     <color name="icActive">#FFFFFFFF</color>
     <color name="icFocused">#DDFFFFFF</color>
     <color name="icPressed">#AAFFFFFF</color>
+    <item name="background" type="color">#1C1C1C</item>
 </resources>
