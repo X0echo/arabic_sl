@@ -1,74 +1,78 @@
 [
     {
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\activity_main.xml"
+    },
+    {
         "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_camera.xml",
         "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_camera.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/letter_fragment_camera.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/letter_fragment_camera.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_number_camera.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_number_camera.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_number_camera.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_number_camera.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\arabic_navbar.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\arabic_navbar.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/item_challenge_letter.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/item_challenge_letter.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_arabic_letters.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_arabic_letters.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_gallery.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_gallery.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_challenge_camera.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_challenge_camera.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_arabic_letters.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_arabic_letters.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_home.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_home.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/arabic_navbar.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/arabic_navbar.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\item_gesture_recognizer_result.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\item_gesture_recognizer_result.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/item_arabic_letter.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/item_arabic_letter.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_train.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_train.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_train.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_train.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_dictionary.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_dictionary.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_translat.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_translat.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\item_arabic_letter.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\item_arabic_letter.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/activity_main.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/activity_main.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_translat.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_translat.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_challenge_camera.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_challenge_camera.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\challenge_navbar.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\challenge_navbar.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/info_bottom_sheet.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/info_bottom_sheet.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\number_navbar.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\number_navbar.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_dictionary.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_dictionary.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_camera.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_camera.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/fragment_home.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/fragment_home.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\fragment_gallery.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\fragment_gallery.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/challenge_navbar.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/challenge_navbar.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\info_bottom_sheet.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\info_bottom_sheet.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/number_navbar.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/number_navbar.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\letter_fragment_camera.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\letter_fragment_camera.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:/layout/item_gesture_recognizer_result.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-51:/layout/item_gesture_recognizer_result.xml"
+        "merged": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-48:\\layout\\item_challenge_letter.xml",
+        "source": "C:\\Users\\User\\.gradle\\daemon\\8.9\\com.google.mediapipe.examples.gesturerecognizer.app-main-51:\\layout\\item_challenge_letter.xml"
     }
 ]
