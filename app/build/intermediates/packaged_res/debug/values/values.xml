@@ -7,6 +7,8 @@
     <item name="background" type="color">#1C1C1C</item>
     <color name="bottom_sheet_background">#EEEEEE</color>
     <color name="bottom_sheet_text_color">@android:color/black</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryLight">#BB86FC</color>
     <color name="icActive">#FFFFFFFF</color>
     <color name="icFocused">#DDFFFFFF</color>
     <color name="icPressed">#AAFFFFFF</color>
@@ -56,6 +58,7 @@
     <string name="media_pipe">MediaPipe</string>
     <string name="menu_camera">Camera</string>
     <string name="menu_gallery">Gallery</string>
+    <string name="skip">Skip</string>
     <string name="train">التدرب</string>
     <string name="translate">الترجمة</string>
     <string name="tv_gallery_placeholder">Click + to add an image or a video

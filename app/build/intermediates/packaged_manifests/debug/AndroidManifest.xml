@@ -22,7 +22,7 @@
 
     <uses-sdk
         android:minSdkVersion="24"
-        android:targetSdkVersion="32" />
+        android:targetSdkVersion="33" />
 
     <!-- Enable instant app support -->
     <dist:module dist:instant="true" />

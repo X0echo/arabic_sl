@@ -4,25 +4,47 @@ package com.google.mediapipe.examples.gesturerecognizer.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.Space;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
+import com.google.android.material.button.MaterialButton;
 import com.google.mediapipe.examples.gesturerecognizer.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentTrainBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final ConstraintLayout rootView;
 
-  private FragmentTrainBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final MaterialButton challengesButton;
+
+  @NonNull
+  public final MaterialButton lettersButton;
+
+  @NonNull
+  public final MaterialButton numbersButton;
+
+  @NonNull
+  public final Space topSpacer;
+
+  private FragmentTrainBinding(@NonNull ConstraintLayout rootView,
+      @NonNull MaterialButton challengesButton, @NonNull MaterialButton lettersButton,
+      @NonNull MaterialButton numbersButton, @NonNull Space topSpacer) {
     this.rootView = rootView;
+    this.challengesButton = challengesButton;
+    this.lettersButton = lettersButton;
+    this.numbersButton = numbersButton;
+    this.topSpacer = topSpacer;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -43,10 +65,38 @@ public final class FragmentTrainBinding implements ViewBinding {
 
   @NonNull
   public static FragmentTrainBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.challengesButton;
+      MaterialButton challengesButton = ViewBindings.findChildViewById(rootView, id);
+      if (challengesButton == null) {
+        break missingId;
+      }
 
-    return new FragmentTrainBinding((FrameLayout) rootView);
+      id = R.id.lettersButton;
+      MaterialButton lettersButton = ViewBindings.findChildViewById(rootView, id);
+      if (lettersButton == null) {
+        break missingId;
+      }
+
+      id = R.id.numbersButton;
+      MaterialButton numbersButton = ViewBindings.findChildViewById(rootView, id);
+      if (numbersButton == null) {
+        break missingId;
+      }
+
+      id = R.id.topSpacer;
+      Space topSpacer = ViewBindings.findChildViewById(rootView, id);
+      if (topSpacer == null) {
+        break missingId;
+      }
+
+      return new FragmentTrainBinding((ConstraintLayout) rootView, challengesButton, lettersButton,
+          numbersButton, topSpacer);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

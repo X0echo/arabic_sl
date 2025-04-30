@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".TranslatFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="مرحبا فس الترجمة" />
+    <androidx.fragment.app.FragmentContainerView
+     android:id="@+id/fragment_camera_container"
+    android:name="com.google.mediapipe.examples.gesturerecognizer.fragment.CameraFragment"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@android:color/transparent"
+     android:keepScreenOn="true" />
 
 </FrameLayout>
