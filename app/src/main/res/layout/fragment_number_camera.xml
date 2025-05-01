@@ -10,7 +10,8 @@
         android:id="@+id/view_finder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:scaleType="fitCenter" />
+        android:layoutDirection="ltr"
+        app:scaleType="fillStart" />
 
     <!-- Overlay -->
     <com.google.mediapipe.examples.gesturerecognizer.OverlayView

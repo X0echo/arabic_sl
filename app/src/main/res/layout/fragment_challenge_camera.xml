@@ -10,13 +10,15 @@
         android:id="@+id/view_finder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:scaleType="fitCenter" />
+        android:layoutDirection="ltr"
+        app:scaleType="fillStart" />
 
     <!-- Overlay for hand drawing -->
     <com.google.mediapipe.examples.gesturerecognizer.OverlayView
         android:id="@+id/overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:scaleType="fillStart" />
 
     <!-- Challenge Navbar: placed after camera + overlay to appear ON TOP -->
     <com.google.mediapipe.examples.gesturerecognizer.ChallengesNavbarView
