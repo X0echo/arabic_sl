@@ -1,5 +1,7 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
+import com.google.mediapipe.examples.gesturerecognizer.fragment.ChallengesCameraFragment
+import com.google.mediapipe.examples.gesturerecognizer.fragment.NumberCameraFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,12 +30,14 @@ class TrainFragment : Fragment() {
 
         numbersButton.setOnClickListener {
             // Replace with NumbersPreviewFragment
+            replaceFragment(NumberCameraFragment())
+
 
         }
 
         challengesButton.setOnClickListener {
             // Replace with ChallengesPreviewFragment
-
+            replaceFragment(ChallengesCameraFragment())
         }
 
         return view
