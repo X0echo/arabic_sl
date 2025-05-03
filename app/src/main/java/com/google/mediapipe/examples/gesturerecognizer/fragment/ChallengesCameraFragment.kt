@@ -185,9 +185,7 @@ class ChallengesCameraFragment : Fragment(),
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
-            if (errorCode == GestureRecognizerHelper.GPU_ERROR) {
-                // Handle GPU error if needed
-            }
+
         }
     }
 }
