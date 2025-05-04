@@ -43,8 +43,11 @@
         threshold of recognized hand gesture results button</string>
     <string name="alt_bottom_sheet_threshold_button_plus">Increasing
         threshold of recognized hand gesture results button</string>
-    <string name="app_name">MP Gesture Recognizer</string>
+    <string name="app_logo_desc">Logo de l\'application</string>
+    <string name="app_name">تطبيق ترجمة لغة الإشارة</string>
     <string name="dictionary">القاموس\n</string>
+    <string name="dictionary_subtitle">ابحث عن معاني الإشارات</string>
+    <string name="dictionary_title">القاموس</string>
     <string name="home">الرئيسية</string>
     <string name="label_delegate">Delegate</string>
     <string name="label_fps">Frames per Second</string>
@@ -60,7 +63,11 @@
     <string name="menu_gallery">Gallery</string>
     <string name="skip">Skip</string>
     <string name="train">التدرب</string>
+    <string name="train_subtitle">تدرب على فهم لغة الإشارة</string>
+    <string name="train_title">التدريب</string>
     <string name="translate">الترجمة</string>
+    <string name="translate_subtitle">ترجمة لغة الإشارة إلى العربية</string>
+    <string name="translate_title">الترجمة</string>
     <string name="tv_gallery_placeholder">Click + to add an image or a video
         to begin running the gesture recognizer.</string>
     <style name="AppThemeProgressStyle">

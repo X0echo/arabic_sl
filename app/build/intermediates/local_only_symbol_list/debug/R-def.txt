@@ -1,5 +1,13 @@
 R_DEF: Internal format may change without notice
 local
+anim bottom_nav_hide
+anim bottom_nav_show
+anim fade_in
+anim logo_scale
+anim slide_in_left
+anim slide_in_right
+anim slide_out_left
+anim slide_out_right
 array delegate_spinner_titles
 color background
 color bg_nav_item
@@ -43,10 +51,14 @@ drawable ghain
 drawable hah
 drawable heh
 drawable home_icon
+drawable ic_app_logo
 drawable ic_baseline_add_24
 drawable ic_baseline_photo_camera_24
 drawable ic_baseline_photo_library_24
+drawable ic_challenges
+drawable ic_letters
 drawable ic_minus
+drawable ic_numbers
 drawable ic_plus
 drawable icn_chevron_up
 drawable jeem
@@ -55,6 +67,7 @@ drawable khah
 drawable laa
 drawable lam
 drawable letter_box_bg
+drawable logo_background
 drawable media_pipe_banner
 drawable meem
 drawable menu_book_icon
@@ -83,6 +96,7 @@ id action_number_camera_to_permissions
 id action_number_permissions_to_number_camera
 id action_permissions_to_camera
 id action_permissions_to_number_camera
+id app_logo
 id arabicNavbar
 id arabicNavbarView
 id arabic_letters_fragment
@@ -91,6 +105,12 @@ id bottom_sheet_layout
 id btnSkipChallenge
 id camera_container
 id camera_fragment
+id card_challenges
+id card_dictionary
+id card_letters
+id card_numbers
+id card_train
+id card_translate
 id challengeNavbar
 id challengeRecycler
 id challenge_container
@@ -130,10 +150,12 @@ id progress
 id recyclerview_results
 id skipButton
 id spinner_delegate
+id title_home
 id topSpacer
 id tracking_threshold_minus
 id tracking_threshold_plus
 id tracking_threshold_value
+id train_title
 id tvLabel
 id tvPlaceholder
 id tvScore
@@ -171,8 +193,11 @@ string alt_bottom_sheet_thread_button_minus
 string alt_bottom_sheet_thread_button_plus
 string alt_bottom_sheet_threshold_button_minus
 string alt_bottom_sheet_threshold_button_plus
+string app_logo_desc
 string app_name
 string dictionary
+string dictionary_subtitle
+string dictionary_title
 string home
 string label_delegate
 string label_fps
@@ -185,7 +210,11 @@ string menu_camera
 string menu_gallery
 string skip
 string train
+string train_subtitle
+string train_title
 string translate
+string translate_subtitle
+string translate_title
 string tv_gallery_placeholder
 style AppThemeProgressStyle
 style BottomSheetSpinnerItemStyle

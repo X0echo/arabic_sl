@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Space;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -21,6 +23,15 @@ public final class FragmentTrainBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final CardView cardChallenges;
+
+  @NonNull
+  public final CardView cardLetters;
+
+  @NonNull
+  public final CardView cardNumbers;
+
+  @NonNull
   public final MaterialButton challengesButton;
 
   @NonNull
@@ -32,14 +43,23 @@ public final class FragmentTrainBinding implements ViewBinding {
   @NonNull
   public final Space topSpacer;
 
-  private FragmentTrainBinding(@NonNull ConstraintLayout rootView,
+  @NonNull
+  public final TextView trainTitle;
+
+  private FragmentTrainBinding(@NonNull ConstraintLayout rootView, @NonNull CardView cardChallenges,
+      @NonNull CardView cardLetters, @NonNull CardView cardNumbers,
       @NonNull MaterialButton challengesButton, @NonNull MaterialButton lettersButton,
-      @NonNull MaterialButton numbersButton, @NonNull Space topSpacer) {
+      @NonNull MaterialButton numbersButton, @NonNull Space topSpacer,
+      @NonNull TextView trainTitle) {
     this.rootView = rootView;
+    this.cardChallenges = cardChallenges;
+    this.cardLetters = cardLetters;
+    this.cardNumbers = cardNumbers;
     this.challengesButton = challengesButton;
     this.lettersButton = lettersButton;
     this.numbersButton = numbersButton;
     this.topSpacer = topSpacer;
+    this.trainTitle = trainTitle;
   }
 
   @Override
@@ -69,6 +89,24 @@ public final class FragmentTrainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.card_challenges;
+      CardView cardChallenges = ViewBindings.findChildViewById(rootView, id);
+      if (cardChallenges == null) {
+        break missingId;
+      }
+
+      id = R.id.card_letters;
+      CardView cardLetters = ViewBindings.findChildViewById(rootView, id);
+      if (cardLetters == null) {
+        break missingId;
+      }
+
+      id = R.id.card_numbers;
+      CardView cardNumbers = ViewBindings.findChildViewById(rootView, id);
+      if (cardNumbers == null) {
+        break missingId;
+      }
+
       id = R.id.challengesButton;
       MaterialButton challengesButton = ViewBindings.findChildViewById(rootView, id);
       if (challengesButton == null) {
@@ -93,8 +131,14 @@ public final class FragmentTrainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentTrainBinding((ConstraintLayout) rootView, challengesButton, lettersButton,
-          numbersButton, topSpacer);
+      id = R.id.train_title;
+      TextView trainTitle = ViewBindings.findChildViewById(rootView, id);
+      if (trainTitle == null) {
+        break missingId;
+      }
+
+      return new FragmentTrainBinding((ConstraintLayout) rootView, cardChallenges, cardLetters,
+          cardNumbers, challengesButton, lettersButton, numbersButton, topSpacer, trainTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

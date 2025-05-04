@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:textDirection="rtl"
-    android:background="#1C1C1C"
     android:padding="20dp">
 
     <!-- Logo centré avec dimensions optimisées -->

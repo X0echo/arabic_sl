@@ -11,6 +11,8 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
+anim bottom_nav_hide
+anim bottom_nav_show
 anim btn_checkbox_to_checked_box_inner_merged_animation
 anim btn_checkbox_to_checked_box_outer_merged_animation
 anim btn_checkbox_to_checked_icon_null_animation
@@ -27,11 +29,13 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+anim fade_in
 anim fragment_fast_out_extra_slow_in
 anim linear_indeterminate_line1_head_interpolator
 anim linear_indeterminate_line1_tail_interpolator
 anim linear_indeterminate_line2_head_interpolator
 anim linear_indeterminate_line2_tail_interpolator
+anim logo_scale
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
@@ -39,6 +43,10 @@ anim nav_default_enter_anim
 anim nav_default_exit_anim
 anim nav_default_pop_enter_anim
 anim nav_default_pop_exit_anim
+anim slide_in_left
+anim slide_in_right
+anim slide_out_left
+anim slide_out_right
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -2642,11 +2650,14 @@ drawable ghain
 drawable hah
 drawable heh
 drawable home_icon
+drawable ic_app_logo
 drawable ic_baseline_add_24
 drawable ic_baseline_photo_camera_24
 drawable ic_baseline_photo_library_24
+drawable ic_challenges
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
+drawable ic_letters
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -2655,6 +2666,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_numbers
 drawable ic_plus
 drawable icn_chevron_up
 drawable jeem
@@ -2663,6 +2675,7 @@ drawable khah
 drawable laa
 drawable lam
 drawable letter_box_bg
+drawable logo_background
 drawable m3_appbar_background
 drawable m3_popupmenu_background_overlay
 drawable m3_radiobutton_ripple
@@ -2844,6 +2857,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id app_logo
 id arabicNavbar
 id arabicNavbarView
 id arabic_letters_fragment
@@ -2874,6 +2888,12 @@ id callMeasure
 id camera_container
 id camera_fragment
 id cancel_button
+id card_challenges
+id card_dictionary
+id card_letters
+id card_numbers
+id card_train
+id card_translate
 id carryVelocity
 id center
 id centerCrop
@@ -3263,6 +3283,7 @@ id textinput_suffix_text
 id time
 id title
 id titleDividerNoCustom
+id title_home
 id title_template
 id toggle
 id top
@@ -3272,6 +3293,7 @@ id touch_outside
 id tracking_threshold_minus
 id tracking_threshold_plus
 id tracking_threshold_value
+id train_title
 id transitionToEnd
 id transitionToStart
 id transition_current_scene
@@ -3566,6 +3588,7 @@ string alt_bottom_sheet_thread_button_plus
 string alt_bottom_sheet_threshold_button_minus
 string alt_bottom_sheet_threshold_button_plus
 string androidx_startup
+string app_logo_desc
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -3579,6 +3602,8 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
 string dictionary
+string dictionary_subtitle
+string dictionary_title
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -3695,7 +3720,11 @@ string search_menu_title
 string skip
 string status_bar_notification_info_overflow
 string train
+string train_subtitle
+string train_title
 string translate
+string translate_subtitle
+string translate_title
 string tv_gallery_placeholder
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

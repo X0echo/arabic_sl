@@ -61,6 +61,11 @@
     <string name="dictionary">القاموس\n</string>
     <string name="translate">الترجمة</string>
     <string name="train">التدرب</string>
+    <string name="text_trainFr">تدريب لغة الإشارة</string>
+    <string name="lettreTxt">حروف</string>
+    <string name="sub_lettre">تعلم إشارات الحروف الأبجدية</string>
+    <string name="numbers_txt">ارقام</string>
+    <string name="chaleng_txt">تحديات</string>
 
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>
