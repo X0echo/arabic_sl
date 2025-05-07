@@ -118,7 +118,7 @@ class ChallengesNavbarView @JvmOverloads constructor(
                     }
                     handler.postDelayed(pendingAdvancement!!, 1000)
                 }
-                handler.postDelayed(successRunnable!!, 2000)
+                handler.postDelayed(successRunnable!!, 1000)
             }
         } else {
             if (isCheckingHold) {

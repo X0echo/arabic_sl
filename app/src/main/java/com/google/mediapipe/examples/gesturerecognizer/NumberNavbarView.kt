@@ -89,7 +89,7 @@ class NumberNavbarView @JvmOverloads constructor(
                     scheduleSkipToNext()
                     isCheckingHold = false
                 }
-                handler.postDelayed(successRunnable!!, 2000)
+                handler.postDelayed(successRunnable!!, 1000)
             }
         } else {
             if (isCheckingHold) {
