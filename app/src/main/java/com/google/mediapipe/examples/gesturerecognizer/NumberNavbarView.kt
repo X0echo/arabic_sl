@@ -27,7 +27,9 @@ class NumberNavbarView @JvmOverloads constructor(
 
     private val handler = Handler(Looper.getMainLooper())
     private var skipRunnable: Runnable? = null
+    private var successRunnable: Runnable? = null
     private var isSuccessHandled = false
+    private var isCheckingHold = false
 
     init {
         initView()
@@ -46,7 +48,7 @@ class NumberNavbarView @JvmOverloads constructor(
             cancelPendingSkip()
             if (isLastNumber()) {
                 setupAdapter(0)
-                actionButton.text = "تخطي" // Arabic for "Skip"
+                actionButton.text = "تخطي"
             } else {
                 adapter.skipToNext()
                 updateButtonText()
@@ -69,20 +71,31 @@ class NumberNavbarView @JvmOverloads constructor(
     private fun isLastNumber(): Boolean = adapter.getCurrentIndex() == numberList.lastIndex
 
     private fun updateButtonText() {
-        actionButton.text = if (isLastNumber()) "اعادة المحاوله" else "تخطي" // "Redo" : "Skip"
+        actionButton.text = if (isLastNumber()) "اعادة المحاوله" else "تخطي"
     }
 
     fun getCurrentNumber(): String = adapter.getCurrentNumber()
 
     fun onNumberRecognized(number: String, confidence: Float) {
         val current = adapter.getCurrentNumber()
-
         if (!isSuccessHandled && number == current && confidence >= 0.8f) {
-            isSuccessHandled = true
-            cancelPendingSkip()
-            adapter.markCurrentNumberSuccess()
-            playSuccessSound()
-            scheduleSkipToNext()
+            if (!isCheckingHold) {
+                isCheckingHold = true
+                successRunnable = Runnable {
+                    isSuccessHandled = true
+                    cancelPendingSkip()
+                    adapter.markCurrentNumberSuccess()
+                    playSuccessSound()
+                    scheduleSkipToNext()
+                    isCheckingHold = false
+                }
+                handler.postDelayed(successRunnable!!, 2000)
+            }
+        } else {
+            if (isCheckingHold) {
+                handler.removeCallbacks(successRunnable!!)
+                isCheckingHold = false
+            }
         }
     }
 
@@ -91,7 +104,7 @@ class NumberNavbarView @JvmOverloads constructor(
             adapter.skipToNext()
             isSuccessHandled = false
             scrollToCurrent()
-            updateButtonText() // Update button after auto-skip
+            updateButtonText()
         }
         handler.postDelayed(skipRunnable!!, 1000)
     }

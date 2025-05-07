@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.os.Handler
+import android.os.Looper
 
 class ChallengesNavbarView @JvmOverloads constructor(
     context: Context,
@@ -18,8 +20,12 @@ class ChallengesNavbarView @JvmOverloads constructor(
     private lateinit var challengeRecycler: RecyclerView
     private lateinit var actionButton: Button
     private lateinit var adapter: ChallengeLetterAdapter
+
+    private val handler = Handler(Looper.getMainLooper())
     private var pendingAdvancement: Runnable? = null
+    private var successRunnable: Runnable? = null
     private var isProcessingSuccess = false
+    private var isCheckingHold = false
 
     private val challengeLetters = listOf(
         "ا", "ب", "ت", "ث", "ج", "ح", "خ",
@@ -65,12 +71,11 @@ class ChallengesNavbarView @JvmOverloads constructor(
     private fun setupButton() {
         actionButton.setOnClickListener {
             if (isLastChallenge()) {
-                // Reset with new shuffled letters
                 val newShuffledLetters = challengeLetters.shuffled()
                 adapter = ChallengeLetterAdapter(newShuffledLetters, 0)
                 challengeRecycler.adapter = adapter
                 challengeRecycler.smoothScrollToPosition(0)
-                actionButton.text = "تخطي" // Arabic for "Skip"
+                actionButton.text = "تخطي"
             } else {
                 adapter.advanceToNext()
                 challengeRecycler.smoothScrollToPosition(adapter.currentPosition)
@@ -82,33 +87,44 @@ class ChallengesNavbarView @JvmOverloads constructor(
     private fun isLastChallenge(): Boolean = !adapter.hasMoreLetters()
 
     private fun updateButtonText() {
-        actionButton.text = if (isLastChallenge()) "اعادة المحاوله" else "تخطي" // "Redo" : "Skip"
+        actionButton.text = if (isLastChallenge()) "اعادة المحاوله" else "تخطي"
     }
 
     fun handleSuccessfulRecognition(recognizedLetter: String) {
         if (isProcessingSuccess) return
 
         if (recognizedLetter == adapter.getCurrentLetter()) {
-            pendingAdvancement?.let { removeCallbacks(it) }
+            if (!isCheckingHold) {
+                isCheckingHold = true
+                successRunnable = Runnable {
+                    pendingAdvancement?.let { handler.removeCallbacks(it) }
 
+                    MediaPlayer.create(context, R.raw.success).apply {
+                        setOnCompletionListener { release() }
+                        start()
+                    }
 
-            MediaPlayer.create(context, R.raw.success).apply {
-                setOnCompletionListener { release() }
-                start()
-            }
+                    adapter.markSuccess()
+                    isProcessingSuccess = true
 
-            adapter.markSuccess()
-            isProcessingSuccess = true
-
-            pendingAdvancement = Runnable {
-                if (adapter.hasMoreLetters()) {
-                    adapter.advanceToNext()
-                    challengeRecycler.smoothScrollToPosition(adapter.currentPosition)
-                    updateButtonText()
+                    pendingAdvancement = Runnable {
+                        if (adapter.hasMoreLetters()) {
+                            adapter.advanceToNext()
+                            challengeRecycler.smoothScrollToPosition(adapter.currentPosition)
+                            updateButtonText()
+                        }
+                        isProcessingSuccess = false
+                        isCheckingHold = false
+                    }
+                    handler.postDelayed(pendingAdvancement!!, 1000)
                 }
-                isProcessingSuccess = false
+                handler.postDelayed(successRunnable!!, 2000)
             }
-            postDelayed(pendingAdvancement!!, 1000)
+        } else {
+            if (isCheckingHold) {
+                handler.removeCallbacks(successRunnable!!)
+                isCheckingHold = false
+            }
         }
     }
 
