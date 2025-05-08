@@ -23,13 +23,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="اكتب كلمة"
-            android:textColor="#ffffff"
-            android:textColorHint="#a0a0a0"
+            android:background="@drawable/edittext_background"
             android:backgroundTint="#3a3a3a"
+            android:hint="اكتب كلمة"
             android:inputType="text"
-            android:background="@drawable/edittext_background"/>
-
+            android:textColor="#ffffff"
+            android:textColorHint="#a0a0a0" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/searchButton"
@@ -81,11 +80,4 @@
             app:surface_type="texture_view"
             app:use_controller="false" />
     </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
