@@ -26,237 +26,234 @@
 25        android:targetSdkVersion="33" />
 25-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml
 26
-27    <!-- Enable instant app support -->
-28    <dist:module dist:instant="true" />
-28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:5-40
-28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:18-37
-29
-30    <!-- Declare features -->
-31    <uses-feature android:name="android.hardware.camera" />
-31-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:25:5-60
-31-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:25:19-57
-32
-33    <!-- Declare permissions -->
-34    <uses-permission android:name="android.permission.CAMERA" />
-34-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:28:5-65
-34-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:28:22-62
-35
-36    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
-37    <!-- <uses-sdk android:minSdkVersion="21"/> -->
-38    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-38-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:23:5-79
-38-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:23:22-76
-39    <uses-permission android:name="android.permission.INTERNET" />
-39-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:24:5-67
-39-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:24:22-64
-40
-41    <application
-41-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:30:5-54:19
-42        android:allowBackup="true"
-42-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:31:9-35
-43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-43-->[androidx.core:core:1.8.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a1413d21944bdb2ebba08931892b22c8/transformed/core-1.8.0/AndroidManifest.xml:24:18-86
-44        android:debuggable="true"
-45        android:extractNativeLibs="false"
-46        android:icon="@mipmap/ic_launcher"
-46-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:32:9-43
-47        android:label="@string/app_name"
-47-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:33:9-41
-48        android:roundIcon="@mipmap/ic_launcher_round"
-48-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:34:9-54
-49        android:supportsRtl="true"
-49-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:35:9-35
-50        android:taskAffinity=""
-50-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:36:9-32
-51        android:testOnly="true"
-52        android:theme="@style/Theme.GestureRecognizer" >
-52-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:37:9-55
-53        <activity
-53-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:40:9-53:20
-54            android:name="com.google.mediapipe.examples.gesturerecognizer.MainActivity"
-54-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:41:13-41
-55            android:exported="true" >
-55-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:42:13-36
-56            <intent-filter>
-56-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:43:13-47:29
-57                <action android:name="android.intent.action.MAIN" />
-57-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:44:17-69
-57-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:44:25-66
+27    <uses-permission android:name="android.permission.INTERNET" />
+27-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:21:5-67
+27-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:21:22-64
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:5-79
+28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:22-76
+29    <!-- Enable instant app support -->
+30    <dist:module dist:instant="true" />
+30-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:24:5-40
+30-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:24:18-37
+31
+32    <!-- Declare features -->
+33    <uses-feature android:name="android.hardware.camera" />
+33-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:27:5-60
+33-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:27:19-57
+34
+35    <!-- Declare permissions -->
+36    <uses-permission android:name="android.permission.CAMERA" />
+36-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:30:5-65
+36-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:30:22-62
+37
+38    <application
+38-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:32:5-56:19
+39        android:allowBackup="true"
+39-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:33:9-35
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.8.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a1413d21944bdb2ebba08931892b22c8/transformed/core-1.8.0/AndroidManifest.xml:24:18-86
+41        android:debuggable="true"
+42        android:extractNativeLibs="false"
+43        android:icon="@mipmap/ic_launcher"
+43-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:34:9-43
+44        android:label="@string/app_name"
+44-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:35:9-41
+45        android:roundIcon="@mipmap/ic_launcher_round"
+45-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:36:9-54
+46        android:supportsRtl="true"
+46-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:37:9-35
+47        android:taskAffinity=""
+47-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:38:9-32
+48        android:testOnly="true"
+49        android:theme="@style/Theme.GestureRecognizer" >
+49-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:39:9-55
+50        <activity
+50-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:42:9-55:20
+51            android:name="com.google.mediapipe.examples.gesturerecognizer.MainActivity"
+51-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:43:13-41
+52            android:exported="true" >
+52-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:44:13-36
+53            <intent-filter>
+53-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:45:13-49:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:46:17-69
+54-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:46:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:48:17-77
+56-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:48:27-74
+57            </intent-filter>
 58
-59                <category android:name="android.intent.category.LAUNCHER" />
-59-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:46:17-77
-59-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:46:27-74
-60            </intent-filter>
-61
-62            <!-- Declare notch support -->
-63            <meta-data
-63-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:50:13-52:40
-64                android:name="android.notch_support"
-64-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:51:17-53
-65                android:value="true" />
-65-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:52:17-37
-66        </activity>
-67
-68        <service
-68-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:9:9-15:19
-69            android:name="com.google.firebase.components.ComponentDiscoveryService"
-69-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:10:13-84
-70            android:directBootAware="true"
-70-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
-71            android:exported="false" >
-71-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:11:13-37
+59            <!-- Declare notch support -->
+60            <meta-data
+60-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:52:13-54:40
+61                android:name="android.notch_support"
+61-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:53:17-53
+62                android:value="true" />
+62-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:54:17-37
+63        </activity>
+64
+65        <service
+65-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:9:9-15:19
+66            android:name="com.google.firebase.components.ComponentDiscoveryService"
+66-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:10:13-84
+67            android:directBootAware="true"
+67-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+68            android:exported="false" >
+68-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:11:13-37
+69            <meta-data
+69-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:12:13-14:85
+70                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageLegacyRegistrar"
+70-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:13:17-125
+71                android:value="com.google.firebase.components.ComponentRegistrar" />
+71-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:14:17-82
 72            <meta-data
-72-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:12:13-14:85
-73                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageLegacyRegistrar"
-73-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:13:17-125
+72-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:30:13-32:85
+73                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
+73-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:31:17-118
 74                android:value="com.google.firebase.components.ComponentRegistrar" />
-74-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/23b75f0785c2766c20feb1413e1ad86d/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:14:17-82
+74-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:32:17-82
 75            <meta-data
-75-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:30:13-32:85
-76                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
-76-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:31:17-118
+75-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:33:13-35:85
+76                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+76-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:34:17-107
 77                android:value="com.google.firebase.components.ComponentRegistrar" />
-77-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:32:17-82
+77-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:35:17-82
 78            <meta-data
-78-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:33:13-35:85
-79                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
-79-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:34:17-107
+78-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:25:13-27:85
+79                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
+79-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:26:17-120
 80                android:value="com.google.firebase.components.ComponentRegistrar" />
-80-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/3f4e0a7d6cf3a08d4a6380e6ac74a7f7/transformed/firebase-storage-21.0.1/AndroidManifest.xml:35:17-82
+80-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:27:17-82
 81            <meta-data
-81-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:25:13-27:85
-82                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
-82-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:26:17-120
+81-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:28:13-30:85
+82                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
+82-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:29:17-117
 83                android:value="com.google.firebase.components.ComponentRegistrar" />
-83-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:27:17-82
+83-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:30:17-82
 84            <meta-data
-84-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:28:13-30:85
-85                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
-85-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:29:17-117
+84-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+85                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+85-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
 86                android:value="com.google.firebase.components.ComponentRegistrar" />
-86-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/41781f08578a415c256bf7edeaa57525/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:30:17-82
+86-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
 87            <meta-data
-87-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
-88                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
-88-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+87-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+88                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+88-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
 89                android:value="com.google.firebase.components.ComponentRegistrar" />
-89-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/fdd2fed7297e4ccc379796ad46427403/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
-90            <meta-data
-90-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
-91                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
-91-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
-92                android:value="com.google.firebase.components.ComponentRegistrar" />
-92-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
-93        </service>
-94
+89-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+90        </service>
+91
+92        <uses-library
+92-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:23:9-25:40
+93            android:name="androidx.window.extensions"
+93-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:24:13-54
+94            android:required="false" />
+94-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:25:13-37
 95        <uses-library
-95-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:23:9-25:40
-96            android:name="androidx.window.extensions"
-96-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:24:13-54
+95-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:26:9-28:40
+96            android:name="androidx.window.sidecar"
+96-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:27:13-51
 97            android:required="false" />
-97-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:25:13-37
-98        <uses-library
-98-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:26:9-28:40
-99            android:name="androidx.window.sidecar"
-99-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:27:13-51
-100            android:required="false" />
-100-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:28:13-37
-101
-102        <provider
-102-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
-103            android:name="com.google.firebase.provider.FirebaseInitProvider"
-103-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
-104            android:authorities="com.google.mediapipe.examples.gesturerecognizer.firebaseinitprovider"
-104-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
-105            android:directBootAware="true"
-105-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
-106            android:exported="false"
-106-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
-107            android:initOrder="100" />
-107-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
-108
-109        <activity
-109-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
-110            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-110-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
-111            android:exported="false"
-111-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
-112            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-112-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
-113
-114        <meta-data
-114-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
-115            android:name="com.google.android.gms.version"
-115-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
-116            android:value="@integer/google_play_services_version" />
-116-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
-117
-118        <service
-118-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:25:9-34:19
-119            android:name="androidx.camera.core.impl.MetadataHolderService"
-119-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:26:13-75
-120            android:enabled="false"
-120-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:27:13-36
-121            android:exported="false" >
-121-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:28:13-37
-122            <meta-data
-122-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:31:13-33:89
-123                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
-123-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:32:17-103
-124                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
-124-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:33:17-86
-125        </service>
-126        <service
-126-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:29:9-35:19
-127            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
-127-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:30:13-103
-128            android:exported="false" >
-128-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:31:13-37
-129            <meta-data
-129-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:32:13-34:39
-130                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
-130-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:33:17-94
-131                android:value="cct" />
-131-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:34:17-36
-132        </service>
-133        <service
-133-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:26:9-30:19
-134            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-134-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:27:13-117
-135            android:exported="false"
-135-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:28:13-37
-136            android:permission="android.permission.BIND_JOB_SERVICE" >
-136-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:29:13-69
-137        </service>
-138
-139        <receiver
-139-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:32:9-34:40
-140            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
-140-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:33:13-132
-141            android:exported="false" />
-141-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:34:13-37
-142
-143        <provider
-143-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-144            android:name="androidx.startup.InitializationProvider"
-144-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
-145            android:authorities="com.google.mediapipe.examples.gesturerecognizer.androidx-startup"
-145-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
-146            android:exported="false" >
-146-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+97-->[androidx.window:window:1.1.0-alpha03] /Users/sidoubrahami/.gradle/caches/8.9/transforms/dfb6eb895311dfd7d88049dad3dc1f32/transformed/window-1.1.0-alpha03/AndroidManifest.xml:28:13-37
+98
+99        <provider
+99-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+100            android:name="com.google.firebase.provider.FirebaseInitProvider"
+100-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+101            android:authorities="com.google.mediapipe.examples.gesturerecognizer.firebaseinitprovider"
+101-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+102            android:directBootAware="true"
+102-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+103            android:exported="false"
+103-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+104            android:initOrder="100" />
+104-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/5c280c1b93a53d986cd02cccd6cee94c/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+105
+106        <activity
+106-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+107            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+107-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+108            android:exported="false"
+108-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+109            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+109-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/ad0b8518070038cde30e1bf8de6fc96e/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+110
+111        <meta-data
+111-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+112            android:name="com.google.android.gms.version"
+112-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+113            android:value="@integer/google_play_services_version" />
+113-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/deae090d84a11358cd11cb3b642f3e96/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+114
+115        <service
+115-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:25:9-34:19
+116            android:name="androidx.camera.core.impl.MetadataHolderService"
+116-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:26:13-75
+117            android:enabled="false"
+117-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:27:13-36
+118            android:exported="false" >
+118-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:28:13-37
+119            <meta-data
+119-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:31:13-33:89
+120                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+120-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:32:17-103
+121                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+121-->[androidx.camera:camera-camera2:1.2.0-alpha02] /Users/sidoubrahami/.gradle/caches/8.9/transforms/8741a7632ea9fb6ce1fe49453ff14890/transformed/camera-camera2-1.2.0-alpha02/AndroidManifest.xml:33:17-86
+122        </service>
+123        <service
+123-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:29:9-35:19
+124            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+124-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:30:13-103
+125            android:exported="false" >
+125-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:31:13-37
+126            <meta-data
+126-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:32:13-34:39
+127                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+127-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:33:17-94
+128                android:value="cct" />
+128-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/a0fd6956fb2ba491ab46cefa3a91c647/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:34:17-36
+129        </service>
+130        <service
+130-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:26:9-30:19
+131            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+131-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:27:13-117
+132            android:exported="false"
+132-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:28:13-37
+133            android:permission="android.permission.BIND_JOB_SERVICE" >
+133-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:29:13-69
+134        </service>
+135
+136        <receiver
+136-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:32:9-34:40
+137            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+137-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:33:13-132
+138            android:exported="false" />
+138-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/27aba5adcca27bf584c4465f82ca9a68/transformed/transport-runtime-3.1.0/AndroidManifest.xml:34:13-37
+139
+140        <provider
+140-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+141            android:name="androidx.startup.InitializationProvider"
+141-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+142            android:authorities="com.google.mediapipe.examples.gesturerecognizer.androidx-startup"
+142-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+143            android:exported="false" >
+143-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+144            <meta-data
+144-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+145                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+145-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+146                android:value="androidx.startup" />
+146-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
 147            <meta-data
-147-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
-148                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-148-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+147-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+148                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+148-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
 149                android:value="androidx.startup" />
-149-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.9/transforms/b4147a7aa00b38cbaeda6199b521f01e/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
-150            <meta-data
-150-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
-151                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-151-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
-152                android:value="androidx.startup" />
-152-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
-153        </provider>
-154    </application>
-155
-156</manifest>
+149-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/sidoubrahami/.gradle/caches/8.9/transforms/363d142187c3031da1ae4c03fa837059/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+150        </provider>
+151    </application>
+152
+153</manifest>
