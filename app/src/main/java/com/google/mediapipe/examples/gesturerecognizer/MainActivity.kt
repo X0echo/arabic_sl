@@ -15,6 +15,7 @@
  */
 package com.google.mediapipe.examples.gesturerecognizer
 
+import QuizFragment
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -69,6 +70,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_dictionary -> loadFragment(DictionaryFragment())
                 R.id.nav_translate -> loadFragment(TranslatFragment())
                 R.id.nav_train -> loadFragment(TrainFragment())
+                R.id.nav_train -> loadFragment(QuizFragment())
+                R.id.nav_train -> loadFragment(QuizFragment())
             }
             true
         }
