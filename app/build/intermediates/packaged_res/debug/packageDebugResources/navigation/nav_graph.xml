@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/permissions_fragment">
+
+    <!-- Permission Flow -->
+    <fragment
+        android:id="@+id/permissions_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.fragment.PermissionsFragment"
+        android:label="PermissionsFragment">
+        <action
+            android:id="@+id/action_permissions_to_home"
+            app:destination="@id/home_fragment"
+            app:popUpTo="@id/permissions_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <!-- Main Flow -->
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_home_to_camera"
+            app:destination="@id/camera_fragment"/>
+        <action
+            android:id="@+id/action_home_to_dictionary"
+            app:destination="@id/dictionary_fragment"/>
+        <action
+            android:id="@+id/action_home_to_translate"
+            app:destination="@id/translate_fragment"/>
+        <action
+            android:id="@+id/action_home_to_train"
+            app:destination="@id/train_fragment"/>
+    </fragment>
+
+    <!-- Camera Fragment -->
+    <fragment
+        android:id="@+id/camera_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.fragment.CameraFragment"
+        android:label="CameraFragment">
+        <action
+            android:id="@+id/action_camera_to_home"
+            app:destination="@id/home_fragment"
+            app:popUpTo="@id/home_fragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <!-- Dictionary Fragment -->
+    <fragment
+        android:id="@+id/dictionary_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.DictionaryFragment"
+        android:label="DictionaryFragment"/>
+
+    <!-- Translate Fragment -->
+    <fragment
+        android:id="@+id/translate_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.TranslatFragment"
+        android:label="TranslateFragment"/>
+
+    <!-- Train Fragment -->
+    <fragment
+        android:id="@+id/train_fragment"
+        android:name="com.google.mediapipe.examples.gesturerecognizer.TrainFragment"
+        android:label="TrainFragment"/>
+
+</navigation>

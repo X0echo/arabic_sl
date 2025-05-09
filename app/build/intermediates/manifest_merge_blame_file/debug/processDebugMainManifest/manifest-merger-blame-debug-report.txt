@@ -1,0 +1,388 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3    ~ Copyright 2022 The TensorFlow Authors. All Rights Reserved.
+4    ~
+5    ~ Licensed under the Apache License, Version 2.0 (the "License");
+6    ~ you may not use this file except in compliance with the License.
+7    ~ You may obtain a copy of the License at
+8    ~
+9    ~       http://www.apache.org/licenses/LICENSE-2.0
+10    ~
+11    ~ Unless required by applicable law or agreed to in writing, software
+12    ~ distributed under the License is distributed on an "AS IS" BASIS,
+13    ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+14    ~ See the License for the specific language governing permissions and
+15    ~ limitations under the License.
+16-->
+17<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+18    xmlns:dist="http://schemas.android.com/apk/distribution"
+19    package="com.google.mediapipe.examples.gesturerecognizer"
+20    android:versionCode="1"
+21    android:versionName="1.0" >
+22
+23    <uses-sdk
+24        android:minSdkVersion="24"
+25        android:targetSdkVersion="34" />
+26
+27    <!-- Enable instant app support -->
+28    <dist:module dist:instant="true" />
+28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:5-40
+28-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:22:18-37
+29
+30    <!-- Declare features -->
+31    <uses-feature android:name="android.hardware.camera" />
+31-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:25:5-60
+31-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:25:19-57
+32
+33    <!-- Declare permissions -->
+34    <uses-permission android:name="android.permission.CAMERA" />
+34-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:28:5-65
+34-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:28:22-62
+35    <uses-permission android:name="android.permission.INTERNET" />
+35-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:30:5-67
+35-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:30:22-64
+36    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+36-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:31:5-79
+36-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:31:22-76
+37    <uses-permission android:name="android.permission.WAKE_LOCK" />
+37-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:24:5-68
+37-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:24:22-65
+38    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+38-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:25:5-79
+38-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:25:22-76
+39    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+39-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:26:5-88
+39-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:26:22-85
+40    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+40-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:27:5-82
+40-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:27:22-79
+41    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+41-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:26:5-110
+41-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:26:22-107
+42
+43    <permission
+43-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+44        android:name="com.google.mediapipe.examples.gesturerecognizer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+44-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+45        android:protectionLevel="signature" />
+45-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+46
+47    <uses-permission android:name="com.google.mediapipe.examples.gesturerecognizer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+47-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+47-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+48
+49    <application
+49-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:33:5-57:19
+50        android:allowBackup="true"
+50-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:34:9-35
+51        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+51-->[androidx.core:core:1.12.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/708a7d272d2c9cb49e7f6c374091b8ac/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+52        android:debuggable="true"
+53        android:extractNativeLibs="false"
+54        android:icon="@mipmap/ic_launcher"
+54-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:35:9-43
+55        android:label="@string/app_name"
+55-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:36:9-41
+56        android:roundIcon="@mipmap/ic_launcher_round"
+56-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:37:9-54
+57        android:supportsRtl="true"
+57-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:38:9-35
+58        android:taskAffinity=""
+58-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:39:9-32
+59        android:testOnly="true"
+60        android:theme="@style/Theme.GestureRecognizer" >
+60-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:40:9-55
+61        <activity
+61-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:43:9-56:20
+62            android:name="com.google.mediapipe.examples.gesturerecognizer.MainActivity"
+62-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:44:13-41
+63            android:exported="true" >
+63-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:45:13-36
+64            <intent-filter>
+64-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:46:13-50:29
+65                <action android:name="android.intent.action.MAIN" />
+65-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:47:17-69
+65-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:47:25-66
+66
+67                <category android:name="android.intent.category.LAUNCHER" />
+67-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:49:17-77
+67-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:49:27-74
+68            </intent-filter>
+69
+70            <!-- Declare notch support -->
+71            <meta-data
+71-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:53:13-55:40
+72                android:name="android.notch_support"
+72-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:54:17-53
+73                android:value="true" />
+73-->/Users/sidoubrahami/arabic_sl/app/src/main/AndroidManifest.xml:55:17-37
+74        </activity>
+75
+76        <service
+76-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:9:9-15:19
+77            android:name="com.google.firebase.components.ComponentDiscoveryService"
+77-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:10:13-84
+78            android:directBootAware="true"
+78-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+79            android:exported="false" >
+79-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:11:13-37
+80            <meta-data
+80-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:12:13-14:85
+81                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageLegacyRegistrar"
+81-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:13:17-125
+82                android:value="com.google.firebase.components.ComponentRegistrar" />
+82-->[com.google.firebase:firebase-storage-ktx:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/96d84397a76eb3af10d8c56739fe5492/transformed/firebase-storage-ktx-21.0.1/AndroidManifest.xml:14:17-82
+83            <meta-data
+83-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:30:13-32:85
+84                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
+84-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:31:17-118
+85                android:value="com.google.firebase.components.ComponentRegistrar" />
+85-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:32:17-82
+86            <meta-data
+86-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:33:13-35:85
+87                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+87-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:34:17-107
+88                android:value="com.google.firebase.components.ComponentRegistrar" />
+88-->[com.google.firebase:firebase-storage:21.0.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/51f575d369389f1892fbf39490b5b245/transformed/firebase-storage-21.0.1/AndroidManifest.xml:35:17-82
+89            <meta-data
+89-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:25:13-27:85
+90                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
+90-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:26:17-120
+91                android:value="com.google.firebase.components.ComponentRegistrar" />
+91-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:27:17-82
+92            <meta-data
+92-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:28:13-30:85
+93                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
+93-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:29:17-117
+94                android:value="com.google.firebase.components.ComponentRegistrar" />
+94-->[com.google.firebase:firebase-appcheck:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bdae78cdfb7c869c8259dc0d52417529/transformed/firebase-appcheck-18.0.0/AndroidManifest.xml:30:17-82
+95            <meta-data
+95-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:37:13-39:85
+96                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+96-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:38:17-139
+97                android:value="com.google.firebase.components.ComponentRegistrar" />
+97-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:39:17-82
+98            <meta-data
+98-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:15:13-17:85
+99                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+99-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:16:17-130
+100                android:value="com.google.firebase.components.ComponentRegistrar" />
+100-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:17:17-82
+101            <meta-data
+101-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:18:13-20:85
+102                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+102-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:19:17-127
+103                android:value="com.google.firebase.components.ComponentRegistrar" />
+103-->[com.google.firebase:firebase-installations:18.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/6e7e27327aed855f1120d0e1c7ead328/transformed/firebase-installations-18.0.0/AndroidManifest.xml:20:17-82
+104            <meta-data
+104-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/9438d098a0d3f49abb0bbc46dcddbb07/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+105                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+105-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/9438d098a0d3f49abb0bbc46dcddbb07/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+106                android:value="com.google.firebase.components.ComponentRegistrar" />
+106-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/9438d098a0d3f49abb0bbc46dcddbb07/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+107            <meta-data
+107-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+108                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+108-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+109                android:value="com.google.firebase.components.ComponentRegistrar" />
+109-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+110        </service>
+111
+112        <property
+112-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:30:9-32:61
+113            android:name="android.adservices.AD_SERVICES_CONFIG"
+113-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:31:13-65
+114            android:resource="@xml/ga_ad_services_config" />
+114-->[com.google.android.gms:play-services-measurement-api:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2815ea8188f007ef4dd91cc6758978dd/transformed/play-services-measurement-api-22.0.0/AndroidManifest.xml:32:13-58
+115
+116        <uses-library
+116-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:23:9-25:40
+117            android:name="androidx.window.extensions"
+117-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:24:13-54
+118            android:required="false" />
+118-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:25:13-37
+119        <uses-library
+119-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:26:9-28:40
+120            android:name="androidx.window.sidecar"
+120-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:27:13-51
+121            android:required="false" />
+121-->[androidx.window:window:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/2966831382fec181b0202e6bec453322/transformed/window-1.2.0/AndroidManifest.xml:28:13-37
+122
+123        <service
+123-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:24:9-33:19
+124            android:name="androidx.camera.core.impl.MetadataHolderService"
+124-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:25:13-75
+125            android:enabled="false"
+125-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:26:13-36
+126            android:exported="false" >
+126-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:27:13-37
+127            <meta-data
+127-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:30:13-32:89
+128                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+128-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:31:17-103
+129                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+129-->[androidx.camera:camera-camera2:1.3.1] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/315371a435d7deaa682dbce86ceac626/transformed/camera-camera2-1.3.1/AndroidManifest.xml:32:17-86
+130        </service>
+131
+132        <activity
+132-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/c01753a5391f03edaf0704d1ac491c21/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+133            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+133-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/c01753a5391f03edaf0704d1ac491c21/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+134            android:exported="false"
+134-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/c01753a5391f03edaf0704d1ac491c21/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.android.gms:play-services-base:18.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/c01753a5391f03edaf0704d1ac491c21/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+136
+137        <provider
+137-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+138            android:name="com.google.firebase.provider.FirebaseInitProvider"
+138-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+139            android:authorities="com.google.mediapipe.examples.gesturerecognizer.firebaseinitprovider"
+139-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+140            android:directBootAware="true"
+140-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+141            android:exported="false"
+141-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+142            android:initOrder="100" />
+142-->[com.google.firebase:firebase-common:21.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/8d54116494de7afdd292d1761e4f7feb/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+143
+144        <receiver
+144-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:29:9-33:20
+145            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+145-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:30:13-85
+146            android:enabled="true"
+146-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:31:13-35
+147            android:exported="false" >
+147-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:32:13-37
+148        </receiver>
+149
+150        <service
+150-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:35:9-38:40
+151            android:name="com.google.android.gms.measurement.AppMeasurementService"
+151-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:36:13-84
+152            android:enabled="true"
+152-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:37:13-35
+153            android:exported="false" />
+153-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:38:13-37
+154        <service
+154-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:39:9-43:72
+155            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+155-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:40:13-87
+156            android:enabled="true"
+156-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:41:13-35
+157            android:exported="false"
+157-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:42:13-37
+158            android:permission="android.permission.BIND_JOB_SERVICE" />
+158-->[com.google.android.gms:play-services-measurement:22.0.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/bb28227f8a9174d48ab83f69c1e9fb17/transformed/play-services-measurement-22.0.0/AndroidManifest.xml:43:13-69
+159
+160        <meta-data
+160-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/37e8e7f9c04bc06f5f82734e5cc9283c/transformed/play-services-basement-18.3.0/AndroidManifest.xml:21:9-23:69
+161            android:name="com.google.android.gms.version"
+161-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/37e8e7f9c04bc06f5f82734e5cc9283c/transformed/play-services-basement-18.3.0/AndroidManifest.xml:22:13-58
+162            android:value="@integer/google_play_services_version" />
+162-->[com.google.android.gms:play-services-basement:18.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/37e8e7f9c04bc06f5f82734e5cc9283c/transformed/play-services-basement-18.3.0/AndroidManifest.xml:23:13-66
+163
+164        <uses-library
+164-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f3906b0421f5004cbe7bb3e3aecb0f50/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:23:9-25:40
+165            android:name="android.ext.adservices"
+165-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f3906b0421f5004cbe7bb3e3aecb0f50/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:24:13-50
+166            android:required="false" />
+166-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f3906b0421f5004cbe7bb3e3aecb0f50/transformed/ads-adservices-1.0.0-beta05/AndroidManifest.xml:25:13-37
+167
+168        <provider
+168-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+169            android:name="androidx.startup.InitializationProvider"
+169-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+170            android:authorities="com.google.mediapipe.examples.gesturerecognizer.androidx-startup"
+170-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+171            android:exported="false" >
+171-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+172            <meta-data
+172-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+173                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+173-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+174                android:value="androidx.startup" />
+174-->[androidx.emoji2:emoji2:1.2.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/abf15077553280e9c324a8dc4313dbf9/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+175            <meta-data
+175-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f1cb5255b839ae9a75af7c5720d4cf0b/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+176                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+176-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f1cb5255b839ae9a75af7c5720d4cf0b/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+177                android:value="androidx.startup" />
+177-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/f1cb5255b839ae9a75af7c5720d4cf0b/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+178            <meta-data
+178-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+179                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+179-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+180                android:value="androidx.startup" />
+180-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+181        </provider>
+182
+183        <service
+183-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:29:9-35:19
+184            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+184-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:30:13-103
+185            android:exported="false" >
+185-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:31:13-37
+186            <meta-data
+186-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:32:13-34:39
+187                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+187-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:33:17-94
+188                android:value="cct" />
+188-->[com.google.android.datatransport:transport-backend-cct:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/dc39eb0f06da86a4b21dbfc1ac52314a/transformed/transport-backend-cct-3.1.0/AndroidManifest.xml:34:17-36
+189        </service>
+190        <service
+190-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:26:9-30:19
+191            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+191-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:27:13-117
+192            android:exported="false"
+192-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:28:13-37
+193            android:permission="android.permission.BIND_JOB_SERVICE" >
+193-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:29:13-69
+194        </service>
+195
+196        <receiver
+196-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:32:9-34:40
+197            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+197-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:33:13-132
+198            android:exported="false" />
+198-->[com.google.android.datatransport:transport-runtime:3.1.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/a1e51c1b19d591e83f093a073545ac94/transformed/transport-runtime-3.1.0/AndroidManifest.xml:34:13-37
+199        <receiver
+199-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+200            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+200-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+201            android:directBootAware="false"
+201-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+202            android:enabled="true"
+202-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+203            android:exported="true"
+203-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+204            android:permission="android.permission.DUMP" >
+204-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+205            <intent-filter>
+205-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+206                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+206-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+206-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+207            </intent-filter>
+208            <intent-filter>
+208-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+209                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+209-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+209-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+210            </intent-filter>
+211            <intent-filter>
+211-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+212                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+212-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+212-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+213            </intent-filter>
+214            <intent-filter>
+214-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+215                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+215-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+215-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/118da4e807a558cae9ac33c59e913247/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+216            </intent-filter>
+217        </receiver>
+218    </application>
+219
+220</manifest>
