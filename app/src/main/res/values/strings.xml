@@ -67,6 +67,14 @@
     <string name="numbers_txt">ارقام</string>
     <string name="chaleng_txt">تحديات</string>
 
+    <!-- Words Section -->
+    <string name="words_txt">كلمات</string>
+    <string name="sub_words">تعلم إشارات الكلمات الشائعة</string>
+
+    <!-- Quiz Section -->
+    <string name="quiz_txt">اختبارات</string>
+    <string name="sub_quiz">اختبر معرفتك بلغة الإشارة</string>
+
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>
         <item>GPU</item>
