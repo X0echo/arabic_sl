@@ -3,52 +3,84 @@ package com.google.mediapipe.examples.gesturerecognizer
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import androidx.fragment.app.Fragment
+import com.example.sl.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var navController: NavController
+    lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setArabicLocale()
-        setContentView(R.layout.activity_main)
-        setupNavigation()
-    }
 
-    private fun setArabicLocale() {
-        val locale = Locale("ar")
-        Locale.setDefault(locale)
+        // Configuration de la locale en arabe
+        Locale.setDefault(Locale("ar"))
         val config = Configuration()
-        config.setLocale(locale)
+        config.setLocale(Locale("ar"))
         resources.updateConfiguration(config, resources.displayMetrics)
-    }
 
-    private fun setupNavigation() {
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.fragment_container) as NavHostFragment
-        navController = navHostFragment.navController
+        setContentView(R.layout.activity_main)
 
-        findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
-            setupWithNavController(navController)
-            setOnItemReselectedListener { /* Ignore reselect */ }
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-            // Hide bottom nav during permission flow
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                visibility = when (destination.id) {
-                    R.id.permissions_fragment -> View.GONE
-                    else -> View.VISIBLE
-                }
+        // Chargement initial sans animation
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment())
+                .commit()
+        }
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> switchFragment(HomeFragment())
+                R.id.nav_translate -> switchFragment(TranslatFragment())
+                R.id.nav_train -> switchFragment(TrainFragment())
+                R.id.nav_dictionary -> switchFragment(DictionaryFragment())
             }
+            true
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+    private fun switchFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+
+        updateBottomNavVisibility(fragment)
+    }
+
+    private fun updateBottomNavVisibility(fragment: Fragment) {
+        if (fragment is HomeFragment) {
+            hideBottomNavWithAnimation()
+        } else {
+            showBottomNavWithAnimation()
+        }
+    }
+
+    internal fun showBottomNavWithAnimation() {
+        if (bottomNavigationView.visibility != View.VISIBLE) {
+            bottomNavigationView.startAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.bottom_nav_show)
+            )
+            bottomNavigationView.visibility = View.VISIBLE
+        }
+    }
+
+    internal fun hideBottomNavWithAnimation() {
+        if (bottomNavigationView.visibility == View.VISIBLE) {
+            bottomNavigationView.startAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.bottom_nav_hide)
+            )
+            bottomNavigationView.visibility = View.GONE
+        }
     }
 }
