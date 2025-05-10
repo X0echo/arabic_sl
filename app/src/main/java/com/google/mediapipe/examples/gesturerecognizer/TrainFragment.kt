@@ -83,7 +83,7 @@ class TrainFragment : Fragment() {
         // Configuration des clics sur les boutons (fonctionnalité inchangée)
         lettersButton.setOnClickListener {
             // Replace with LettersPreviewFragment
-            replaceFragment(QuizFragment())
+            replaceFragment(LetterCameraFragment())
         }
 
         numbersButton.setOnClickListener {
