@@ -45,9 +45,16 @@
         threshold of recognized hand gesture results button</string>
     <string name="app_logo_desc">Logo de l\'application</string>
     <string name="app_name">تطبيق ترجمة لغة الإشارة</string>
+    <string name="capture_disabled">تم ايقاف الالتقاط</string>
+    <string name="capture_enabled">تمكين الالتقاط</string>
+    <string name="chaleng_txt">تحديات</string>
+    <string name="clear_history">Clear History</string>
     <string name="dictionary">القاموس\n</string>
     <string name="dictionary_subtitle">ابحث عن معاني الإشارات</string>
     <string name="dictionary_title">القاموس</string>
+    <string name="error_prefix">error prefix</string>
+    <string name="fullscreen">Toggle Fullscreen</string>
+    <string name="gesture_history">Gesture History</string>
     <string name="home">الرئيسية</string>
     <string name="label_delegate">Delegate</string>
     <string name="label_fps">Frames per Second</string>
@@ -58,18 +65,26 @@
     <string name="label_hand_tracking_confidence_threshold">Tracking
         Threshold</string>
     <string name="label_inference_time">Inference Time</string>
+    <string name="lettreTxt">حروف</string>
     <string name="media_pipe">MediaPipe</string>
     <string name="menu_camera">Camera</string>
     <string name="menu_gallery">Gallery</string>
+    <string name="numbers_txt">ارقام</string>
+    <string name="returning_to_camera">العودة الى الكاميرا</string>
     <string name="skip">Skip</string>
+    <string name="space_btn">مساقة</string>
+    <string name="sub_lettre">تعلم إشارات الحروف الأبجدية</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="text_cleared">تم مسح النص</string>
+    <string name="text_trainFr">تدريب لغة الإشارة</string>
     <string name="train">التدرب</string>
     <string name="train_subtitle">تدرب على فهم لغة الإشارة</string>
     <string name="train_title">التدريب</string>
     <string name="translate">الترجمة</string>
     <string name="translate_subtitle">ترجمة لغة الإشارة إلى العربية</string>
     <string name="translate_title">الترجمة</string>
-    <string name="tv_gallery_placeholder">Click + to add an image or a video
-        to begin running the gesture recognizer.</string>
+    <string name="translated_phrase">Translated Phrase</string>
+    <string name="tv_gallery_placeholder">انقر على (+) لإضافة صورة أو فيديو لبدء تشغيل أداة التعرف على الإيماءات.</string>
     <style name="AppThemeProgressStyle">
         <item name="colorAccent">@color/mp_color_primary_variant</item>
     </style>

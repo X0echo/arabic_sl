@@ -4,6 +4,7 @@ package com.google.mediapipe.examples.gesturerecognizer.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -11,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +26,7 @@ public final class FragmentGalleryBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
-  public final InfoBottomSheetBinding bottomSheetLayout;
+  public final ImageButton btnBackToCamera;
 
   @NonNull
   public final FloatingActionButton fabGetContent;
@@ -41,7 +41,7 @@ public final class FragmentGalleryBinding implements ViewBinding {
   public final ContentLoadingProgressBar progress;
 
   @NonNull
-  public final RecyclerView recyclerviewResults;
+  public final TextView resultText;
 
   @NonNull
   public final TextView tvPlaceholder;
@@ -50,18 +50,17 @@ public final class FragmentGalleryBinding implements ViewBinding {
   public final VideoView videoView;
 
   private FragmentGalleryBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull InfoBottomSheetBinding bottomSheetLayout,
-      @NonNull FloatingActionButton fabGetContent, @NonNull ImageView imageResult,
-      @NonNull OverlayView overlay, @NonNull ContentLoadingProgressBar progress,
-      @NonNull RecyclerView recyclerviewResults, @NonNull TextView tvPlaceholder,
-      @NonNull VideoView videoView) {
+      @NonNull ImageButton btnBackToCamera, @NonNull FloatingActionButton fabGetContent,
+      @NonNull ImageView imageResult, @NonNull OverlayView overlay,
+      @NonNull ContentLoadingProgressBar progress, @NonNull TextView resultText,
+      @NonNull TextView tvPlaceholder, @NonNull VideoView videoView) {
     this.rootView = rootView;
-    this.bottomSheetLayout = bottomSheetLayout;
+    this.btnBackToCamera = btnBackToCamera;
     this.fabGetContent = fabGetContent;
     this.imageResult = imageResult;
     this.overlay = overlay;
     this.progress = progress;
-    this.recyclerviewResults = recyclerviewResults;
+    this.resultText = resultText;
     this.tvPlaceholder = tvPlaceholder;
     this.videoView = videoView;
   }
@@ -93,12 +92,11 @@ public final class FragmentGalleryBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.bottom_sheet_layout;
-      View bottomSheetLayout = ViewBindings.findChildViewById(rootView, id);
-      if (bottomSheetLayout == null) {
+      id = R.id.btn_back_to_camera;
+      ImageButton btnBackToCamera = ViewBindings.findChildViewById(rootView, id);
+      if (btnBackToCamera == null) {
         break missingId;
       }
-      InfoBottomSheetBinding binding_bottomSheetLayout = InfoBottomSheetBinding.bind(bottomSheetLayout);
 
       id = R.id.fabGetContent;
       FloatingActionButton fabGetContent = ViewBindings.findChildViewById(rootView, id);
@@ -124,9 +122,9 @@ public final class FragmentGalleryBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.recyclerview_results;
-      RecyclerView recyclerviewResults = ViewBindings.findChildViewById(rootView, id);
-      if (recyclerviewResults == null) {
+      id = R.id.resultText;
+      TextView resultText = ViewBindings.findChildViewById(rootView, id);
+      if (resultText == null) {
         break missingId;
       }
 
@@ -142,9 +140,8 @@ public final class FragmentGalleryBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentGalleryBinding((CoordinatorLayout) rootView, binding_bottomSheetLayout,
-          fabGetContent, imageResult, overlay, progress, recyclerviewResults, tvPlaceholder,
-          videoView);
+      return new FragmentGalleryBinding((CoordinatorLayout) rootView, btnBackToCamera,
+          fabGetContent, imageResult, overlay, progress, resultText, tvPlaceholder, videoView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

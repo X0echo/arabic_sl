@@ -48,12 +48,20 @@
             app:destination="@id/permissions_fragment"
             app:popUpTo="@id/camera_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_camera_to_gallery"
+            app:destination="@id/gallery_fragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/gallery_fragment"
         android:name="com.google.mediapipe.examples.gesturerecognizer.fragment.GalleryFragment"
-        android:label="GalleryFragment" />
+        android:label="GalleryFragment" >
+    <action
+        android:id="@+id/action_gallery_to_camera"
+        app:destination="@id/camera_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/number_permissions_fragment"

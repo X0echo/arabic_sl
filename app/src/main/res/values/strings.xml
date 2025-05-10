@@ -16,6 +16,12 @@
 -->
 <resources>
 
+    <string name="switch_camera">Switch Camera</string>
+    <string name="fullscreen">Toggle Fullscreen</string>
+    <string name="clear_history">Clear History</string>
+    <string name="gesture_history">Gesture History</string>
+    <string name="translated_phrase">Translated Phrase</string>
+
     <string name="app_logo_desc">Logo de l\'application</string>
     <string name="app_name">تطبيق ترجمة لغة الإشارة</string>
     <string name="translate_title">الترجمة</string>
@@ -45,8 +51,7 @@
     <string name="alt_bottom_sheet_thread_button_plus">Increase the number of threads used</string>
     <string name="menu_camera">Camera</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="tv_gallery_placeholder">Click + to add an image or a video
-        to begin running the gesture recognizer.</string>
+    <string name="tv_gallery_placeholder">انقر على (+) لإضافة صورة أو فيديو لبدء تشغيل أداة التعرف على الإيماءات.</string>
 
     <string name="label_inference_time">Inference Time</string>
     <string name="label_fps">Frames per Second</string>
@@ -66,6 +71,12 @@
     <string name="sub_lettre">تعلم إشارات الحروف الأبجدية</string>
     <string name="numbers_txt">ارقام</string>
     <string name="chaleng_txt">تحديات</string>
+    <string name="capture_enabled">تمكين الالتقاط</string>
+    <string name="capture_disabled">تم ايقاف الالتقاط</string>
+    <string name="text_cleared">تم مسح النص</string>
+    <string name="error_prefix">error prefix</string>
+    <string name="returning_to_camera">العودة الى الكاميرا</string>
+    <string name="space_btn">مساقة</string>
 
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>

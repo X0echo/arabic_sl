@@ -32,6 +32,7 @@
 
     <!-- Declare permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
     <!-- <uses-sdk android:minSdkVersion="14"/> -->
@@ -48,7 +49,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:taskAffinity=""
-        android:testOnly="true"
         android:theme="@style/Theme.GestureRecognizer" >
         <activity
             android:name="com.google.mediapipe.examples.gesturerecognizer.MainActivity"

@@ -4,13 +4,17 @@ package com.google.mediapipe.examples.gesturerecognizer.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.view.PreviewView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.mediapipe.examples.gesturerecognizer.OverlayView;
 import com.google.mediapipe.examples.gesturerecognizer.R;
 import java.lang.NullPointerException;
@@ -22,29 +26,51 @@ public final class FragmentCameraBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
-  public final InfoBottomSheetBinding bottomSheetLayout;
+  public final Button btnAddSpace;
 
   @NonNull
-  public final CoordinatorLayout cameraContainer;
+  public final FloatingActionButton btnClear;
+
+  @NonNull
+  public final ImageButton btnGallery;
+
+  @NonNull
+  public final ImageButton btnSwitchCamera;
+
+  @NonNull
+  public final ImageButton btnToggleCapture;
+
+  @NonNull
+  public final TextView concatenatedLetters;
+
+  @NonNull
+  public final TextView currentGesture;
+
+  @NonNull
+  public final CircularProgressIndicator gestureProgress;
 
   @NonNull
   public final OverlayView overlay;
 
   @NonNull
-  public final RecyclerView recyclerviewResults;
-
-  @NonNull
   public final PreviewView viewFinder;
 
-  private FragmentCameraBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull InfoBottomSheetBinding bottomSheetLayout, @NonNull CoordinatorLayout cameraContainer,
-      @NonNull OverlayView overlay, @NonNull RecyclerView recyclerviewResults,
+  private FragmentCameraBinding(@NonNull CoordinatorLayout rootView, @NonNull Button btnAddSpace,
+      @NonNull FloatingActionButton btnClear, @NonNull ImageButton btnGallery,
+      @NonNull ImageButton btnSwitchCamera, @NonNull ImageButton btnToggleCapture,
+      @NonNull TextView concatenatedLetters, @NonNull TextView currentGesture,
+      @NonNull CircularProgressIndicator gestureProgress, @NonNull OverlayView overlay,
       @NonNull PreviewView viewFinder) {
     this.rootView = rootView;
-    this.bottomSheetLayout = bottomSheetLayout;
-    this.cameraContainer = cameraContainer;
+    this.btnAddSpace = btnAddSpace;
+    this.btnClear = btnClear;
+    this.btnGallery = btnGallery;
+    this.btnSwitchCamera = btnSwitchCamera;
+    this.btnToggleCapture = btnToggleCapture;
+    this.concatenatedLetters = concatenatedLetters;
+    this.currentGesture = currentGesture;
+    this.gestureProgress = gestureProgress;
     this.overlay = overlay;
-    this.recyclerviewResults = recyclerviewResults;
     this.viewFinder = viewFinder;
   }
 
@@ -75,24 +101,57 @@ public final class FragmentCameraBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.bottom_sheet_layout;
-      View bottomSheetLayout = ViewBindings.findChildViewById(rootView, id);
-      if (bottomSheetLayout == null) {
+      id = R.id.btn_add_space;
+      Button btnAddSpace = ViewBindings.findChildViewById(rootView, id);
+      if (btnAddSpace == null) {
         break missingId;
       }
-      InfoBottomSheetBinding binding_bottomSheetLayout = InfoBottomSheetBinding.bind(bottomSheetLayout);
 
-      CoordinatorLayout cameraContainer = (CoordinatorLayout) rootView;
+      id = R.id.btn_clear;
+      FloatingActionButton btnClear = ViewBindings.findChildViewById(rootView, id);
+      if (btnClear == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_gallery;
+      ImageButton btnGallery = ViewBindings.findChildViewById(rootView, id);
+      if (btnGallery == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_switch_camera;
+      ImageButton btnSwitchCamera = ViewBindings.findChildViewById(rootView, id);
+      if (btnSwitchCamera == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_toggle_capture;
+      ImageButton btnToggleCapture = ViewBindings.findChildViewById(rootView, id);
+      if (btnToggleCapture == null) {
+        break missingId;
+      }
+
+      id = R.id.concatenated_letters;
+      TextView concatenatedLetters = ViewBindings.findChildViewById(rootView, id);
+      if (concatenatedLetters == null) {
+        break missingId;
+      }
+
+      id = R.id.current_gesture;
+      TextView currentGesture = ViewBindings.findChildViewById(rootView, id);
+      if (currentGesture == null) {
+        break missingId;
+      }
+
+      id = R.id.gesture_progress;
+      CircularProgressIndicator gestureProgress = ViewBindings.findChildViewById(rootView, id);
+      if (gestureProgress == null) {
+        break missingId;
+      }
 
       id = R.id.overlay;
       OverlayView overlay = ViewBindings.findChildViewById(rootView, id);
       if (overlay == null) {
-        break missingId;
-      }
-
-      id = R.id.recyclerview_results;
-      RecyclerView recyclerviewResults = ViewBindings.findChildViewById(rootView, id);
-      if (recyclerviewResults == null) {
         break missingId;
       }
 
@@ -102,8 +161,9 @@ public final class FragmentCameraBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentCameraBinding((CoordinatorLayout) rootView, binding_bottomSheetLayout,
-          cameraContainer, overlay, recyclerviewResults, viewFinder);
+      return new FragmentCameraBinding((CoordinatorLayout) rootView, btnAddSpace, btnClear,
+          btnGallery, btnSwitchCamera, btnToggleCapture, concatenatedLetters, currentGesture,
+          gestureProgress, overlay, viewFinder);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
