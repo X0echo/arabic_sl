@@ -33,7 +33,7 @@ class TrainFragment : Fragment() {
         }
 
         challengesButton.setOnClickListener {
-            replaceFragment(ChallengesCameraFragment())
+            replaceFragment(ChallengesTypeFragment())
         }
 
         wordsButton.setOnClickListener {
