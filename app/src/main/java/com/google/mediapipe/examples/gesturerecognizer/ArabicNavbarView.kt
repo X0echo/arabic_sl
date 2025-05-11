@@ -30,7 +30,9 @@ class ArabicNavbarView @JvmOverloads constructor(
 
     private val handler = Handler(Looper.getMainLooper())
     private var skipRunnable: Runnable? = null
+    private var successRunnable: Runnable? = null
     private var isSuccessHandled = false
+    private var isCheckingHold = false
 
     init {
         initView()
@@ -48,7 +50,7 @@ class ArabicNavbarView @JvmOverloads constructor(
             cancelPendingSkip()
             if (isLastLetter()) {
                 setupAdapter(0)
-                skipButton.text = "تخطي"  // Arabic for "Skip"
+                skipButton.text = "تخطي"
             } else {
                 adapter.skipToNext()
                 updateSkipButtonText()
@@ -73,7 +75,7 @@ class ArabicNavbarView @JvmOverloads constructor(
     private fun isLastLetter(): Boolean = getCurrentIndex() == arabicLetterNames.size - 1
 
     private fun updateSkipButtonText() {
-        skipButton.text = if (isLastLetter()) "اعادة المحاوله" else "تخطي"  // "Redo" : "Skip"
+        skipButton.text = if (isLastLetter()) "اعادة المحاوله" else "تخطي"
     }
 
     fun getCurrentLetter(): String = adapter.getCurrentLetter()
@@ -81,11 +83,24 @@ class ArabicNavbarView @JvmOverloads constructor(
     fun onLetterRecognized(letter: String, confidence: Float) {
         val currentLetter = adapter.getCurrentLetter()
         if (!isSuccessHandled && letter == currentLetter && confidence >= 0.8f) {
-            isSuccessHandled = true
-            cancelPendingSkip()
-            adapter.markCurrentLetterSuccess()
-            playSuccessSound()
-            scheduleSkipToNext()
+            if (!isCheckingHold) {
+                isCheckingHold = true
+                successRunnable = Runnable {
+                    isSuccessHandled = true
+                    cancelPendingSkip()
+                    adapter.markCurrentLetterSuccess()
+                    playSuccessSound()
+                    scheduleSkipToNext()
+                    isCheckingHold = false
+                }
+                handler.postDelayed(successRunnable!!, 1000)
+            }
+        } else {
+            // Cancel the hold check if recognition fails
+            if (isCheckingHold) {
+                handler.removeCallbacks(successRunnable!!)
+                isCheckingHold = false
+            }
         }
     }
 

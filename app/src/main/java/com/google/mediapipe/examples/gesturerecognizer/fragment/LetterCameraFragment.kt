@@ -68,20 +68,7 @@ class LetterCameraFragment : Fragment(),
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
 
-    override fun onResume() {
-        super.onResume()
-        if (!PermissionsFragment.hasPermissions(requireContext())) {
-            Navigation.findNavController(
-                requireActivity(), R.id.fragment_container
-            ).navigate(R.id.action_camera_to_permissions)
-        }
 
-        backgroundExecutor.execute {
-            if (gestureRecognizerHelper.isClosed()) {
-                gestureRecognizerHelper.setupGestureRecognizer()
-            }
-        }
-    }
 
     override fun onPause() {
         super.onPause()
