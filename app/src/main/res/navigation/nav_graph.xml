@@ -19,6 +19,8 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/permissions_fragment">
 
+
+
     <fragment
         android:id="@+id/permissions_fragment"
         android:name="com.google.mediapipe.examples.gesturerecognizer.fragment.PermissionsFragment"
@@ -29,6 +31,11 @@
             app:destination="@id/camera_fragment"
             app:popUpTo="@id/permissions_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_permissions_to_home"
+
+            app:popUpTo="@id/permissions_fragment"
+            app:popUpToInclusive="true"/>
 
         <!-- New action to number camera -->
         <action
