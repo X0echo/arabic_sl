@@ -4269,7 +4269,6 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
-layout activity_result
 layout arabic_navbar
 layout challenge_navbar
 layout custom_dialog
@@ -4305,6 +4304,7 @@ layout fragment_gallery
 layout fragment_home
 layout fragment_number_camera
 layout fragment_quiz
+layout fragment_result
 layout fragment_train
 layout fragment_translat
 layout ime_base_split_test_activity

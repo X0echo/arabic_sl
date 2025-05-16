@@ -93,7 +93,7 @@ class TrainFragment : Fragment() {
 
         challengesButton.setOnClickListener {
             // Replace with ChallengesPreviewFragment
-            replaceFragment(ChallengesCameraFragment())
+            replaceFragment(QuizFragment())
         }
 
         return view

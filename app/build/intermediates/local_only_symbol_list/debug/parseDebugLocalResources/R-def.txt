@@ -233,7 +233,6 @@ id videoView
 id view_finder
 integer bottom_sheet_control_text_min_ems
 layout activity_main
-layout activity_result
 layout arabic_navbar
 layout challenge_navbar
 layout fragment_camera
@@ -243,6 +242,7 @@ layout fragment_gallery
 layout fragment_home
 layout fragment_number_camera
 layout fragment_quiz
+layout fragment_result
 layout fragment_train
 layout fragment_translat
 layout info_bottom_sheet

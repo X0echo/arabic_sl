@@ -1,78 +1,78 @@
 [
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_challenge_letter.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_challenge_letter.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_arabic_letter.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_arabic_letter.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_dictionary.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_dictionary.xml"
-    },
-    {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_challenge_camera.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_challenge_camera.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_train.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_train.xml"
     },
     {
         "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_quiz.xml",
         "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_quiz.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/info_bottom_sheet.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/info_bottom_sheet.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_gesture_recognizer_result.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_gesture_recognizer_result.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/number_navbar.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/number_navbar.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_home.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_home.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_camera.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_camera.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/number_navbar.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/number_navbar.xml"
     },
     {
-        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/activity_result.xml",
-        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/activity_result.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_challenge_camera.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_challenge_camera.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_number_camera.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_number_camera.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_translat.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_translat.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_translat.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_translat.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/info_bottom_sheet.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/info_bottom_sheet.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_arabic_letter.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_arabic_letter.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_dictionary.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_dictionary.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_gallery.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_gallery.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/challenge_navbar.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/challenge_navbar.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/letter_fragment_camera.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/letter_fragment_camera.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_camera.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_camera.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/arabic_navbar.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/arabic_navbar.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_challenge_letter.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_challenge_letter.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_train.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_train.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/activity_main.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/activity_main.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/item_gesture_recognizer_result.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/item_gesture_recognizer_result.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/letter_fragment_camera.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/letter_fragment_camera.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_home.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_home.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_gallery.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_gallery.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/activity_main.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/activity_main.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/arabic_navbar.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/arabic_navbar.xml"
     },
     {
-        "merged": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/challenge_navbar.xml",
-        "source": "/Users/sidoubrahami/.gradle/daemon/8.10.2/com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/challenge_navbar.xml"
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_result.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_result.xml"
+    },
+    {
+        "merged": "com.google.mediapipe.examples.gesturerecognizer.app-mergeDebugResources-63:/layout/fragment_number_camera.xml",
+        "source": "com.google.mediapipe.examples.gesturerecognizer.app-main-66:/layout/fragment_number_camera.xml"
     }
 ]
