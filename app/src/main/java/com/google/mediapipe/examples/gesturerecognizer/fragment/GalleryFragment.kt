@@ -1,21 +1,5 @@
-/*
- * Copyright 2022 The TensorFlow Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *             http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.google.mediapipe.examples.gesturerecognizer.fragment
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -27,17 +11,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mediapipe.examples.gesturerecognizer.GestureRecognizerHelper
 import com.google.mediapipe.examples.gesturerecognizer.MainViewModel
+import com.google.mediapipe.examples.gesturerecognizer.R
 import com.google.mediapipe.examples.gesturerecognizer.databinding.FragmentGalleryBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
-import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
@@ -56,12 +38,6 @@ class GalleryFragment : Fragment(),
         get() = _fragmentGalleryBinding!!
     private lateinit var gestureRecognizerHelper: GestureRecognizerHelper
     private val viewModel: MainViewModel by activityViewModels()
-    private var defaultNumResults = 1
-    private val gestureRecognizerResultsAdapter by lazy {
-        GestureRecognizerResultsAdapter().apply {
-            updateAdapterSize(defaultNumResults)
-        }
-    }
 
     /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ScheduledExecutorService
@@ -98,15 +74,37 @@ class GalleryFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Configuration du bouton pour ouvrir la galerie
         fragmentGalleryBinding.fabGetContent.setOnClickListener {
             getContent.launch(arrayOf("image/*", "video/*"))
         }
 
-        with(fragmentGalleryBinding.recyclerviewResults) {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = gestureRecognizerResultsAdapter
+        // Configuration du bouton pour retourner à la caméra
+        fragmentGalleryBinding.btnBackToCamera.setOnClickListener {
+            navigateToCamera()
         }
-        initBottomSheetControls()
+    }
+
+    private fun navigateToCamera() {
+        try {
+            // Créer une nouvelle instance de CameraFragment
+            val cameraFragment = CameraFragment()
+
+            // Obtenir le gestionnaire de fragments à partir de l'activité
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            // Effectuer la transaction de fragment avec le bon conteneur
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, cameraFragment)
+                .commit()
+
+            Toast.makeText(context, getString(R.string.returning_to_camera), Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            // Afficher l'erreur dans les logs et à l'utilisateur
+            Log.e(TAG, "Erreur lors de la navigation vers la caméra: ${e.message}", e)
+            Toast.makeText(context, "Erreur: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onPause() {
@@ -116,119 +114,6 @@ class GalleryFragment : Fragment(),
         }
         fragmentGalleryBinding.videoView.visibility = View.GONE
         super.onPause()
-    }
-
-    private fun initBottomSheetControls() {
-        // init bottom sheet settings
-        updateControlsUi()
-
-        // When clicked, lower detection score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandDetectionConfidence >= 0.2) {
-                viewModel.setMinHandDetectionConfidence(viewModel.currentMinHandDetectionConfidence - 0.1f)
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise detection score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandDetectionConfidence <= 0.8) {
-                viewModel.setMinHandDetectionConfidence(viewModel.currentMinHandDetectionConfidence + 0.1f)
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower hand tracking score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandTrackingConfidence >= 0.2) {
-                viewModel.setMinHandTrackingConfidence(
-                    viewModel.currentMinHandTrackingConfidence - 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise hand tracking score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandTrackingConfidence <= 0.8) {
-                viewModel.setMinHandTrackingConfidence(
-                    viewModel.currentMinHandTrackingConfidence + 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower hand presence score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdMinus.setOnClickListener {
-            if (viewModel.currentMinHandPresenceConfidence >= 0.2) {
-                viewModel.setMinHandPresenceConfidence(
-                    viewModel.currentMinHandPresenceConfidence - 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise hand presence score threshold floor
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdPlus.setOnClickListener {
-            if (viewModel.currentMinHandPresenceConfidence <= 0.8) {
-                viewModel.setMinHandPresenceConfidence(
-                    viewModel.currentMinHandPresenceConfidence + 0.1f
-                )
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, change the underlying hardware used for inference. Current options are CPU
-        // GPU, and NNAPI
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.setSelection(
-            viewModel.currentDelegate,
-            false
-        )
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    p0: AdapterView<*>?,
-                    p1: View?,
-                    p2: Int,
-                    p3: Long
-                ) {
-
-                    viewModel.setDelegate(p2)
-                    updateControlsUi()
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    /* no op */
-                }
-            }
-    }
-
-    // Update the values displayed in the bottom sheet. Reset detector.
-    @SuppressLint("NotifyDataSetChanged")
-    private fun updateControlsUi() {
-        if (fragmentGalleryBinding.videoView.isPlaying) {
-            fragmentGalleryBinding.videoView.stopPlayback()
-        }
-        fragmentGalleryBinding.videoView.visibility = View.GONE
-        fragmentGalleryBinding.imageResult.visibility = View.GONE
-        fragmentGalleryBinding.overlay.clear()
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandDetectionConfidence
-            )
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandTrackingConfidence
-            )
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinHandPresenceConfidence
-            )
-
-        fragmentGalleryBinding.overlay.clear()
-        fragmentGalleryBinding.tvPlaceholder.visibility = View.VISIBLE
-        gestureRecognizerResultsAdapter.updateResults(null)
-        gestureRecognizerResultsAdapter.notifyDataSetChanged()
     }
 
     // Load and display the image.
@@ -268,33 +153,25 @@ class GalleryFragment : Fragment(),
                     gestureRecognizerHelper.recognizeImage(bitmap)
                         ?.let { resultBundle ->
                             activity?.runOnUiThread {
+                                fragmentGalleryBinding.overlay.setResults(
+                                    resultBundle.results[0],
+                                    bitmap.height,
+                                    bitmap.width,
+                                    RunningMode.IMAGE
+                                )
 
-                                    fragmentGalleryBinding.overlay.setResults(
-                                        resultBundle.results[0],
-                                        bitmap.height,
-                                        bitmap.width,
-                                        RunningMode.IMAGE
-                                    )
-
-                                    // This will return an empty list if there are no gestures detected
-                                    if(!resultBundle.results.first().gestures().isEmpty()) {
-                                        gestureRecognizerResultsAdapter.updateResults(
-                                            resultBundle.results.first()
-                                                .gestures().first()
-                                        )
-                                    } else {
-                                        Toast.makeText(
-                                            context,
-                                            "Hands not detected",
-                                            Toast.LENGTH_SHORT).show()
-                                    }
+                                // This will return an empty list if there are no gestures detected
+                                if(!resultBundle.results.first().gestures().isEmpty()) {
+                                    val gestureName = resultBundle.results.first().gestures().first().first().categoryName()
+                                    showResult(gestureName)
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "لم يتم الكشف عن الأيدي",
+                                        Toast.LENGTH_SHORT).show()
+                                }
 
                                 setUiEnabled(true)
-                                fragmentGalleryBinding.bottomSheetLayout.inferenceTimeVal.text =
-                                    String.format(
-                                        "%d ms",
-                                        resultBundle.inferenceTime
-                                    )
                             }
                         } ?: run {
                         Log.e(
@@ -311,8 +188,7 @@ class GalleryFragment : Fragment(),
     private fun runGestureRecognitionOnVideo(uri: Uri) {
         setUiEnabled(false)
         updateDisplayView(MediaType.VIDEO)
-        gestureRecognizerResultsAdapter.updateResults(null)
-        gestureRecognizerResultsAdapter.notifyDataSetChanged()
+        fragmentGalleryBinding.resultText.visibility = View.GONE
 
         with(fragmentGalleryBinding.videoView) {
             setVideoURI(uri)
@@ -385,15 +261,13 @@ class GalleryFragment : Fragment(),
                         )
                         val categories = result.results[resultIndex].gestures()
                         if (categories.isNotEmpty()) {
-                            gestureRecognizerResultsAdapter.updateResults(
-                                categories.first()
-                            )
+                            val gestureName = categories.first().first().categoryName()
+                            showResult(gestureName)
+                        } else {
+                            fragmentGalleryBinding.resultText.visibility = View.GONE
                         }
 
                         setUiEnabled(false)
-
-                        fragmentGalleryBinding.bottomSheetLayout.inferenceTimeVal.text =
-                            String.format("%d ms", result.inferenceTime)
                     }
                 }
             },
@@ -403,6 +277,13 @@ class GalleryFragment : Fragment(),
         )
     }
 
+    private fun showResult(gestureName: String) {
+        fragmentGalleryBinding.resultText.apply {
+            text = gestureName
+            visibility = View.VISIBLE
+        }
+    }
+
     private fun updateDisplayView(mediaType: MediaType) {
         fragmentGalleryBinding.imageResult.visibility =
             if (mediaType == MediaType.IMAGE) View.VISIBLE else View.GONE
@@ -410,6 +291,7 @@ class GalleryFragment : Fragment(),
             if (mediaType == MediaType.VIDEO) View.VISIBLE else View.GONE
         fragmentGalleryBinding.tvPlaceholder.visibility =
             if (mediaType == MediaType.UNKNOWN) View.VISIBLE else View.GONE
+        fragmentGalleryBinding.resultText.visibility = View.GONE
     }
 
     // Check the type of media that user selected.
@@ -425,20 +307,7 @@ class GalleryFragment : Fragment(),
 
     private fun setUiEnabled(enabled: Boolean) {
         fragmentGalleryBinding.fabGetContent.isEnabled = enabled
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.detectionThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.trackingThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdMinus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.presenceThresholdPlus.isEnabled =
-            enabled
-        fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.isEnabled =
-            enabled
+        fragmentGalleryBinding.btnBackToCamera.isEnabled = enabled
     }
 
     private fun recognitionError() {
@@ -454,10 +323,7 @@ class GalleryFragment : Fragment(),
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             if (errorCode == GestureRecognizerHelper.GPU_ERROR) {
-                fragmentGalleryBinding.bottomSheetLayout.spinnerDelegate.setSelection(
-                    GestureRecognizerHelper.DELEGATE_CPU,
-                    false
-                )
+                viewModel.setDelegate(GestureRecognizerHelper.DELEGATE_CPU)
             }
         }
     }

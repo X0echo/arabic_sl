@@ -1,131 +1,92 @@
-/*
- * Copyright 2022 The TensorFlow Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *             http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.google.mediapipe.examples.gesturerecognizer.fragment
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.mediapipe.examples.gesturerecognizer.GestureRecognizerHelper
+import com.google.mediapipe.examples.gesturerecognizer.MainActivity
 import com.google.mediapipe.examples.gesturerecognizer.MainViewModel
 import com.google.mediapipe.examples.gesturerecognizer.R
 import com.google.mediapipe.examples.gesturerecognizer.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class CameraFragment : Fragment(),
-    GestureRecognizerHelper.GestureRecognizerListener {
+class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerListener {
 
     companion object {
-        private const val TAG = "Hand gesture recognizer"
+        private const val TAG = "CameraFragment"
+        private const val MIN_CONFIDENCE = 0.85
+        private const val GESTURE_HOLD_DURATION = 2000L
+        private const val GESTURE_COOLDOWN = 1000L
     }
 
     private var _fragmentCameraBinding: FragmentCameraBinding? = null
-
-    private val fragmentCameraBinding
-        get() = _fragmentCameraBinding!!
+    private val fragmentCameraBinding get() = _fragmentCameraBinding!!
 
     private lateinit var gestureRecognizerHelper: GestureRecognizerHelper
     private val viewModel: MainViewModel by activityViewModels()
-    private var defaultNumResults = 1
-    private val gestureRecognizerResultAdapter: GestureRecognizerResultsAdapter by lazy {
-        GestureRecognizerResultsAdapter().apply {
-            updateAdapterSize(defaultNumResults)
-        }
-    }
+
+    // Camera variables
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var cameraFacing = CameraSelector.LENS_FACING_FRONT
 
-    /** Blocking ML operations are performed using this executor */
+    // Background executor for image analysis
     private lateinit var backgroundExecutor: ExecutorService
 
+    // Gesture recognition state
+    private var lastGesture: String? = null
+    private var gestureStartTime: Long = 0
+    private val gestureHandler = Handler(Looper.getMainLooper())
+    private val gestureStabilityRunnable = Runnable { onGestureStabilized() }
 
-
-    override fun onPause() {
-        super.onPause()
-        if (this::gestureRecognizerHelper.isInitialized) {
-            viewModel.setMinHandDetectionConfidence(gestureRecognizerHelper.minHandDetectionConfidence)
-            viewModel.setMinHandTrackingConfidence(gestureRecognizerHelper.minHandTrackingConfidence)
-            viewModel.setMinHandPresenceConfidence(gestureRecognizerHelper.minHandPresenceConfidence)
-            viewModel.setDelegate(gestureRecognizerHelper.currentDelegate)
-
-            // Close the Gesture Recognizer helper and release resources
-            backgroundExecutor.execute { gestureRecognizerHelper.clearGestureRecognizer() }
-        }
-    }
-
-    override fun onDestroyView() {
-        _fragmentCameraBinding = null
-        super.onDestroyView()
-
-        // Shut down our background executor
-        backgroundExecutor.shutdown()
-        backgroundExecutor.awaitTermination(
-            Long.MAX_VALUE, TimeUnit.NANOSECONDS
-        )
-    }
+    // Accumulated gesture result text
+    private val concatenatedLetters = StringBuilder()
+    private var isCapturing = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _fragmentCameraBinding =
-            FragmentCameraBinding.inflate(inflater, container, false)
-
+        _fragmentCameraBinding = FragmentCameraBinding.inflate(inflater, container, false)
         return fragmentCameraBinding.root
     }
 
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(fragmentCameraBinding.recyclerviewResults) {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = gestureRecognizerResultAdapter
-        }
 
-        // Initialize our background executor
+        initComponents()
+        setupCamera()
+    }
+
+    // Initialize UI components and gesture recognizer
+    private fun initComponents() {
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
-        // Wait for the views to be properly laid out
-        fragmentCameraBinding.viewFinder.post {
-            // Set up the camera and its use cases
-            setUpCamera()
-        }
-
-        // Create the Hand Gesture Recognition Helper that will handle the
-        // inference
+        // Initialize gesture recognizer helper in background
         backgroundExecutor.execute {
             gestureRecognizerHelper = GestureRecognizerHelper(
                 context = requireContext(),
@@ -138,127 +99,251 @@ class CameraFragment : Fragment(),
             )
         }
 
-
+        // Set up button listeners
+        fragmentCameraBinding.btnToggleCapture.setOnClickListener { toggleCapture() }
+        fragmentCameraBinding.btnClear.setOnClickListener { clearText() }
+        fragmentCameraBinding.btnSwitchCamera.setOnClickListener { switchCamera() }
+        fragmentCameraBinding.btnGallery.setOnClickListener { navigateToGallery() }
+        fragmentCameraBinding.btnAddSpace.setOnClickListener { addSpace() }
     }
 
+    // Navigates to gallery fragment
+    private fun navigateToGallery() {
+        (activity as? MainActivity)?.run {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, GalleryFragment())
+                .commitNowAllowingStateLoss()
+        }
+    }
 
+    // Enable or disable capturing
+    private fun toggleCapture() {
+        isCapturing = !isCapturing
+        updateCaptureButton()
+        resetGestureDetection()
 
+        Toast.makeText(
+            context,
+            if (isCapturing) getString(R.string.capture_enabled) else getString(R.string.capture_disabled),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
-
-    // Initialize CameraX, and prepare to bind the camera use cases
-    private fun setUpCamera() {
-        val cameraProviderFuture =
-            ProcessCameraProvider.getInstance(requireContext())
-        cameraProviderFuture.addListener(
-            {
-                // CameraProvider
-                cameraProvider = cameraProviderFuture.get()
-
-                // Build and bind the camera use cases
-                bindCameraUseCases()
-            }, ContextCompat.getMainExecutor(requireContext())
+    // Update play/pause icon
+    private fun updateCaptureButton() {
+        fragmentCameraBinding.btnToggleCapture.setImageResource(
+            if (isCapturing) R.drawable.ic_pause else R.drawable.ic_play
         )
     }
 
-    // Declare and bind preview, capture and analysis use cases
+    // Append a space if not already present
+    private fun addSpace() {
+        if (concatenatedLetters.isNotEmpty() && !concatenatedLetters.endsWith(" ")) {
+            concatenatedLetters.append(" ")
+            updateTextDisplay()
+
+            // Animate space button for feedback
+            val button = fragmentCameraBinding.btnAddSpace
+            button.animate()
+                .scaleX(1.2f)
+                .scaleY(1.2f)
+                .setDuration(100)
+                .withEndAction {
+                    button.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
+        }
+    }
+
+    // Clear text area
+    private fun clearText() {
+        concatenatedLetters.clear()
+        updateTextDisplay()
+        Toast.makeText(context, getString(R.string.text_cleared), Toast.LENGTH_SHORT).show()
+    }
+
+    // Animate and update the text area
+    private fun updateTextDisplay() {
+        fragmentCameraBinding.concatenatedLetters.text = concatenatedLetters.toString()
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.gesture_pop)
+        fragmentCameraBinding.concatenatedLetters.startAnimation(animation)
+    }
+
+    // Switch between front and back camera
+    private fun switchCamera() {
+        cameraFacing = if (cameraFacing == CameraSelector.LENS_FACING_FRONT) {
+            CameraSelector.LENS_FACING_BACK
+        } else {
+            CameraSelector.LENS_FACING_FRONT
+        }
+        bindCameraUseCases()
+    }
+
+    // Initialize camera preview and analyzer
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun setupCamera() {
+        fragmentCameraBinding.viewFinder.post {
+            val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+            cameraProviderFuture.addListener(
+                {
+                    cameraProvider = cameraProviderFuture.get()
+                    bindCameraUseCases()
+                }, ContextCompat.getMainExecutor(requireContext())
+            )
+        }
+    }
+
+    // Bind camera preview and image analyzer
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases() {
+        val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
+        val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraFacing).build()
 
-        // CameraProvider
-        val cameraProvider = cameraProvider
-            ?: throw IllegalStateException("Camera initialization failed.")
-
-        val cameraSelector =
-            CameraSelector.Builder().requireLensFacing(cameraFacing).build()
-
-        // Preview. Only using the 4:3 ratio because this is the closest to our models
-        preview = Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
+        preview = Preview.Builder()
+            .setTargetAspectRatio(AspectRatio.RATIO_4_3)
             .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
             .build()
 
-        // ImageAnalysis. Using RGBA 8888 to match how our models work
-        imageAnalyzer =
-            ImageAnalysis.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
-                .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-                .build()
-                // The analyzer can then be assigned to the instance
-                .also {
-                    it.setAnalyzer(backgroundExecutor) { image ->
+        imageAnalyzer = ImageAnalysis.Builder()
+            .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+            .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+            .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+            .build()
+            .also {
+                it.setAnalyzer(backgroundExecutor) { image ->
+                    if (isCapturing) {
                         recognizeHand(image)
+                    } else {
+                        image.close()
                     }
                 }
+            }
 
-        // Must unbind the use-cases before rebinding them
         cameraProvider.unbindAll()
 
         try {
-            // A variable number of use-cases can be passed here -
-            // camera provides access to CameraControl & CameraInfo
             camera = cameraProvider.bindToLifecycle(
                 this, cameraSelector, preview, imageAnalyzer
             )
-
-            // Attach the viewfinder's surface provider to preview use case
             preview?.setSurfaceProvider(fragmentCameraBinding.viewFinder.surfaceProvider)
         } catch (exc: Exception) {
             Log.e(TAG, "Use case binding failed", exc)
         }
     }
 
+    // Call the gesture recognizer helper
     private fun recognizeHand(imageProxy: ImageProxy) {
-        gestureRecognizerHelper.recognizeLiveStream(
-            imageProxy = imageProxy,
-        )
+        gestureRecognizerHelper.recognizeLiveStream(imageProxy)
     }
 
+    // Handle configuration changes
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        imageAnalyzer?.targetRotation =
-            fragmentCameraBinding.viewFinder.display.rotation
+        imageAnalyzer?.targetRotation = fragmentCameraBinding.viewFinder.display.rotation
     }
 
-    // Update UI after a hand gesture has been recognized. Extracts original
-    // image height/width to scale and place the landmarks properly through
-    // OverlayView. Only one result is expected at a time. If two or more
-    // hands are seen in the camera frame, only one will be processed.
-    override fun onResults(
-        resultBundle: GestureRecognizerHelper.ResultBundle
-    ) {
+    // Callback for gesture recognition results
+    override fun onResults(resultBundle: GestureRecognizerHelper.ResultBundle) {
         activity?.runOnUiThread {
-            if (_fragmentCameraBinding != null) {
-                // Show result of recognized gesture
-                val gestureCategories = resultBundle.results.first().gestures()
-                if (gestureCategories.isNotEmpty()) {
-                    gestureRecognizerResultAdapter.updateResults(
-                        gestureCategories.first()
-                    )
+            if (_fragmentCameraBinding == null) return@runOnUiThread
+
+            val currentGesture = resultBundle.results.first().gestures()
+                .firstOrNull()?.maxByOrNull { it.score() }
+                ?.takeIf { it.score() >= MIN_CONFIDENCE }
+                ?.categoryName()
+
+            currentGesture?.let { gesture ->
+                fragmentCameraBinding.currentGesture.text = gesture
+
+                if (gesture != lastGesture) {
+                    lastGesture = gesture
+                    gestureStartTime = System.currentTimeMillis()
+                    gestureHandler.removeCallbacks(gestureStabilityRunnable)
+                    gestureHandler.postDelayed(gestureStabilityRunnable, GESTURE_HOLD_DURATION)
+
+                    fragmentCameraBinding.gestureProgress.visibility = View.VISIBLE
+                    fragmentCameraBinding.gestureProgress.progress = 0
                 } else {
-                    gestureRecognizerResultAdapter.updateResults(emptyList())
+                    val progress = ((System.currentTimeMillis() - gestureStartTime) /
+                            GESTURE_HOLD_DURATION.toFloat()).coerceAtMost(1f)
+                    (fragmentCameraBinding.gestureProgress as CircularProgressIndicator).progress =
+                        (progress * 100).toInt()
                 }
-
-
-                // Pass necessary information to OverlayView for drawing on the canvas
-                fragmentCameraBinding.overlay.setResults(
-                    resultBundle.results.first(),
-                    resultBundle.inputImageHeight,
-                    resultBundle.inputImageWidth,
-                    RunningMode.LIVE_STREAM
-                )
-
-                // Force a redraw
-                fragmentCameraBinding.overlay.invalidate()
+            } ?: run {
+                resetGestureDetection()
             }
+
+            updateOverlay(resultBundle)
         }
     }
 
+    // Called when a gesture is held long enough
+    private fun onGestureStabilized() {
+        if (!isCapturing) return
+
+        lastGesture?.let { gesture ->
+            concatenatedLetters.append(gesture)
+            updateTextDisplay()
+
+            fragmentCameraBinding.currentGesture.animate()
+                .scaleY(1.5f)
+                .scaleX(1.5f)
+                .setDuration(200)
+                .withEndAction {
+                    fragmentCameraBinding.currentGesture.animate()
+                        .scaleY(1f)
+                        .scaleX(1f)
+                        .setDuration(200)
+                        .start()
+                }
+                .start()
+
+            gestureHandler.postDelayed({ resetGestureDetection() }, GESTURE_COOLDOWN)
+        }
+    }
+
+    // Reset current gesture state
+    private fun resetGestureDetection() {
+        lastGesture = null
+        with(fragmentCameraBinding) {
+            currentGesture.text = ""
+            gestureProgress.visibility = View.INVISIBLE
+        }
+        gestureHandler.removeCallbacks(gestureStabilityRunnable)
+    }
+
+    // Draw overlay landmarks and gesture annotations
+    private fun updateOverlay(resultBundle: GestureRecognizerHelper.ResultBundle) {
+        fragmentCameraBinding.overlay.setResults(
+            resultBundle.results.first(),
+            resultBundle.inputImageHeight,
+            resultBundle.inputImageWidth,
+            RunningMode.LIVE_STREAM
+        )
+        fragmentCameraBinding.overlay.invalidate()
+    }
+
+    // Handle errors from gesture recognizer
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
-            gestureRecognizerResultAdapter.updateResults(emptyList())
-
-
+            Toast.makeText(requireContext(), getString(R.string.error_prefix) + error, Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "Recognition error: $error (Code: $errorCode)")
+            resetGestureDetection()
         }
+    }
+
+    // Clean up resources when view is destroyed
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragmentCameraBinding = null
+
+        gestureHandler.removeCallbacks(gestureStabilityRunnable)
+        backgroundExecutor.shutdown()
+        backgroundExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)
     }
 }
