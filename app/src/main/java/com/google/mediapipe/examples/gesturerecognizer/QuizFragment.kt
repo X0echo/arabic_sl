@@ -1,7 +1,5 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
-import ResultActivity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +9,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.VideoView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import android.widget.VideoView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.firebase.storage.FirebaseStorage
-
+import com.google.mediapipe.examples.gesturerecognizer.fragment.ResultFragment
 
 class QuizFragment : Fragment() {
+
     private var currentHiddenIndex: Int? = null
     private lateinit var videoView: VideoView
     private lateinit var optionImages: List<ImageView>
@@ -26,21 +25,21 @@ class QuizFragment : Fragment() {
     private lateinit var optionLayouts: List<LinearLayout>
     private lateinit var hintButton: Button
     private lateinit var storage: FirebaseStorage
+
     data class Option(val imageRes: Int, val label: String)
 
     data class Question(
         val videoPath: String,
         val options: List<Option>,
         val correctIndex: Int,
-        val mute: Boolean = false,
+        val mute: Boolean = false
+    )
 
-        )
     private var questions: List<Question> = listOf()
     private var currentIndex = 0
     private var score = 0
     private var hasAnswered = false
     private var hintUsed = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,28 +88,18 @@ class QuizFragment : Fragment() {
 
                 if (isCorrect) {
                     layout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            android.R.color.holo_green_light
-                        )
+                        ContextCompat.getColor(requireContext(), android.R.color.holo_green_light)
                     )
                     score++
                 } else {
                     layout.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            android.R.color.holo_red_light
-                        )
+                        ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
                     )
-
-                    optionLayouts[questions[currentIndex].correctIndex]
-                        .setBackgroundColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                android.R.color.holo_green_light
-                            )
-                        )
+                    optionLayouts[questions[currentIndex].correctIndex].setBackgroundColor(
+                        ContextCompat.getColor(requireContext(), android.R.color.holo_green_light)
+                    )
                 }
+
                 layout.startAnimation(scaleAnim)
 
                 layout.postDelayed({
@@ -118,7 +107,7 @@ class QuizFragment : Fragment() {
                     if (currentIndex < questions.size) {
                         loadQuestion()
                     } else {
-                        showScoreActivity()
+                        showScoreFragment()
                     }
                 }, 1000)
             }
@@ -130,15 +119,10 @@ class QuizFragment : Fragment() {
             hintButton.isEnabled = false
 
             val question = questions[currentIndex]
-
-            // Trouver toutes les mauvaises réponses
             val wrongAnswers = optionLayouts.indices.filter { it != question.correctIndex }
-
-            // Choisir et cacher une mauvaise réponse au hasard
             currentHiddenIndex = wrongAnswers.random()
             optionLayouts[currentHiddenIndex!!].visibility = View.GONE
         }
-
     }
 
     private fun loadQuestion() {
@@ -150,20 +134,12 @@ class QuizFragment : Fragment() {
 
         optionLayouts.forEach {
             it.visibility = View.VISIBLE
-            it.alpha = 1f  // Très important si tu utilises animate().alpha()
-            it.setBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.transparent
-                )
-            )
+            it.alpha = 1f
+            it.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
         }
 
-
-        // Charger la vidéo depuis Firebase Storage
         loadVideoFromFirebase(question.videoPath)
 
-        // Chargement des options de réponse
         question.options.forEachIndexed { i, option ->
             optionImages[i].setImageResource(option.imageRes)
             optionTexts[i].text = option.label
@@ -171,21 +147,17 @@ class QuizFragment : Fragment() {
     }
 
     private fun loadVideoFromFirebase(videoPath: String) {
-        // Arrêter et réinitialiser l’ancienne vidéo
+        // Arrêter l’ancienne lecture
         videoView.stopPlayback()
         videoView.setVideoURI(null)
-        videoView.setMediaController(null) // empêche l’apparition de barres de contrôle
+        videoView.setMediaController(null) // pas de contrôles visibles
 
-        // Référencer le fichier dans Firebase Storage
+        // Référencer le fichier Firebase Storage
         val storageRef = storage.reference.child(videoPath)
 
         // Télécharger l’URL de la vidéo
         storageRef.downloadUrl.addOnSuccessListener { uri ->
-            // Redimensionner le VideoView
-            val layoutParams = videoView.layoutParams
-            layoutParams.width = 800
-            layoutParams.height = 500
-            videoView.layoutParams = layoutParams
+            // Ne change PAS les dimensions ici → le layout XML s’en charge
 
             // Charger la nouvelle vidéo
             videoView.setVideoURI(uri)
@@ -201,14 +173,12 @@ class QuizFragment : Fragment() {
         }
     }
 
-
-
-    private fun showScoreActivity() {
-        val intent = Intent(requireContext(), ResultActivity::class.java)
-        intent.putExtra("SCORE", score)
-        intent.putExtra("TOTAL", questions.size)
-        startActivity(intent)
-        requireActivity().finish()
+    private fun showScoreFragment() {
+        val resultFragment = ResultFragment.newInstance(score, questions.size)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, resultFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private val sampleQuestions = listOf(

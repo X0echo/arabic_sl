@@ -20,8 +20,8 @@ class TrainFragment : Fragment() {
 
         val lettersButton = view.findViewById<MaterialButton>(R.id.lettersButton)
         val numbersButton = view.findViewById<MaterialButton>(R.id.numbersButton)
-        val challengesButton = view.findViewById<MaterialButton>(R.id.challengesButton)
         val wordsButton = view.findViewById<MaterialButton>(R.id.wordsButton)
+        val challengesButton = view.findViewById<MaterialButton>(R.id.challengesButton)
         val quizButton = view.findViewById<MaterialButton>(R.id.quizButton)
 
         lettersButton.setOnClickListener {
@@ -32,14 +32,16 @@ class TrainFragment : Fragment() {
             replaceFragment(NumberCameraFragment())
         }
 
+        wordsButton.setOnClickListener {
+            // TODO: Replace with your actual fragment
+            replaceFragment(WordCameraFragment())
+        }
+
         challengesButton.setOnClickListener {
             replaceFragment(ChallengesTypeFragment())
         }
 
-        wordsButton.setOnClickListener {
-            // TODO: Replace with your actual fragment
-            replaceFragment(LetterCameraFragment())
-        }
+
 
         quizButton.setOnClickListener {
             // TODO: Replace with your actual fragment
@@ -56,8 +58,8 @@ class TrainFragment : Fragment() {
 
         val cardLetters = view.findViewById<CardView>(R.id.card_letters)
         val cardNumbers = view.findViewById<CardView>(R.id.card_numbers)
-        val cardChallenges = view.findViewById<CardView>(R.id.card_challenges)
         val cardWords = view.findViewById<CardView>(R.id.card_words)
+        val cardChallenges = view.findViewById<CardView>(R.id.card_challenges)
         val cardQuiz = view.findViewById<CardView>(R.id.card_quiz)
 
         cardLetters.startAnimation(fadeIn)

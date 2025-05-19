@@ -33,4 +33,5 @@
 
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryLight">#BB86FC</color>
+    <color name="red">#F44336</color>
 </resources>

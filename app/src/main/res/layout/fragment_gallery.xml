@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
     ~ Copyright 2022 The TensorFlow Authors. All Rights Reserved.
     ~
@@ -14,15 +15,37 @@
     ~ See the License for the specific language governing permissions and
     ~ limitations under the License.
 -->
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Barre supérieure avec bouton de retour à la caméra -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#80000000"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageButton
+            android:id="@+id/btn_back_to_camera"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription=""
+            android:src="@drawable/ic_baseline_photo_camera_24"
+            app:tint="@android:color/white"/>
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/bottom_sheet_peek_height">
+        android:layout_marginTop="72dp"> <!-- Marge pour laisser de l'espace pour la barre supérieure -->
 
         <TextView
             android:id="@+id/tvPlaceholder"
@@ -30,12 +53,12 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/tv_gallery_placeholder"
+            android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/bottom_sheet_peek_height">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageResult"
@@ -67,6 +90,18 @@
                 android:theme="@style/AppThemeProgressStyle"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/resultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/bottom_sheet_background"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -74,36 +109,11 @@
         android:id="@+id/fabGetContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
         android:backgroundTint="@color/mp_color_primary"
         android:contentDescription="@null"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_anchor="@id/recyclerview_results"
-        app:layout_anchorGravity="top|right"
-        app:tint="@android:color/white"
+        app:tint="@color/bottom_sheet_text_color"
         app:useCompatPadding="true" />
-
-    <include
-        android:id="@+id/bottom_sheet_layout"
-        layout="@layout/info_bottom_sheet" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_results"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginBottom="@dimen/bottom_sheet_peek_height"
-        android:background="@color/bottom_sheet_background"
-        android:clipToPadding="true"
-        android:padding="@dimen/bottom_sheet_padding"
-        app:layout_anchor="@id/bottom_sheet_layout"
-        app:layout_anchorGravity="top"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/mp_color_primary"
-        app:layout_anchor="@id/recyclerview_results"
-        app:layout_anchorGravity="bottom" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
