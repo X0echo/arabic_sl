@@ -8,7 +8,8 @@ import android.view.animation.AnimationUtils
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
-import com.google.mediapipe.examples.gesturerecognizer.fragment.ChallengesCameraFragment
+import com.google.mediapipe.examples.gesturerecognizer.fragment.LettersChallengeFragment
+import com.google.mediapipe.examples.gesturerecognizer.fragment.NumbersChallengeFragment
 
 
 class ChallengesTypeFragment : Fragment() {
@@ -24,15 +25,15 @@ class ChallengesTypeFragment : Fragment() {
         val wordsBtn = view.findViewById<MaterialButton>(R.id.words_challenges)
 
         lettersBtn.setOnClickListener {
-            replaceFragment(ChallengesCameraFragment())
+            replaceFragment(LettersChallengeFragment())
         }
 
         numbersBtn.setOnClickListener {
-            replaceFragment(ChallengesCameraFragment())
+            replaceFragment(NumbersChallengeFragment())
         }
 
         wordsBtn.setOnClickListener {
-            replaceFragment(ChallengesCameraFragment())
+            replaceFragment(LettersChallengeFragment())
         }
 
         return view

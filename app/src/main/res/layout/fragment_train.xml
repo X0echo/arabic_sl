@@ -1,303 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/challenges_type_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E1E1E"
-    android:fillViewport="true">
+    android:background="@color/mp_color_background"
+    android:padding="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutDirection="ltr"
-        android:padding="20dp">
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <Space
-            android:id="@+id/topSpacer"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:id="@+id/train_title"
-            android:layout_width="wrap_content"
+        <!-- Training Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_training"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_trainFr"
-            android:textSize="22sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="sans-serif-medium"
-            app:layout_constraintTop_toBottomOf="@id/topSpacer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
-
-        <!-- Letters Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_letters"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2D2D2D"
-            app:layout_constraintTop_toBottomOf="@id/train_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp">
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/mp_color_primary_variant">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="14dp">
-
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/ic_letters"
-                    app:tint="#2196F3" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lettreTxt"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sub_lettre"
-                    android:textSize="11sp"
-                    android:textColor="#B0B0B0"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/lettersButton"
+                    android:id="@+id/btn_training_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="-100dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:contentDescription="تدريب الحروف"/>
+                    android:layout_height="56dp"
+                    android:text="التدريبات"
+                    android:textSize="18sp"
+                    android:textColor="@color/mp_color_primary"
+                    app:icon="@drawable/ic_arrow_down"
+                    app:iconTint="@color/mp_color_primary"
+                    app:iconGravity="end"
+                    app:strokeColor="@color/mp_color_primary"
+                    app:strokeWidth="1dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+                <LinearLayout
+                    android:id="@+id/sub_buttons_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/lettersButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="الحروف"
+                        android:textSize="16sp"
+                        android:textColor="@color/mp_color_primary"
+                        app:icon="@drawable/ic_letters"
+                        app:iconTint="@color/mp_color_primary"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/numbersButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="الأرقام"
+                        android:textSize="16sp"
+                        android:textColor="@color/mp_color_primary"
+                        app:icon="@drawable/ic_numbers"
+                        app:iconTint="@color/mp_color_primary"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/wordsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="الكلمات"
+                        android:textSize="16sp"
+                        android:textColor="@color/mp_color_primary"
+                        app:icon="@drawable/ic_words"
+                        app:iconTint="@color/mp_color_primary"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Numbers Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_numbers"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2D2D2D"
-            app:layout_constraintTop_toBottomOf="@id/card_letters"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="14dp">
-
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/ic_numbers"
-                    app:tint="#FF9800" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/numbers_txt"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="تعلم إشارات الأرقام من ٠ إلى ٩"
-                    android:textSize="11sp"
-                    android:textColor="#B0B0B0"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/numbersButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="-100dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:contentDescription="تدريب الأرقام"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Words Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_words"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2D2D2D"
-            app:layout_constraintTop_toBottomOf="@id/card_numbers"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="14dp">
-
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/ic_letters"
-                    app:tint="#03A9F4" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/words_txt"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="تعلم إشارات الكلمات الشائعة"
-                    android:textSize="11sp"
-                    android:textColor="#B0B0B0"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/wordsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="-100dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:contentDescription="الكلمات"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Challenges Card -->
+        <!-- Challenges Section -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_challenges"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2D2D2D"
-            app:layout_constraintTop_toBottomOf="@id/card_words"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/mp_color_primary_variant">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="14dp">
-
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/ic_challenges"
-                    app:tint="#9C27B0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chaleng_txt"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="اختبر مهاراتك مع تحديات لغة الإشارة"
-                    android:textSize="11sp"
-                    android:textColor="#B0B0B0"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/challengesButton"
+                    android:id="@+id/btn_challenges_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="-100dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:contentDescription="تدريب التحديات"/>
+                    android:layout_height="56dp"
+                    android:text="التحديات"
+                    android:textSize="18sp"
+                    android:textColor="@color/mp_color_primary"
+                    app:icon="@drawable/ic_arrow_down"
+                    app:iconTint="@color/mp_color_primary"
+                    app:iconGravity="end"
+                    app:strokeColor="@color/mp_color_primary"
+                    app:strokeWidth="1dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+                <LinearLayout
+                    android:id="@+id/challenges_sub_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/letters_challenge_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="تحدي الحروف"
+                        android:textSize="16sp"
+                        android:textColor="@color/mp_color_primary"
+                        app:icon="@drawable/ic_letters"
+                        app:iconTint="@color/mp_color_primary"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/numbers_challenge_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="تحدي الأرقام"
+                        android:textSize="16sp"
+                        android:textColor="@color/mp_color_primary"
+                        app:icon="@drawable/ic_numbers"
+                        app:iconTint="@color/mp_color_primary"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Quiz Card -->
+        <!-- Quiz Section -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_quiz"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#2D2D2D"
-            app:layout_constraintTop_toBottomOf="@id/card_challenges"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="24dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/mp_color_primary_variant">
 
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/quizButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?attr/selectableItemBackground"
-                android:padding="14dp">
+                android:layout_height="56dp"
+                android:text="الإختبارات"
+                android:textSize="18sp"
+                android:textColor="@color/mp_color_primary"
+                app:icon="@drawable/ic_quiz"
+                app:iconTint="@color/mp_color_primary"
+                app:strokeColor="@color/mp_color_primary"
+                app:strokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:src="@drawable/ic_letters"
-                    app:tint="#4CAF50" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/quiz_txt"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="اختبر نفسك بأسئلة عن لغة الإشارة"
-                    android:textSize="11sp"
-                    android:textColor="#B0B0B0"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/quizButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:layout_marginTop="-100dp"
-                    app:backgroundTint="@android:color/transparent"
-                    android:contentDescription="الاختبار"/>
-            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

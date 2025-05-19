@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/challenge_container"
     android:layout_width="match_parent"
@@ -20,9 +21,9 @@
         android:layout_height="match_parent"
         app:scaleType="fillStart" />
 
-    <!-- Challenge Navbar: placed after camera + overlay to appear ON TOP -->
-    <com.google.mediapipe.examples.gesturerecognizer.ChallengesNavbarView
-        android:id="@+id/challengesNavbarView"
+    <!-- Navbar Container (Will hold either letters/numbers navbar) -->
+    <FrameLayout
+        android:id="@+id/challengesNavbarViewContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
