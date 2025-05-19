@@ -1,6 +1,0 @@
-com.google.mediapipe.examples.gesturerecognizer.test.app-core-1.5.0-0 /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/5b66f9ed666c08fab5b1f50db0be03dd/transformed/core-1.5.0/res
-com.google.mediapipe.examples.gesturerecognizer.test.app-annotation-experimental-1.3.1-1 /Users/sidoubrahami/.gradle/caches/8.10.2/transforms/9d54c9dbd28def270513196483323535/transformed/annotation-experimental-1.3.1/res
-com.google.mediapipe.examples.gesturerecognizer.test.app-androidTest-2 /Users/sidoubrahami/arabic_sl/app/build/generated/res/resValues/androidTest/debug
-com.google.mediapipe.examples.gesturerecognizer.test.app-mergeDebugAndroidTestResources-3 /Users/sidoubrahami/arabic_sl/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.google.mediapipe.examples.gesturerecognizer.test.app-mergeDebugAndroidTestResources-4 /Users/sidoubrahami/arabic_sl/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.google.mediapipe.examples.gesturerecognizer.test.app-debugAndroidTest-5 /Users/sidoubrahami/arabic_sl/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

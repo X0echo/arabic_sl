@@ -1,3 +1,0 @@
-com.google.mediapipe.examples.gesturerecognizer.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
