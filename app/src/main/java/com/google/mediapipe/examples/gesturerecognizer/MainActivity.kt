@@ -1,22 +1,26 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.sl.HomeFragment
+import com.google.mediapipe.examples.gesturerecognizer.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
+    private val prefsName = "app_prefs"
+    private val firstLaunchKey = "first_launch"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Configuration de la locale en arabe
+        // Set Arabic locale
         Locale.setDefault(Locale("ar"))
         val config = Configuration()
         config.setLocale(Locale("ar"))
@@ -24,9 +28,16 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        // First launch check
+        val sharedPrefs = getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+        if (sharedPrefs.getBoolean(firstLaunchKey, true)) {
+            showWelcomeDialog()
+            sharedPrefs.edit().putBoolean(firstLaunchKey, false).apply()
+        }
+
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Chargement initial sans animation
+        // Initial fragment load
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment())
@@ -42,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun showWelcomeDialog() {
+        val dialog = WelcomeDialogFragment()
+        dialog.show(supportFragmentManager, "WelcomeDialog")
     }
 
     private fun switchFragment(fragment: Fragment) {

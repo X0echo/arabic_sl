@@ -45,7 +45,7 @@ class PermissionsFragment : Fragment() {
 
     private fun navigateToMainFragment() {
         Navigation.findNavController(requireActivity(), R.id.fragment_container)
-            .navigate(R.id.action_permissions_to_home)
+            .navigate(R.id.action_welcome_to_home)
     }
 
     companion object {

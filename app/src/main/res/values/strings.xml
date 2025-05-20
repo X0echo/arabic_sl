@@ -86,8 +86,28 @@
     <string name="quiz_txt">اختبارات</string>
     <string name="sub_quiz">اختبر معرفتك بلغة الإشارة</string>
 
+
+    <string name="continue_text">متابعة</string>
+    <string name="welcome_title">مرحبًا بك في تطبيق لوما</string>
+    <string name="welcome_message">الاستخدام بعض  المزايا، نحتاج إلى الوصول إلى الكاميرا الخاصة بك للتعرف على الإيماءات. تتم معالجة الفيديو محليًا ولا يتم تخزينه أبدًا.</string>
+    <string name="permission_rationale_title">الكاميرا مطلوبة</string>
+    <string name="permission_rationale_message">يستخدم هذا التطبيق الكاميرا لاكتشاف إيماءات اليد. يرجى السماح بالوصول إلى الكاميرا للمتابعة.</string>
+    <string name="allow">سماح</string>
+    <string name="cancel">إلغاء</string>
+    <string name="permission_denied_title">الإذن مطلوب</string>
+    <string name="permission_denied_message">لقد قمت برفض إذن الكاميرا. يرجى تمكينه من إعدادات التطبيق لاستخدام هذه الميزة.</string>
+    <string name="open_settings">فتح الإعدادات</string>
+    <string name="permission_required_toast">يتطلب هذا التطبيق إذن الكاميرا لاستخدامه</string>
+
+
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>
         <item>GPU</item>
     </string-array>
+
+
+
+
+
+
 </resources>

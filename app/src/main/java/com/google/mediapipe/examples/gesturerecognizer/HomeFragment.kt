@@ -1,4 +1,4 @@
-package com.example.sl
+package com.google.mediapipe.examples.gesturerecognizer
 
 import android.os.Bundle
 import android.view.LayoutInflater
