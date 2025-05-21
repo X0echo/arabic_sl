@@ -1,18 +1,3 @@
-/*
- * Copyright 2022 The TensorFlow Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *             http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.google.mediapipe.examples.gesturerecognizer.fragment
 
 import android.annotation.SuppressLint
@@ -30,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.mediapipe.examples.gesturerecognizer.GestureRecognizerHelper
+import com.google.mediapipe.examples.gesturerecognizer.ColorRecognizerHelper
 import com.google.mediapipe.examples.gesturerecognizer.MainViewModel
 import com.google.mediapipe.examples.gesturerecognizer.R
 import com.google.mediapipe.examples.gesturerecognizer.databinding.WordFragmentCameraBinding
@@ -40,21 +25,21 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 class WordCameraFragment : Fragment(),
-    GestureRecognizerHelper.GestureRecognizerListener {
+    ColorRecognizerHelper.ColorRecognizerListener {
 
     companion object {
-        private const val TAG = "WordGestureRecognizer"
+        private const val TAG = "ColorCameraFragment"
     }
 
     private var _wordFragmentCameraBinding: WordFragmentCameraBinding? = null
     private val wordFragmentCameraBinding
         get() = _wordFragmentCameraBinding!!
 
-    private lateinit var gestureRecognizerHelper: GestureRecognizerHelper
+    private lateinit var colorRecognizerHelper: ColorRecognizerHelper
     private val viewModel: MainViewModel by activityViewModels()
     private var defaultNumResults = 1
-    private val gestureRecognizerResultAdapter: GestureRecognizerResultsAdapter by lazy {
-        GestureRecognizerResultsAdapter().apply {
+    private val colorRecognizerResultAdapter: ColorRecognizerResultsAdapter by lazy {
+        ColorRecognizerResultsAdapter().apply {
             updateAdapterSize(defaultNumResults)
         }
     }
@@ -63,26 +48,22 @@ class WordCameraFragment : Fragment(),
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var cameraFacing = CameraSelector.LENS_FACING_FRONT
-
-    /** Blocking ML operations are performed using this executor */
     private lateinit var backgroundExecutor: ExecutorService
 
     override fun onPause() {
         super.onPause()
-        if (this::gestureRecognizerHelper.isInitialized) {
-            viewModel.setMinHandDetectionConfidence(gestureRecognizerHelper.minHandDetectionConfidence)
-            viewModel.setMinHandTrackingConfidence(gestureRecognizerHelper.minHandTrackingConfidence)
-            viewModel.setMinHandPresenceConfidence(gestureRecognizerHelper.minHandPresenceConfidence)
-            viewModel.setDelegate(gestureRecognizerHelper.currentDelegate)
-
-            backgroundExecutor.execute { gestureRecognizerHelper.clearGestureRecognizer() }
+        if (this::colorRecognizerHelper.isInitialized) {
+            viewModel.setMinHandDetectionConfidence(colorRecognizerHelper.minHandDetectionConfidence)
+            viewModel.setMinHandTrackingConfidence(colorRecognizerHelper.minHandTrackingConfidence)
+            viewModel.setMinHandPresenceConfidence(colorRecognizerHelper.minHandPresenceConfidence)
+            viewModel.setDelegate(colorRecognizerHelper.currentDelegate)
+            backgroundExecutor.execute { colorRecognizerHelper.clearGestureRecognizer() }
         }
     }
 
     override fun onDestroyView() {
         _wordFragmentCameraBinding = null
         super.onDestroyView()
-
         backgroundExecutor.shutdown()
         backgroundExecutor.awaitTermination(
             Long.MAX_VALUE, TimeUnit.NANOSECONDS
@@ -104,7 +85,7 @@ class WordCameraFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         with(wordFragmentCameraBinding.recyclerviewResults) {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = gestureRecognizerResultAdapter
+            adapter = colorRecognizerResultAdapter
         }
 
         backgroundExecutor = Executors.newSingleThreadExecutor()
@@ -114,14 +95,14 @@ class WordCameraFragment : Fragment(),
         }
 
         backgroundExecutor.execute {
-            gestureRecognizerHelper = GestureRecognizerHelper(
-                context = requireContext(),
-                runningMode = RunningMode.LIVE_STREAM,
-                minHandDetectionConfidence = viewModel.currentMinHandDetectionConfidence,
-                minHandTrackingConfidence = viewModel.currentMinHandTrackingConfidence,
-                minHandPresenceConfidence = viewModel.currentMinHandPresenceConfidence,
-                currentDelegate = viewModel.currentDelegate,
-                gestureRecognizerListener = this
+            colorRecognizerHelper = ColorRecognizerHelper(
+                viewModel.currentMinHandDetectionConfidence,
+                viewModel.currentMinHandTrackingConfidence,
+                viewModel.currentMinHandPresenceConfidence,
+                viewModel.currentDelegate,
+                RunningMode.LIVE_STREAM,
+                requireContext(),
+                this@WordCameraFragment
             )
         }
     }
@@ -157,7 +138,7 @@ class WordCameraFragment : Fragment(),
                 .build()
                 .also {
                     it.setAnalyzer(backgroundExecutor) { image ->
-                        recognizeHand(image)
+                        recognizeColor(image)
                     }
                 }
 
@@ -173,8 +154,8 @@ class WordCameraFragment : Fragment(),
         }
     }
 
-    private fun recognizeHand(imageProxy: ImageProxy) {
-        gestureRecognizerHelper.recognizeLiveStream(
+    private fun recognizeColor(imageProxy: ImageProxy) {
+        colorRecognizerHelper.recognizeLiveStream(
             imageProxy = imageProxy,
         )
     }
@@ -186,22 +167,22 @@ class WordCameraFragment : Fragment(),
     }
 
     override fun onResults(
-        resultBundle: GestureRecognizerHelper.ResultBundle
+        resultBundle: ColorRecognizerHelper.ResultBundle
     ) {
         activity?.runOnUiThread {
             if (_wordFragmentCameraBinding != null) {
-                val gestureCategories = resultBundle.results.first().gestures()
-                if (gestureCategories.isNotEmpty()) {
-                    gestureRecognizerResultAdapter.updateResults(
-                        gestureCategories.first()
+                val colorCategories = resultBundle.results.first().gestures()
+                if (colorCategories.isNotEmpty()) {
+                    colorRecognizerResultAdapter.updateResults(
+                        colorCategories.first()
                     )
-                    val (recognizedLetter, confidence) = gestureRecognizerResultAdapter.getCurrentLetterAndScore(0)
-                    wordFragmentCameraBinding.arabicWordNavbarView.onLetterRecognized(
-                        recognizedLetter ?: "",
+                    val (recognizedColor, confidence) = colorRecognizerResultAdapter.getCurrentColorAndScore(0)
+                    wordFragmentCameraBinding.arabicWordNavbarView.onColorRecognized(
+                        recognizedColor ?: "",
                         confidence ?: 0f
                     )
                 } else {
-                    gestureRecognizerResultAdapter.updateResults(emptyList())
+                    colorRecognizerResultAdapter.updateResults(emptyList())
                 }
 
                 wordFragmentCameraBinding.overlay.setResults(
@@ -219,7 +200,7 @@ class WordCameraFragment : Fragment(),
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
-            gestureRecognizerResultAdapter.updateResults(emptyList())
+            colorRecognizerResultAdapter.updateResults(emptyList())
         }
     }
 }

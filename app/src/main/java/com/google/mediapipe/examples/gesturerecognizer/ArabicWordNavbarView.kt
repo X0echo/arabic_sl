@@ -27,14 +27,19 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     private var confidenceThreshold = 0.8f
     private var mediaPlayer: MediaPlayer? = null
 
-    private val arabicWords = listOf(
-        "اب", "حب", "شمس", "كتاب", "مدرسة",
-        "سيارة", "تفاحة", "جزيرة", "وردة", "سفر"
+    private var completionRunnable: Runnable? = null
+
+    // Use Pair(display name, list of gesture parts)
+    private val colorSequences = listOf(
+        "احمر" to listOf("احمر"),
+        "أزرق" to listOf("أزرق"),
+        "بنفسجي" to listOf("بنفسجيا", "بنفسجيب"),
+        "أخضر" to listOf("أخضر"),
+        "أصفر" to listOf("أصفر"),
+        "وردي" to listOf("وردي")
     )
 
-    init {
-        initView()
-    }
+    init { initView() }
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.arabic_word_navbar, this, true)
@@ -42,19 +47,14 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         skipButton = findViewById(R.id.skipWordButton)
         feedbackView = findViewById(R.id.feedbackText)
 
-        recyclerView.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         setupAdapter(0)
         setupSkipButton()
         updateSkipButton()
     }
 
     private fun setupAdapter(startIndex: Int) {
-        adapter = WordAdapter(arabicWords, startIndex)
+        adapter = WordAdapter(colorSequences, startIndex)
         recyclerView.adapter = adapter
     }
 
@@ -65,65 +65,77 @@ class ArabicWordNavbarView @JvmOverloads constructor(
                 adapter.skipToNextWord()
                 updateSkipButton()
                 scrollToCurrent()
-                timeoutRunnable?.let { it1 -> handler.removeCallbacks(it1) } // Reset timer on skip
+                resetTimeout()
             }
         }
     }
 
-    fun onLetterRecognized(letter: String, confidence: Float) {
-        val targetLetter = adapter.getCurrentLetter()?.toString() ?: return
+    fun onColorRecognized(color: String, confidence: Float) {
+        val targetGesture = adapter.getCurrentGesture() ?: return
 
         when {
-            confidence < confidenceThreshold -> {
-                showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
-                adapter.markLetterIncorrect()
+            confidence < confidenceThreshold -> handleLowConfidence(confidence)
+            color == targetGesture -> handleCorrectGesture()
+            else -> handleIncorrectGesture()
+        }
+    }
+
+    private fun handleLowConfidence(confidence: Float) {
+        showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
+        adapter.markGestureIncorrect()
+    }
+
+    private fun handleCorrectGesture() {
+        resetTimeout()
+        adapter.markGestureSuccess()
+        if (adapter.currentGestureIndex == 0) {
+            checkSequenceCompletion()
+        } else {
+            showNextGesturePrompt()
+            startTimeoutTimer()
+        }
+    }
+
+    private fun handleIncorrectGesture() {
+        adapter.markGestureIncorrect()
+        if (adapter.retryCount > 1) handleSequenceFailure()
+    }
+
+    private fun checkSequenceCompletion() {
+        completionRunnable?.let { handler.removeCallbacks(it) }
+        if (adapter.currentWordIndex < colorSequences.size - 1) {
+            completionRunnable = Runnable {
+                adapter.skipToNextWord()
+                scrollToCurrent()
             }
-            letter == targetLetter -> handleCorrectLetter()
-            else -> handleIncorrectLetter()
+            handler.postDelayed(completionRunnable!!, 1000)
+        } else {
+            showTemporaryFeedback("أحسنت! اكتملت جميع الألوان!")
         }
     }
 
-    private fun handleCorrectLetter() {
-        timeoutRunnable?.let { handler.removeCallbacks(it) }
-        adapter.markLetterSuccess()
+    private fun showNextGesturePrompt() {
+        val nextGesture = adapter.getCurrentGesture()
+        showTemporaryFeedback("الجزء التالي: $nextGesture")
+    }
+
+    private fun handleSequenceFailure() {
+        showTemporaryFeedback("!خطأ في التسلسل، إعادة المحاولة")
+        adapter.resetSequence()
         startTimeoutTimer()
-        checkWordCompletion()
-    }
-
-    private fun handleIncorrectLetter() {
-        adapter.markLetterIncorrect()
-        if (adapter.retryCount > 1) {
-            showTemporaryFeedback("تسلسل خاطئ! إعادة التعيين...")
-            handleWordFailure()
-        }
     }
 
     private fun startTimeoutTimer() {
         timeoutRunnable?.let { handler.removeCallbacks(it) }
         timeoutRunnable = Runnable {
-            showTemporaryFeedback("انتهى الوقت! إعادة التعيين...")
-            adapter.resetWord()
+            showTemporaryFeedback("!انتهى الوقت، إعادة التسلسل")
+            adapter.resetSequence()
         }
         handler.postDelayed(timeoutRunnable!!, 5000)
     }
 
-    private fun checkWordCompletion() {
-        if (adapter.currentLetterIndex >= adapter.getCurrentWord().length) {
-            playSuccessSound()
-            handler.postDelayed({
-                if (adapter.currentWordIndex < arabicWords.size - 1) {
-                    adapter.skipToNextWord()
-                    scrollToCurrent()
-                } else {
-                    showTemporaryFeedback("أحسنت! اكتملت جميع الكلمات!")
-                }
-            }, 1500)
-        }
-    }
-
-    private fun handleWordFailure() {
-        adapter.resetWord()
-        startTimeoutTimer()
+    private fun resetTimeout() {
+        timeoutRunnable?.let { handler.removeCallbacks(it) }
     }
 
     private fun scrollToCurrent() {

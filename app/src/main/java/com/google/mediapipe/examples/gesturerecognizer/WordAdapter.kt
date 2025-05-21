@@ -1,4 +1,3 @@
-// 1. Updated WordAdapter.kt
 package com.google.mediapipe.examples.gesturerecognizer
 
 import android.graphics.Color
@@ -11,14 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class WordAdapter(
-    private val words: List<String>,
+    private val wordData: List<Pair<String, List<String>>>,
     var currentWordIndex: Int
 ) : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
-    private val successfulWords = mutableSetOf<Int>()
-    var currentLetterIndex = 0
+    private val successfulGestures = mutableSetOf<Pair<Int, Int>>()
+    var currentGestureIndex = 0
     var retryCount = 0
-    private val letterStates = mutableMapOf<Pair<Int, Int>, LetterState>()
+    private val gestureStates = mutableMapOf<Pair<Int, Int>, LetterState>()
 
     enum class LetterState { PENDING, CORRECT, INCORRECT }
 
@@ -28,69 +27,75 @@ class WordAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_arabic_word, parent, false)
-        return WordViewHolder(view)
+        return WordViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_arabic_word, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        val word = words[position]
-        val spannable = SpannableString(word)
+        val (displayName, gestureParts) = wordData[position]
 
-        // Apply letter backgrounds
-        word.forEachIndexed { index, _ ->
-            val state = letterStates[position to index] ?: LetterState.PENDING
-            val color = when (state) {
-                LetterState.CORRECT -> Color.GREEN
-                LetterState.INCORRECT -> Color.RED
-                LetterState.PENDING -> Color.TRANSPARENT
-            }
-            spannable.setSpan(
-                BackgroundColorSpan(color),
-                index,
-                index + 1,
-                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+        // Color coding based on current gesture state
+        val state = gestureStates[position to currentGestureIndex]
+        val backgroundColor = when (state) {
+            LetterState.CORRECT -> Color.GREEN
+            LetterState.INCORRECT -> Color.RED
+            else -> Color.TRANSPARENT
         }
 
-        holder.wordText.text = spannable
-        holder.progressText.text = if (position == currentWordIndex) {
-            "${currentLetterIndex + 1}/${word.length}"
-        } else ""
+        val spannable = SpannableString(displayName)
+        spannable.setSpan(
+            BackgroundColorSpan(backgroundColor),
+            0, displayName.length,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        with(holder) {
+            wordText.text = spannable
+            progressText.text = if (position == currentWordIndex) {
+                "${currentGestureIndex + 1}/${gestureParts.size}"
+            } else ""
+        }
     }
 
-    fun getCurrentWord(): String = words[currentWordIndex]
-    fun getCurrentLetter(): Char? = getCurrentWord().getOrNull(currentLetterIndex)
+    fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
+    fun getCurrentGesture(): String? = getCurrentSequence().getOrNull(currentGestureIndex)
 
-    fun markLetterSuccess() {
-        letterStates[currentWordIndex to currentLetterIndex] = LetterState.CORRECT
-        currentLetterIndex++
+    fun markGestureSuccess() {
+        gestureStates[currentWordIndex to currentGestureIndex] = LetterState.CORRECT
+        if (currentGestureIndex < getCurrentSequence().lastIndex) {
+            currentGestureIndex++
+        } else {
+            successfulGestures.add(currentWordIndex to currentGestureIndex)
+            currentGestureIndex = 0
+        }
         retryCount = 0
         notifyItemChanged(currentWordIndex)
     }
 
-    fun markLetterIncorrect() {
-        letterStates[currentWordIndex to currentLetterIndex] = LetterState.INCORRECT
+    fun markGestureIncorrect() {
+        gestureStates[currentWordIndex to currentGestureIndex] = LetterState.INCORRECT
         retryCount++
         notifyItemChanged(currentWordIndex)
     }
 
-    fun resetWord() {
-        currentLetterIndex = 0
+    fun resetSequence() {
+        currentGestureIndex = 0
         retryCount = 0
-        words[currentWordIndex].forEachIndexed { index, _ ->
-            letterStates[currentWordIndex to index] = LetterState.PENDING
+        getCurrentSequence().indices.forEach { index ->
+            gestureStates[currentWordIndex to index] = LetterState.PENDING
         }
         notifyItemChanged(currentWordIndex)
     }
 
     fun skipToNextWord() {
-        if (currentWordIndex < words.size - 1) {
+        if (currentWordIndex < wordData.size - 1) {
             currentWordIndex++
-            resetWord()
+            resetSequence()
             notifyDataSetChanged()
         }
     }
 
-    override fun getItemCount(): Int = words.size
+    override fun getItemCount(): Int = wordData.size
 }
