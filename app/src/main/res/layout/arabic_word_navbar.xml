@@ -20,7 +20,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wordRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="8dp"/>
 
@@ -30,10 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="تخطي الكلمة"
+        android:text="تخطي"
         android:textSize="16sp"
         android:minHeight="48dp"
-        android:minWidth="120dp"
+        android:minWidth="100dp"
         android:paddingTop="4dp"
         android:paddingBottom="0dp"
         android:paddingStart="16dp"

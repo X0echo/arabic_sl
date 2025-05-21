@@ -1,12 +1,11 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
 import android.graphics.Color
-import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class WordAdapter(
@@ -35,27 +34,37 @@ class WordAdapter(
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val (displayName, gestureParts) = wordData[position]
-
-        // Color coding based on current gesture state
-        val state = gestureStates[position to currentGestureIndex]
-        val backgroundColor = when (state) {
-            LetterState.CORRECT -> Color.GREEN
-            LetterState.INCORRECT -> Color.RED
-            else -> Color.TRANSPARENT
+        val isCurrentWord = position == currentWordIndex
+        val allGesturesCompleted = gestureParts.indices.all { index ->
+            gestureStates[position to index] == LetterState.CORRECT
         }
 
-        val spannable = SpannableString(displayName)
-        spannable.setSpan(
-            BackgroundColorSpan(backgroundColor),
-            0, displayName.length,
-            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        with(holder.wordText) {
+            // Apply same styles as ArabicLetterAdapter
+            when {
+                allGesturesCompleted -> {
+                    setBackgroundResource(R.drawable.success_letter_bg)
+                    textSize = 18f
+                }
+                isCurrentWord -> {
+                    setBackgroundResource(R.drawable.current_letter_bg)
+                    textSize = 20f
+                }
+                else -> {
+                    setBackgroundResource(R.drawable.letter_box_bg)
+                    textSize = 18f
+                }
+            }
 
-        with(holder) {
-            wordText.text = spannable
-            progressText.text = if (position == currentWordIndex) {
-                "${currentGestureIndex + 1}/${gestureParts.size}"
-            } else ""
+            setTextColor(Color.WHITE)
+            text = displayName
+        }
+
+        // Progress text handling
+        holder.progressText.text = if (isCurrentWord) {
+            "${currentGestureIndex + 1}/${gestureParts.size}"
+        } else {
+            ""
         }
     }
 
