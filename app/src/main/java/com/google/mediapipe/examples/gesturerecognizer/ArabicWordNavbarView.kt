@@ -34,11 +34,15 @@ class ArabicWordNavbarView @JvmOverloads constructor(
 
     private val colorSequences = listOf(
         "احمر" to listOf("احمر"),
-        "أزرق" to listOf("أزرق"),
         "بنفسجي" to listOf("بنفسجيا", "بنفسجيب"),
-        "أخضر" to listOf("أخضر"),
-        "أصفر" to listOf("أصفر"),
-        "وردي" to listOf("وردي")
+        "اخضر" to listOf("اخضر"),
+        "اسود" to listOf("اسود"),
+        "بني" to listOf("بني"),
+        "وردي" to listOf("وردي"),
+        "ابيض" to listOf("ابيض"),
+        "ازرق" to listOf("ازرق"),
+
+
     )
 
     init {

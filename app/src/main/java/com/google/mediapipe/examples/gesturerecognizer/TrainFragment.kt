@@ -43,7 +43,7 @@ class TrainFragment : Fragment() {
 
         lettersButton.setOnClickListener { replaceFragment(LetterCameraFragment()) }
         numbersButton.setOnClickListener { replaceFragment(NumberCameraFragment()) }
-        wordsButton.setOnClickListener { replaceFragment(WordCameraFragment()) }
+        wordsButton.setOnClickListener { replaceFragment(WordCategoriesFragment()) }
         lettersChallengeBtn.setOnClickListener { replaceFragment(LettersChallengeFragment()) }
         numbersChallengeBtn.setOnClickListener { replaceFragment(NumbersChallengeFragment()) }
         quizButton.setOnClickListener { replaceFragment(QuizFragment()) }
