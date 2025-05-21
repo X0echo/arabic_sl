@@ -23,13 +23,15 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     private lateinit var adapter: WordAdapter
     private val handler = Handler(Looper.getMainLooper())
     private var timeoutRunnable: Runnable? = null
-    private var remainingSkips = 3
     private var confidenceThreshold = 0.8f
     private var mediaPlayer: MediaPlayer? = null
 
     private var completionRunnable: Runnable? = null
 
-    // Use Pair(display name, list of gesture parts)
+    // Hold timer related
+    private var holdGestureRunnable: Runnable? = null
+    private var isHoldingCorrectGesture = false
+
     private val colorSequences = listOf(
         "احمر" to listOf("احمر"),
         "أزرق" to listOf("أزرق"),
@@ -39,7 +41,9 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         "وردي" to listOf("وردي")
     )
 
-    init { initView() }
+    init {
+        initView()
+    }
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.arabic_word_navbar, this, true)
@@ -60,34 +64,54 @@ class ArabicWordNavbarView @JvmOverloads constructor(
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
-            if (remainingSkips > 0) {
-                remainingSkips--
-                adapter.skipToNextWord()
-                updateSkipButton()
-                scrollToCurrent()
-                resetTimeout()
-            }
+            adapter.skipToNextWord()
+            scrollToCurrent()
+            resetTimeout()
         }
     }
 
     fun onColorRecognized(color: String, confidence: Float) {
         val targetGesture = adapter.getCurrentGesture() ?: return
 
-        when {
-            confidence < confidenceThreshold -> handleLowConfidence(confidence)
-            color == targetGesture -> handleCorrectGesture()
-            else -> handleIncorrectGesture()
+        if (confidence < confidenceThreshold) {
+            cancelHoldTimer()
+            handleLowConfidence(confidence)
+            return
         }
+
+        if (color == targetGesture) {
+            if (!isHoldingCorrectGesture) {
+                isHoldingCorrectGesture = true
+                holdGestureRunnable = Runnable {
+                    handleCorrectGesture()
+                    isHoldingCorrectGesture = false
+                }
+                handler.postDelayed(holdGestureRunnable!!, 1000) // 1 second hold time
+            }
+            // If already holding, do nothing and wait for timer to finish
+        } else {
+            cancelHoldTimer()
+            handleIncorrectGesture()
+        }
+    }
+
+    private fun cancelHoldTimer() {
+        holdGestureRunnable?.let { handler.removeCallbacks(it) }
+        holdGestureRunnable = null
+        isHoldingCorrectGesture = false
     }
 
     private fun handleLowConfidence(confidence: Float) {
         showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
-        adapter.markGestureIncorrect()
+        // Optionally mark incorrect or just show feedback
+        // adapter.markGestureIncorrect()
     }
 
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
+        scrollToCurrent() // Scroll on progress
+
         if (adapter.currentGestureIndex == 0) {
             checkSequenceCompletion()
         } else {
@@ -97,7 +121,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     }
 
     private fun handleIncorrectGesture() {
-        adapter.markGestureIncorrect()
+        // adapter.markGestureIncorrect()
         if (adapter.retryCount > 1) handleSequenceFailure()
     }
 
@@ -143,8 +167,8 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     }
 
     private fun updateSkipButton() {
-        skipButton.text = "تخطي (${remainingSkips} متبقية)"
-        skipButton.isEnabled = remainingSkips > 0
+        skipButton.text = "تخطي"
+        skipButton.isEnabled = true
     }
 
     private fun showTemporaryFeedback(text: String) {
