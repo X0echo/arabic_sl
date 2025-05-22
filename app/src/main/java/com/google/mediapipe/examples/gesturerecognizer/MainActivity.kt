@@ -99,4 +99,15 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView.visibility = View.GONE
         }
     }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+
+        if (currentFragment !is HomeFragment) {
+            switchFragment(HomeFragment())
+            bottomNavigationView.selectedItemId = R.id.nav_home
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

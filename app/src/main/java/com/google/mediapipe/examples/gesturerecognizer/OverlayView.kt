@@ -30,7 +30,7 @@ import kotlin.math.min
 
 class OverlayView(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
-
+    private var isFrontCamera: Boolean = true
     private var results: GestureRecognizerResult? = null
     private var linePaint = Paint()
     private var pointPaint = Paint()
@@ -66,26 +66,41 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         results?.let { gestureRecognizerResult ->
-            for(landmark in gestureRecognizerResult.landmarks()) {
-                for(normalizedLandmark in landmark) {
-                    canvas.drawPoint(
-                        normalizedLandmark.x() * imageWidth * scaleFactor,
-                        normalizedLandmark.y() * imageHeight * scaleFactor,
-                        pointPaint)
+            for (landmark in gestureRecognizerResult.landmarks()) {
+                for (normalizedLandmark in landmark) {
+                    val x = if (isFrontCamera) {
+                        normalizedLandmark.x() * imageWidth * scaleFactor
+                    } else {
+                        (1 - normalizedLandmark.x()) * imageWidth * scaleFactor
+                    }
+                    val y = normalizedLandmark.y() * imageHeight * scaleFactor
+                    canvas.drawPoint(x, y, pointPaint)
                 }
 
                 HandLandmarker.HAND_CONNECTIONS.forEach {
-                    canvas.drawLine(
-                        gestureRecognizerResult.landmarks()[0][it.start()].x() * imageWidth * scaleFactor,
-                        gestureRecognizerResult.landmarks()[0][it.start()].y() * imageHeight * scaleFactor,
-                        gestureRecognizerResult.landmarks()[0][it.end()].x() * imageWidth * scaleFactor,
-                        gestureRecognizerResult.landmarks()[0][it.end()].y() * imageHeight * scaleFactor,
-                        linePaint
-                    )
+                    val start = gestureRecognizerResult.landmarks()[0][it.start()]
+                    val end = gestureRecognizerResult.landmarks()[0][it.end()]
+
+                    val startX = if (isFrontCamera) {
+                        start.x() * imageWidth * scaleFactor
+                    } else {
+                        (1 - start.x()) * imageWidth * scaleFactor
+                    }
+                    val endX = if (isFrontCamera) {
+                        end.x() * imageWidth * scaleFactor
+                    } else {
+                        (1 - end.x()) * imageWidth * scaleFactor
+                    }
+
+                    val startY = start.y() * imageHeight * scaleFactor
+                    val endY = end.y() * imageHeight * scaleFactor
+
+                    canvas.drawLine(startX, startY, endX, endY, linePaint)
                 }
             }
         }
     }
+
 
     fun setResults(
         gestureRecognizerResult: GestureRecognizerResult,
@@ -115,5 +130,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
 
     companion object {
         private const val LANDMARK_STROKE_WIDTH = 8F
+    }
+    fun setIsFrontCamera(isFront: Boolean) {
+        isFrontCamera = isFront
     }
 }

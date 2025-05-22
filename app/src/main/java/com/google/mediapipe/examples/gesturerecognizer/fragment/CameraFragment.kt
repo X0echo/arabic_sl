@@ -39,6 +39,7 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
         private const val GESTURE_COOLDOWN = 1000L
     }
 
+    private var cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
     private var _fragmentCameraBinding: FragmentCameraBinding? = null
     private val fragmentCameraBinding get() = _fragmentCameraBinding!!
 
@@ -200,8 +201,11 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
     // Bind camera preview and image analyzer
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases() {
-        val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
+        val cameraProvider =
+            cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
         val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraFacing).build()
+
+        fragmentCameraBinding.overlay.setIsFrontCamera(cameraFacing == CameraSelector.LENS_FACING_FRONT)
 
         preview = Preview.Builder()
             .setTargetAspectRatio(AspectRatio.RATIO_4_3)
@@ -331,7 +335,11 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
     // Handle errors from gesture recognizer
     override fun onError(error: String, errorCode: Int) {
         activity?.runOnUiThread {
-            Toast.makeText(requireContext(), getString(R.string.error_prefix) + error, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.error_prefix) + error,
+                Toast.LENGTH_SHORT
+            ).show()
             Log.e(TAG, "Recognition error: $error (Code: $errorCode)")
             resetGestureDetection()
         }
