@@ -61,7 +61,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         updateSkipButton()
     }
 
-    private fun setupAdapter(startIndex: Int) {
+    fun setupAdapter(startIndex: Int) {
         adapter = WordAdapter(colorSequences, startIndex)
         recyclerView.adapter = adapter
     }
