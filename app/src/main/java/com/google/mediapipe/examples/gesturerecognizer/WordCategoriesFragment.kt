@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.google.mediapipe.examples.gesturerecognizer.R
 import com.google.mediapipe.examples.gesturerecognizer.fragment.EducationCameraFragment
+import com.google.mediapipe.examples.gesturerecognizer.fragment.HealthCameraFragment
 import com.google.mediapipe.examples.gesturerecognizer.fragment.VerbCameraFragment
 import com.google.mediapipe.examples.gesturerecognizer.fragment.WordCameraFragment
 
@@ -22,6 +23,7 @@ class WordCategoriesFragment : Fragment() {
         val colorsButton = view.findViewById<MaterialButton>(R.id.colors_button)
         val verbsButton = view.findViewById<MaterialButton>(R.id.verbs_button)
         val educationButton = view.findViewById<MaterialButton>(R.id.education_button)
+        val healthButton = view.findViewById<MaterialButton>(R.id.health_button)
 
 
 
@@ -34,7 +36,9 @@ class WordCategoriesFragment : Fragment() {
         educationButton.setOnClickListener {
             openeducationCameraFragment()
         }
-
+        healthButton.setOnClickListener {
+            openhealthCameraFragment()
+        }
 
         return view
     }
@@ -54,6 +58,12 @@ class WordCategoriesFragment : Fragment() {
     private fun openeducationCameraFragment() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, EducationCameraFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+    private fun openhealthCameraFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, HealthCameraFragment())
             .addToBackStack(null)
             .commit()
     }
