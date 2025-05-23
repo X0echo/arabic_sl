@@ -36,7 +36,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         "اصمت" to listOf("اصمت"),
         "يسافر" to listOf("يسافر"),
         "يشرب" to listOf("يشرب"),
-        "يمش" to listOf("يمش"),
+        "يشم" to listOf("يشم"),
         "يفكر" to listOf("يفكر"),
         "ينظر" to listOf("ينظر"),
         "يتكلم" to listOf("يتكلم")
