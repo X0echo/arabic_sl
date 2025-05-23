@@ -74,7 +74,7 @@ class QuizFragment : Fragment() {
             view.findViewById(R.id.optionText3)
         )
 
-        questions = sampleQuestions.shuffled()
+        questions = sampleQuestions.shuffled().take(20)
         loadQuestion()
 
         val scaleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.click_scale)
@@ -183,6 +183,126 @@ class QuizFragment : Fragment() {
 
     private val sampleQuestions = listOf(
         Question(
+            videoPath = "sign_videos/حكم.mp4",
+            options = listOf(
+                Option(R.drawable.arbitre, "حكم"),
+                Option(R.drawable.gardien, "حارس"),
+                Option(R.drawable.joueur, "لاعب")
+            ),
+            correctIndex = 0,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/رياضيات.mp4",
+            options = listOf(
+                Option(R.drawable.phyzique, "فيزياء"),
+                Option(R.drawable.histoire, "تاريخ"),
+                Option(R.drawable.math, "رياضيات")
+            ),
+            correctIndex = 2,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/سبورة.mp4",
+            options = listOf(
+                Option(R.drawable.tableau, "سبورة"),
+                Option(R.drawable.stylo, "قلم"),
+                Option(R.drawable.gomme, "ممحاة")
+            ),
+            correctIndex = 0,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/ضربة جزاء.mp4",
+            options = listOf(
+                Option(R.drawable.stade, "ملعب"),
+                Option(R.drawable.penalty, "ضربة جزاء"),
+                Option(R.drawable.goal, "مرمى")
+            ),
+            correctIndex = 1,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/مدرسة.mp4",
+            options = listOf(
+                Option(R.drawable.hospital, "مستشفى"),
+                Option(R.drawable.stade, "ملعب"),
+                Option(R.drawable.ecole, "مدرسة")
+            ),
+            correctIndex = 2,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/معلم.mp4",
+            options = listOf(
+                Option(R.drawable.prof, "معلم"),
+                Option(R.drawable.paintre, "رسام"),
+                Option(R.drawable.filmer, "مصور")
+            ),
+            correctIndex = 0,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/ملعب.mp4",
+            options = listOf(
+                Option(R.drawable.goal, "مرمى"),
+                Option(R.drawable.stade, "ملعب"),
+                Option(R.drawable.ecole, "مدرسة")
+            ),
+            correctIndex = 1,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/يكتب.mp4",
+            options = listOf(
+                Option(R.drawable.reflichir, "يفكر"),
+                Option(R.drawable.ecrire, "يكتب"),
+                Option(R.drawable.filmer, "يصور")
+            ),
+            correctIndex = 1,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/طرد.mp4",
+            options = listOf(
+                Option(R.drawable.ballon, "كرة"),
+                Option(R.drawable.arbitre, "حكم"),
+                Option(R.drawable.carte_rouge, "طرد")
+            ),
+            correctIndex = 2,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/مرحبا.mp4",
+            options = listOf(
+                Option(R.drawable.hi, "مرحبا"),
+                Option(R.drawable.bien, "بخير"),
+                Option(R.drawable.hmd, "الحمد لله")
+            ),
+            correctIndex = 0,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/كيف حالك.mp4",
+            options = listOf(
+                Option(R.drawable.how, "كيف حالك"),
+                Option(R.drawable.bien, "بخير"),
+                Option(R.drawable.hi, "مرحبا")
+            ),
+            correctIndex = 0,
+            mute = true
+        ),
+        Question(
+            videoPath = "sign_videos/سؤال.mp4",
+            options = listOf(
+                Option(R.drawable.exam, "اختبار"),
+                Option(R.drawable.reponse, "جواب"),
+                Option(R.drawable.question, "سؤال")
+            ),
+            correctIndex = 2,
+            mute = true
+        ),
+        Question(
             videoPath = "sign_videos/أسد.mp4", // Chemin dans Firebase Storage
             options = listOf(
                 Option(R.drawable.lion, "الأسد"),
@@ -289,7 +409,7 @@ class QuizFragment : Fragment() {
                 Option(R.drawable.serpent, "ثعبان"),
                 Option(R.drawable.cheval, "حصان")
             ),
-            correctIndex = 2,
+            correctIndex = 1,
             mute = true
         ),
         Question(
@@ -382,5 +502,5 @@ class QuizFragment : Fragment() {
             correctIndex = 0,
             mute = true
         ),
-    )
+        )
 }
