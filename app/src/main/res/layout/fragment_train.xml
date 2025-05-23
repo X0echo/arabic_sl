@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mp_color_background"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/mp_color_primary_variant">
+            app:cardBackgroundColor="@color/purple_text">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,16 +32,18 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_training_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="100dp"
                     android:text="التدريبات"
                     android:textSize="18sp"
-                    android:textColor="@color/mp_color_primary"
+                    android:textColor="@color/purple"
                     app:icon="@drawable/ic_arrow_down"
-                    app:iconTint="@color/mp_color_primary"
+                    app:iconTint="@color/purple"
                     app:iconGravity="end"
                     app:strokeColor="@color/mp_color_primary"
                     app:strokeWidth="1dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:fontFamily="@font/rubik_regular"
+                    />
 
                 <LinearLayout
                     android:id="@+id/sub_buttons_container"
@@ -54,38 +57,44 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/lettersButton"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:text="الحروف"
                         android:textSize="16sp"
-                        android:textColor="@color/mp_color_primary"
+                        android:textColor="@color/purple"
                         app:icon="@drawable/ic_letters"
-                        app:iconTint="@color/mp_color_primary"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        app:iconTint="@color/purple"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:fontFamily="@font/rubik_regular"
+                        />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/numbersButton"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:text="الأرقام"
                         android:textSize="16sp"
-                        android:textColor="@color/mp_color_primary"
+                        android:textColor="@color/purple"
                         app:icon="@drawable/ic_numbers"
-                        app:iconTint="@color/mp_color_primary"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        app:iconTint="@color/purple"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:fontFamily="@font/rubik_regular"
+                        />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/wordsButton"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:text="الكلمات"
                         android:textSize="16sp"
-                        android:textColor="@color/mp_color_primary"
+                        android:textColor="@color/purple"
                         app:icon="@drawable/ic_words"
-                        app:iconTint="@color/mp_color_primary"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        app:iconTint="@color/purple"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:fontFamily="@font/rubik_regular"
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -99,7 +108,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/mp_color_primary_variant">
+            app:cardBackgroundColor="@color/purple_text">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,16 +118,18 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_challenges_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="100dp"
                     android:text="التحديات"
                     android:textSize="18sp"
-                    android:textColor="@color/mp_color_primary"
+                    android:textColor="@color/purple"
                     app:icon="@drawable/ic_arrow_down"
-                    app:iconTint="@color/mp_color_primary"
+                    app:iconTint="@color/purple"
                     app:iconGravity="end"
-                    app:strokeColor="@color/mp_color_primary"
+                    app:strokeColor="@color/purple"
                     app:strokeWidth="1dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:fontFamily="@font/rubik_regular"
+                    />
 
                 <LinearLayout
                     android:id="@+id/challenges_sub_container"
@@ -132,26 +143,30 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/letters_challenge_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:text="تحدي الحروف"
                         android:textSize="16sp"
-                        android:textColor="@color/mp_color_primary"
+                        android:textColor="@color/purple"
                         app:icon="@drawable/ic_letters"
-                        app:iconTint="@color/mp_color_primary"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        app:iconTint="@color/purple"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:fontFamily="@font/rubik_regular"
+                        />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/numbers_challenge_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:text="تحدي الأرقام"
                         android:textSize="16sp"
-                        android:textColor="@color/mp_color_primary"
+                        android:textColor="@color/purple"
                         app:icon="@drawable/ic_numbers"
-                        app:iconTint="@color/mp_color_primary"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        app:iconTint="@color/purple"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:fontFamily="@font/rubik_regular"
+                        />
 
                 </LinearLayout>
             </LinearLayout>
@@ -164,20 +179,24 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/mp_color_primary_variant">
+            app:cardBackgroundColor="@color/purple_text"
+            android:fontFamily="@font/rubik_regular"
+            >
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/quizButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="100dp"
                 android:text="الإختبارات"
                 android:textSize="18sp"
-                android:textColor="@color/mp_color_primary"
-                app:icon="@drawable/ic_quiz"
-                app:iconTint="@color/mp_color_primary"
-                app:strokeColor="@color/mp_color_primary"
+                android:textColor="@color/purple"
+
+                app:iconTint="@color/purple"
+                app:strokeColor="@color/purple"
                 app:strokeWidth="1dp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:fontFamily="@font/rubik_regular"
+                />
 
         </androidx.cardview.widget.CardView>
 

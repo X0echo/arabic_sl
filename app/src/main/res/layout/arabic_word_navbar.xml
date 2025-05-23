@@ -39,7 +39,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_gravity="center"
-        android:backgroundTint="@color/mp_color_primary_variant"
-        android:textColor="@color/mp_color_primary"/>
+        android:backgroundTint="@color/purple_text"
+        android:textColor="@color/purple"/>
 
 </LinearLayout>
