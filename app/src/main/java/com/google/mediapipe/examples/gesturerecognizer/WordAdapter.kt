@@ -1,12 +1,15 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
-import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 
 class WordAdapter(
     private val wordData: List<Pair<String, List<String>>>,
@@ -23,6 +26,8 @@ class WordAdapter(
     inner class WordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val wordText: TextView = view.findViewById(R.id.wordText)
         val progressText: TextView = view.findViewById(R.id.progressText)
+        val playerView: PlayerView = view.findViewById(R.id.wordVideo)
+        var player: ExoPlayer? = null
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
@@ -39,33 +44,68 @@ class WordAdapter(
             gestureStates[position to index] == LetterState.CORRECT
         }
 
-        with(holder.wordText) {
-            // Apply same styles as ArabicLetterAdapter
-            when {
-                allGesturesCompleted -> {
-                    setBackgroundResource(R.drawable.success_letter_bg)
-                    textSize = 18f
-                }
-                isCurrentWord -> {
-                    setBackgroundResource(R.drawable.current_letter_bg)
-                    textSize = 20f
-                }
-                else -> {
-                    setBackgroundResource(R.drawable.letter_box_bg)
-                    textSize = 18f
-                }
+        // Release any existing player
+        holder.player?.release()
+        holder.player = null
+        holder.playerView.player = null
+        holder.playerView.visibility = View.GONE
+
+        // Setup video only for current word
+        if (isCurrentWord) {
+            val context = holder.itemView.context
+            val videoName = when (displayName) {
+                "احمر" -> "red"
+                "ازرق" -> "blue"
+                "اخضر" -> "green"
+                "بنفسجي" -> "purple"
+                "اسود" -> "black"
+                "بني" -> "brown"
+                "وردي" -> "pink"
+                "ابيض" -> "white"
+                else -> null
             }
 
-            setTextColor(Color.WHITE)
+            videoName?.let { name ->
+                val resId = context.resources.getIdentifier(name, "raw", context.packageName)
+                if (resId != 0) {
+                    val uri = Uri.parse("android.resource://${context.packageName}/$resId")
+                    val player = ExoPlayer.Builder(context).build().apply {
+                        setMediaItem(MediaItem.fromUri(uri))
+                        repeatMode = Player.REPEAT_MODE_ONE
+                        prepare()
+                        play()
+                    }
+                    holder.player = player
+                    holder.playerView.player = player
+                    holder.playerView.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        // Word text styling
+        with(holder.wordText) {
+            when {
+                allGesturesCompleted -> setBackgroundResource(R.drawable.success_letter_bg)
+                isCurrentWord -> setBackgroundResource(R.drawable.current_letter_bg)
+                else -> setBackgroundResource(R.drawable.letter_box_bg)
+            }
+            textSize = if (isCurrentWord) 20f else 18f
+            setTextColor(android.graphics.Color.WHITE)
             text = displayName
         }
 
-        // Progress text handling
         holder.progressText.text = if (isCurrentWord) {
             "${currentGestureIndex + 1}/${gestureParts.size}"
         } else {
             ""
         }
+    }
+
+    override fun onViewRecycled(holder: WordViewHolder) {
+        holder.player?.release()
+        holder.player = null
+        holder.playerView.player = null
+        super.onViewRecycled(holder)
     }
 
     fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
@@ -83,10 +123,12 @@ class WordAdapter(
         notifyItemChanged(currentWordIndex)
     }
 
-    fun markGestureIncorrect() {
-        gestureStates[currentWordIndex to currentGestureIndex] = LetterState.INCORRECT
-        retryCount++
-        notifyItemChanged(currentWordIndex)
+    fun skipToNextWord() {
+        if (currentWordIndex < wordData.size - 1) {
+            currentWordIndex++
+            resetSequence()
+            notifyDataSetChanged()
+        }
     }
 
     fun resetSequence() {
@@ -96,14 +138,6 @@ class WordAdapter(
             gestureStates[currentWordIndex to index] = LetterState.PENDING
         }
         notifyItemChanged(currentWordIndex)
-    }
-
-    fun skipToNextWord() {
-        if (currentWordIndex < wordData.size - 1) {
-            currentWordIndex++
-            resetSequence()
-            notifyDataSetChanged()
-        }
     }
 
     override fun getItemCount(): Int = wordData.size
