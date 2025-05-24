@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class EducationAdapter(
@@ -67,17 +66,22 @@ class EducationAdapter(
     }
 
     fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
+
     fun getCurrentGesture(): String? = getCurrentSequence().getOrNull(currentGestureIndex)
 
     fun markGestureSuccess() {
         gestureStates[currentWordIndex to currentGestureIndex] = LetterState.CORRECT
+        retryCount = 0
+        notifyItemChanged(currentWordIndex)
+    }
+
+    fun advanceGesture() {
         if (currentGestureIndex < getCurrentSequence().lastIndex) {
             currentGestureIndex++
         } else {
             successfulGestures.add(currentWordIndex to currentGestureIndex)
             currentGestureIndex = 0
         }
-        retryCount = 0
         notifyItemChanged(currentWordIndex)
     }
 
@@ -101,6 +105,12 @@ class EducationAdapter(
             currentWordIndex++
             resetSequence()
             notifyDataSetChanged()
+        }
+    }
+
+    fun isSequenceCompleted(): Boolean {
+        return getCurrentSequence().indices.all {
+            gestureStates[currentWordIndex to it] == LetterState.CORRECT
         }
     }
 

@@ -15,7 +15,7 @@
     ~ limitations under the License.
 -->
 <resources>
-    <color name="mp_color_background">#1F2C40</color>
+    <color name="mp_color_background">#7851a9</color>
 
     <color name="blue">#D4EDFE</color>
     <color name="blue_header">#143658</color>
@@ -25,9 +25,9 @@
     <color name="orange_header">#693A20</color>
     <color name="orange_text">#83653C</color>
 
-    <color name="purple">#E9DFFF</color>
+    <color name="purple">#fceaff</color>
     <color name="purple_header">#2C1C53</color>
-    <color name="purple_text">#6F4E97</color>
+    <color name="purple_text">#a68dc0</color>
 
     <color name="bottom_nav_background">#2C2C2C</color> <!-- matches previous style -->
 

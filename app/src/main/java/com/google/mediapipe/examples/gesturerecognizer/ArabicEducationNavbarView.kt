@@ -1,11 +1,13 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
 import android.content.Context
+import android.graphics.Rect
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -44,12 +46,12 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.arabic_education_navbar, this, true)
-        // Updated IDs to match your layout XML:
         recyclerView = findViewById(R.id.educationRecyclerView)
         skipButton = findViewById(R.id.skipEducationButton)
         feedbackView = findViewById(R.id.feedbackText)
 
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.addItemDecoration(HorizontalSpaceItemDecoration(24))
         setupAdapter(0)
         setupSkipButton()
         updateSkipButton()
@@ -73,7 +75,7 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
-            handleLowConfidence(confidence)
+            handleLowConfidence()
             return
         }
 
@@ -98,16 +100,15 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         isHoldingCorrectGesture = false
     }
 
-    private fun handleLowConfidence(confidence: Float) {
-        showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
+    private fun handleLowConfidence() {
+        showTemporaryFeedback("إشارة غير واضحة")
     }
 
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
-        scrollToCurrent()
 
-        if (adapter.currentGestureIndex == 0) {
+        if (adapter.isSequenceCompleted()) {
             checkSequenceCompletion()
         } else {
             showNextGesturePrompt()
@@ -182,5 +183,19 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         handler.removeCallbacksAndMessages(null)
         mediaPlayer?.release()
+    }
+
+    class HorizontalSpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view)
+            if (position != parent.adapter?.itemCount?.minus(1)) {
+                outRect.right = space
+            }
+        }
     }
 }

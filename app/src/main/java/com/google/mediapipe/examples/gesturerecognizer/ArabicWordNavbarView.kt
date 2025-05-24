@@ -41,8 +41,6 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         "وردي" to listOf("وردي"),
         "ابيض" to listOf("ابيض"),
         "ازرق" to listOf("ازرق"),
-
-
     )
 
     init {
@@ -79,7 +77,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
-            handleLowConfidence(confidence)
+            handleLowConfidence()
             return
         }
 
@@ -92,7 +90,6 @@ class ArabicWordNavbarView @JvmOverloads constructor(
                 }
                 handler.postDelayed(holdGestureRunnable!!, 1000) // 1 second hold time
             }
-            // If already holding, do nothing and wait for timer to finish
         } else {
             cancelHoldTimer()
             handleIncorrectGesture()
@@ -105,16 +102,14 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         isHoldingCorrectGesture = false
     }
 
-    private fun handleLowConfidence(confidence: Float) {
-        showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
-        // Optionally mark incorrect or just show feedback
-        // adapter.markGestureIncorrect()
+    private fun handleLowConfidence() {
+        showTemporaryFeedback("إشارة غير واضحة")
     }
 
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
-        scrollToCurrent() // Scroll on progress
+        scrollToCurrent()
 
         if (adapter.currentGestureIndex == 0) {
             checkSequenceCompletion()
@@ -125,7 +120,6 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     }
 
     private fun handleIncorrectGesture() {
-        // adapter.markGestureIncorrect()
         if (adapter.retryCount > 1) handleSequenceFailure()
     }
 

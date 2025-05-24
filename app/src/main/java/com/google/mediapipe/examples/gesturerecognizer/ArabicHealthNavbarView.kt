@@ -71,7 +71,7 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
-            handleLowConfidence(confidence)
+            handleLowConfidence()
             return
         }
 
@@ -96,8 +96,8 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         isHoldingCorrectGesture = false
     }
 
-    private fun handleLowConfidence(confidence: Float) {
-        showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
+    private fun handleLowConfidence() {
+        showTemporaryFeedback("إشارة غير واضحة")
     }
 
     private fun handleCorrectGesture() {

@@ -21,15 +21,18 @@
         android:id="@+id/educationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:overScrollMode="never" />
 
     <!-- Skip Button -->
     <Button
         android:id="@+id/skipEducationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:text="تخطي"
         android:textSize="16sp"
         android:minHeight="48dp"

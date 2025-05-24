@@ -64,7 +64,7 @@
         android:layout_height="140dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/blue"
+        app:cardBackgroundColor="@color/purple"
         app:layout_constraintTop_toBottomOf="@id/quote_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,20 +82,20 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:src="@drawable/translate_icon"
-                app:tint="@color/blue_header" />
+                app:tint="@color/mp_color_background" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/translate_title"
                 android:textSize="16sp"
-                android:textColor="@color/blue_header"
+                android:textColor="@color/mp_color_background"
                 android:layout_marginTop="6dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/translate_subtitle"
                 android:textSize="11sp"
-                android:textColor="@color/blue_text"/>
+                android:textColor="@color/purple_text"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -124,13 +124,13 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:src="@drawable/school_icon"
-                app:tint="@color/purple_header" />
+                app:tint="@color/mp_color_background" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/train_title"
                 android:textSize="16sp"
-                android:textColor="@color/purple_header"
+                android:textColor="@color/mp_color_background"
                 android:layout_marginTop="6dp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
         android:layout_height="140dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/orange"
+        app:cardBackgroundColor="@color/purple"
         app:layout_constraintTop_toBottomOf="@id/card_train"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,20 +167,20 @@
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:src="@drawable/menu_book_icon"
-                app:tint="@color/orange_header" />
+                app:tint="@color/mp_color_background" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dictionary_title"
                 android:textSize="16sp"
-                android:textColor="@color/orange_header"
+                android:textColor="@color/mp_color_background"
                 android:layout_marginTop="6dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dictionary_subtitle"
                 android:textSize="11sp"
-                android:textColor="@color/orange_text"/>
+                android:textColor="@color/purple_text"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
