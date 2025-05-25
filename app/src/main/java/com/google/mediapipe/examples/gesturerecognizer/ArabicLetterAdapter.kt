@@ -65,7 +65,7 @@ class ArabicLetterAdapter(
                 "ة" -> "teh_marbuta"
                 "ال" -> "al"
                 "ئ" -> "alef_m"
-
+                "إ" -> "alef_h"
                 else -> "placeholder"
             }
 

@@ -40,6 +40,7 @@
         android:layout_marginBottom="@dimen/bottom_sheet_peek_height"
         android:background="@color/bottom_sheet_background"
         android:clipToPadding="true"
+        android:visibility="gone"
         android:padding="@dimen/bottom_sheet_padding"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
@@ -48,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         android:background="@color/mp_color_primary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
