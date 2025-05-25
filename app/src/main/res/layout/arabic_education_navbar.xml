@@ -21,15 +21,18 @@
         android:id="@+id/educationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:overScrollMode="never" />
 
     <!-- Skip Button -->
     <Button
         android:id="@+id/skipEducationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:text="تخطي"
         android:textSize="16sp"
         android:minHeight="48dp"
@@ -39,7 +42,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_gravity="center"
-        android:backgroundTint="@color/mp_color_primary_variant"
-        android:textColor="@color/mp_color_primary" />
+        android:backgroundTint="@color/purple_text"
+        android:textColor="@color/purple" />
 
 </LinearLayout>

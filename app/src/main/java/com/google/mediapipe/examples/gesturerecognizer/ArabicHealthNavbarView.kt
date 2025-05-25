@@ -27,7 +27,8 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     private var completionRunnable: Runnable? = null
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
-    private var confidenceThreshold = 0.8f
+    private var gestureNeedsReset = false
+    private val confidenceThreshold = 0.8f
 
     private var mediaPlayer: MediaPlayer? = null
 
@@ -37,6 +38,7 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         "اكسجين" to listOf("اكسجين"),
         "الم" to listOf("الم"),
         "حمى" to listOf("حمى"),
+        "دم" to listOf("دم"),
         "كحة" to listOf("كحة"),
         "نظافة" to listOf("نظافة")
     )
@@ -60,18 +62,42 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
-            adapter.skipToNextWord()
-            scrollToCurrent()
-            resetTimeout()
+            if (adapter.currentWordIndex < adapter.itemCount - 1) {
+                // Normal skip to next word
+                adapter.skipToNextWord()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+                updateSkipButton()
+                showTemporaryFeedback("تم تخطي الكلمة")
+            } else {
+                // Last word reached — this button acts as "Redo"
+                adapter.currentWordIndex = 0
+                adapter.resetSequence()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+                updateSkipButton()
+                showTemporaryFeedback("تمت إعادة التسلسل من البداية")
+            }
         }
     }
 
+    /**
+     * Call this method whenever a gesture is recognized.
+     * Handles hold duration, success/failure, retries, and reset logic.
+     */
     fun onHealthRecognized(word: String, confidence: Float) {
         val targetGesture = adapter.getCurrentGesture() ?: return
 
+        if (gestureNeedsReset) {
+            // Ignore until reset to prevent repeated recognition
+            return
+        }
+
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
-            handleLowConfidence(confidence)
+            showTemporaryFeedback("إشارة غير واضحة")
             return
         }
 
@@ -81,12 +107,18 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
                 holdGestureRunnable = Runnable {
                     handleCorrectGesture()
                     isHoldingCorrectGesture = false
+                    gestureNeedsReset = true
                 }
-                handler.postDelayed(holdGestureRunnable!!, 1000)
+                handler.postDelayed(holdGestureRunnable!!, 1000) // Hold 1 second
             }
         } else {
             cancelHoldTimer()
-            handleIncorrectGesture()
+            if (adapter.retryCount > 1) {
+                handleSequenceFailure()
+            } else {
+                adapter.markGestureIncorrect()
+                showTemporaryFeedback("إشارة خاطئة، حاول مرة أخرى")
+            }
         }
     }
 
@@ -96,52 +128,43 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         isHoldingCorrectGesture = false
     }
 
-    private fun handleLowConfidence(confidence: Float) {
-        showTemporaryFeedback("ثقة منخفضة: ${(confidence * 100).toInt()}%")
-    }
-
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
         scrollToCurrent()
         playSuccessSound()
 
-        if (adapter.currentGestureIndex == 0) {
-            checkSequenceCompletion()
-        } else {
-            showNextGesturePrompt()
+        if (adapter.currentGestureIndex < adapter.getCurrentSequence().lastIndex) {
+            showTemporaryFeedback("الجزء التالي: ${adapter.getCurrentGesture()}")
             startTimeoutTimer()
-        }
-    }
-
-    private fun handleIncorrectGesture() {
-        if (adapter.retryCount > 1) {
-            handleSequenceFailure()
+        } else {
+            // Finished all parts of this word
+            checkSequenceCompletion()
         }
     }
 
     private fun checkSequenceCompletion() {
         completionRunnable?.let { handler.removeCallbacks(it) }
-        if (adapter.currentWordIndex < healthSequences.size - 1) {
+        if (adapter.currentWordIndex < adapter.itemCount - 1) {
             completionRunnable = Runnable {
                 adapter.skipToNextWord()
                 scrollToCurrent()
+                gestureNeedsReset = false
+                updateSkipButton()
+                showTemporaryFeedback("الانتقال للكلمة التالية")
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
             showTemporaryFeedback("أحسنت! اكتملت جميع الكلمات الصحية!")
+            updateSkipButton()
         }
-    }
-
-    private fun showNextGesturePrompt() {
-        val nextGesture = adapter.getCurrentGesture()
-        showTemporaryFeedback("الجزء التالي: $nextGesture")
     }
 
     private fun handleSequenceFailure() {
         showTemporaryFeedback("!خطأ في التسلسل، إعادة المحاولة")
         adapter.resetSequence()
         startTimeoutTimer()
+        gestureNeedsReset = false
     }
 
     private fun startTimeoutTimer() {
@@ -149,6 +172,7 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         timeoutRunnable = Runnable {
             showTemporaryFeedback("!انتهى الوقت، إعادة التسلسل")
             adapter.resetSequence()
+            gestureNeedsReset = false
         }
         handler.postDelayed(timeoutRunnable!!, 5000)
     }
@@ -162,8 +186,14 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     }
 
     private fun updateSkipButton() {
-        skipButton.text = "تخطي"
-        skipButton.isEnabled = true
+        if (adapter.currentWordIndex < adapter.itemCount - 1) {
+            skipButton.text = "تخطي"
+            skipButton.isEnabled = true
+        } else {
+            // Last word - change to redo button
+            skipButton.text = "إعادة"
+            skipButton.isEnabled = true
+        }
     }
 
     private fun showTemporaryFeedback(text: String) {
