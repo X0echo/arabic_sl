@@ -6,7 +6,8 @@
     android:focusable="true"
     android:padding="4dp"
     android:clipChildren="true"
-    android:clipToPadding="true">
+    android:clipToPadding="true"
+    android:background="@color/purple_header">
 
     <!-- Image layer -->
 

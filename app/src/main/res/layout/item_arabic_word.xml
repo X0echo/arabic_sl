@@ -9,7 +9,8 @@
     android:clickable="true"
     android:focusable="true"
     android:clipChildren="true"
-    android:clipToPadding="true">
+    android:clipToPadding="true"
+    android:background="@color/purple_header">
 
     <TextView
         android:id="@+id/wordText"
