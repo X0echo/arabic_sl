@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:use_controller="false"
-        app:resize_mode="fit" />
+        android:visibility="invisible"
+        android:background="#000000"
+    app:use_controller="false"
+    app:resize_mode="fit" />
 </LinearLayout>

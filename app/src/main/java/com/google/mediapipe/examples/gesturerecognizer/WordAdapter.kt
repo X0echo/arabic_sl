@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.media3.common.MediaItem
@@ -44,10 +45,11 @@ class WordAdapter(
             gestureStates[position to index] == LetterState.CORRECT
         }
 
+        // Always release previous player if any
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
-        holder.playerView.visibility = View.GONE
+        holder.playerView.visibility = View.INVISIBLE
 
         if (isCurrentWord) {
             val context = holder.itemView.context
@@ -67,19 +69,29 @@ class WordAdapter(
                 val resId = context.resources.getIdentifier(name, "raw", context.packageName)
                 if (resId != 0) {
                     val uri = Uri.parse("android.resource://${context.packageName}/$resId")
-                    val player = ExoPlayer.Builder(context).build().apply {
-                        setMediaItem(MediaItem.fromUri(uri))
-                        repeatMode = Player.REPEAT_MODE_ONE
-                        prepare()
-                        play()
-                    }
-                    holder.player = player
-                    holder.playerView.player = player
-                    holder.playerView.visibility = View.VISIBLE
+
+                    val vto = holder.playerView.viewTreeObserver
+                    vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            if (holder.player == null && holder.adapterPosition == currentWordIndex) {
+                                val player = ExoPlayer.Builder(context).build().apply {
+                                    setMediaItem(MediaItem.fromUri(uri))
+                                    repeatMode = Player.REPEAT_MODE_ONE
+                                    prepare()
+                                    play()
+                                }
+                                holder.player = player
+                                holder.playerView.player = player
+                                holder.playerView.visibility = View.VISIBLE
+                            }
+                            holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        }
+                    })
                 }
             }
         }
 
+        // Update text appearance
         with(holder.wordText) {
             when {
                 allGesturesCompleted -> setBackgroundResource(R.drawable.success_letter_bg)
@@ -106,6 +118,7 @@ class WordAdapter(
     }
 
     fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
+
     fun getCurrentGesture(): String? = getCurrentSequence().getOrNull(currentGestureIndex)
 
     fun markGestureSuccess() {
