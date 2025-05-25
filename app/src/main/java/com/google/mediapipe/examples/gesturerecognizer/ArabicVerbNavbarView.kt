@@ -1,11 +1,13 @@
 package com.google.mediapipe.examples.gesturerecognizer
 
 import android.content.Context
+import android.graphics.Rect
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -39,11 +41,9 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         "يشرب" to listOf("يشرب"),
         "يشم" to listOf("يشم"),
         "يفكر" to listOf("يفكر"),
-        "ينظر" to listOf("ينظر"),
-        "يتكلم" to listOf("يتكلم")
+        "ينظر" to listOf("ينظر")
     )
 
-    // New flag to track if we are at the end and showing "Redo"
     private var isAtEnd = false
 
     init {
@@ -61,12 +61,12 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     fun setupAdapter(startIndex: Int) {
         adapter = VerbAdapter(verbSequences, startIndex)
         recyclerView.adapter = adapter
+        recyclerView.setItemViewCacheSize(3)
     }
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
             if (isAtEnd) {
-                // Redo pressed: reset everything and restart
                 adapter.currentWordIndex = 0
                 adapter.resetSequence()
                 scrollToCurrent()
@@ -75,13 +75,11 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
                 resetTimeout()
                 gestureNeedsReset = false
             } else {
-                // Skip pressed: move to next verb
                 adapter.skipToNextVerb()
                 scrollToCurrent()
                 resetTimeout()
                 gestureNeedsReset = false
 
-                // If reached end, switch button to "Redo"
                 if (adapter.currentWordIndex == adapter.itemCount - 1) {
                     isAtEnd = true
                     updateSkipButton()
@@ -100,20 +98,16 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         }
 
         if (word == targetVerb) {
-            if (!isHoldingCorrectGesture && !gestureNeedsReset) {
+            if (!isHoldingCorrectGesture) {
                 isHoldingCorrectGesture = true
                 holdGestureRunnable = Runnable {
                     handleCorrectGesture()
                     isHoldingCorrectGesture = false
-                    gestureNeedsReset = true
                 }
                 handler.postDelayed(holdGestureRunnable!!, 1000)
             }
         } else {
             cancelHoldTimer()
-            if (gestureNeedsReset) {
-                gestureNeedsReset = false
-            }
             handleIncorrectGesture()
         }
     }
@@ -127,21 +121,22 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markVerbSuccess()
-        scrollToCurrent()
         playSuccessSound()
+        gestureNeedsReset = true
 
-        if (adapter.currentVerbIndex == 0) {
-            checkSequenceCompletion()
-        } else {
-            showNextVerbPrompt()
-            startTimeoutTimer()
-        }
+        handler.postDelayed({
+            scrollToCurrent()
+            if (adapter.currentVerbIndex == 0) {
+                checkSequenceCompletion()
+            } else {
+                showNextVerbPrompt()
+                startTimeoutTimer()
+            }
+        }, 1000)
     }
 
     private fun handleIncorrectGesture() {
-        if (adapter.retryCount > 1) {
-            handleSequenceFailure()
-        }
+        if (adapter.retryCount > 1) handleSequenceFailure()
     }
 
     private fun checkSequenceCompletion() {
@@ -155,7 +150,6 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
             showTemporaryFeedback("أحسنت! اكتملت جميع الأفعال!")
-            // Mark we are at the end and update button to "Redo"
             isAtEnd = true
             updateSkipButton()
         }
@@ -188,15 +182,30 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     }
 
     private fun scrollToCurrent() {
-        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+        recyclerView.post {
+            val lm = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisible = lm.findFirstVisibleItemPosition()
+            val lastVisible = lm.findLastVisibleItemPosition()
+
+            if (adapter.currentWordIndex < firstVisible ||
+                adapter.currentWordIndex > lastVisible) {
+                recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+            } else {
+                val view = lm.findViewByPosition(adapter.currentWordIndex)
+                if (view != null) {
+                    val left = view.left
+                    val right = view.right
+                    val width = recyclerView.width
+                    if (left < 0 || right > width) {
+                        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+                    }
+                }
+            }
+        }
     }
 
     private fun updateSkipButton() {
-        if (isAtEnd) {
-            skipButton.text = "إعادة"  // Redo button text
-        } else {
-            skipButton.text = "تخطي"  // Skip button text
-        }
+        skipButton.text = if (isAtEnd) "إعادة" else "تخطي"
         skipButton.isEnabled = true
     }
 
@@ -217,5 +226,20 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         handler.removeCallbacksAndMessages(null)
         mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    class HorizontalSpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view)
+            if (position != parent.adapter?.itemCount?.minus(1)) {
+                outRect.right = space
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ class WordAdapter(
         val progressText: TextView = view.findViewById(R.id.progressText)
         val playerView: PlayerView = view.findViewById(R.id.wordVideo)
         var player: ExoPlayer? = null
+        var boundPosition: Int = -1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
@@ -45,53 +46,13 @@ class WordAdapter(
             gestureStates[position to index] == LetterState.CORRECT
         }
 
-        // Always release previous player if any
+        // Clean up previous binding
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
-        holder.playerView.visibility = View.INVISIBLE
+        holder.boundPosition = position
 
-        if (isCurrentWord) {
-            val context = holder.itemView.context
-            val videoName = when (displayName) {
-                "احمر" -> "red"
-                "ازرق" -> "blue"
-                "اخضر" -> "green"
-                "بنفسجي" -> "purple"
-                "اسود" -> "black"
-                "بني" -> "brown"
-                "وردي" -> "pink"
-                "ابيض" -> "white"
-                else -> null
-            }
-
-            videoName?.let { name ->
-                val resId = context.resources.getIdentifier(name, "raw", context.packageName)
-                if (resId != 0) {
-                    val uri = Uri.parse("android.resource://${context.packageName}/$resId")
-
-                    val vto = holder.playerView.viewTreeObserver
-                    vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            if (holder.player == null && holder.adapterPosition == currentWordIndex) {
-                                val player = ExoPlayer.Builder(context).build().apply {
-                                    setMediaItem(MediaItem.fromUri(uri))
-                                    repeatMode = Player.REPEAT_MODE_ONE
-                                    prepare()
-                                    play()
-                                }
-                                holder.player = player
-                                holder.playerView.player = player
-                                holder.playerView.visibility = View.VISIBLE
-                            }
-                            holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                        }
-                    })
-                }
-            }
-        }
-
-        // Update text appearance
+        // Configure view appearance
         with(holder.wordText) {
             when {
                 allGesturesCompleted -> setBackgroundResource(R.drawable.success_letter_bg)
@@ -108,7 +69,59 @@ class WordAdapter(
         } else {
             ""
         }
+
+        // Video initialization
+        if (isCurrentWord) {
+            initializeVideoPlayer(holder, displayName)
+        } else {
+            holder.playerView.visibility = View.INVISIBLE
+        }
     }
+
+    private fun initializeVideoPlayer(holder: WordViewHolder, displayName: String) {
+        val context = holder.itemView.context
+        val videoName = when (displayName) {
+            "احمر" -> "red"
+            "ازرق" -> "blue"
+            "اخضر" -> "green"
+            "بنفسجي" -> "purple"
+            "اسود" -> "black"
+            "بني" -> "brown"
+            "وردي" -> "pink"
+            "ابيض" -> "white"
+            else -> null
+        } ?: return
+
+        val resId = context.resources.getIdentifier(videoName, "raw", context.packageName)
+        if (resId == 0) return
+
+        val uri = Uri.parse("android.resource://${context.packageName}/$resId")
+        val vto = holder.playerView.viewTreeObserver
+
+        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (holder.boundPosition != currentWordIndex) {
+                    holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    return
+                }
+
+                if (holder.playerView.width > 0 && holder.playerView.height > 0) {
+                    holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val player = ExoPlayer.Builder(context).build().apply {
+                        setMediaItem(MediaItem.fromUri(uri))
+                        repeatMode = Player.REPEAT_MODE_ONE
+                        prepare()
+                        play()
+                    }
+                    holder.player = player
+                    holder.playerView.player = player
+                    holder.playerView.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
+    override fun getItemCount(): Int = wordData.size
 
     override fun onViewRecycled(holder: WordViewHolder) {
         holder.player?.release()
@@ -154,6 +167,4 @@ class WordAdapter(
         }
         notifyItemChanged(currentWordIndex)
     }
-
-    override fun getItemCount(): Int = wordData.size
 }

@@ -38,6 +38,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:visibility="invisible"
+        app:surface_type="texture_view"
         android:background="#000000"
     app:use_controller="false"
     app:resize_mode="fit" />
