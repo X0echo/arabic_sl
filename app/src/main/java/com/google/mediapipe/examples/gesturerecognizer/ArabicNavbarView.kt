@@ -25,7 +25,7 @@ class ArabicNavbarView @JvmOverloads constructor(
         "د", "ذ", "ر", "ز", "س", "ش", "ص",
         "ض", "ط", "ظ", "ع", "غ", "ف", "ق",
         "ك", "ل", "م", "ن", "ه", "و", "ي",
-        "لا", "ة", "إ", "ئ", "ال", "none"
+        "لا", "ة", "إ", "ئ", "ال"
     )
 
     private val handler = Handler(Looper.getMainLooper())

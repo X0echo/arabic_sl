@@ -28,6 +28,7 @@
     <color name="purple">#fceaff</color>
     <color name="purple_header">#2C1C53</color>
     <color name="purple_text">#a68dc0</color>
+    <color name="green">#00c9aa</color>
 
     <color name="bottom_nav_background">#2C2C2C</color> <!-- matches previous style -->
 

@@ -7,14 +7,6 @@
     android:padding="8dp"
     android:gravity="center_vertical">
 
-    <!-- Feedback Text -->
-    <TextView
-        android:id="@+id/feedbackText"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="center"
-        android:textColor="@color/red"
-        android:textSize="14sp" />
 
     <!-- RecyclerView for displaying education items -->
     <androidx.recyclerview.widget.RecyclerView
@@ -41,5 +33,14 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/purple_text"
         android:textColor="@color/purple" />
+    <!-- Feedback Text -->
+    <TextView
+        android:id="@+id/feedbackText"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:textSize="14sp" />
+
 
 </LinearLayout>

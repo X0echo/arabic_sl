@@ -32,15 +32,13 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
 
-    // NEW: Prevent multiple triggers while holding the same gesture
     private var gestureNeedsReset = false
     private var lastRecognizedGesture: String? = null
 
     private val educationSequences = listOf(
-        "جامع" to listOf("جامعا", "جامعب"),
+        "جامعة" to listOf("جامعة"),
         "جواب" to listOf("جواب"),
-        "لغة عربية" to listOf("عربية"),
-        "لغة" to listOf("لغة"),
+        "لغة عربية" to listOf("لغة عربية"),
         "ممتاز" to listOf("ممتاز"),
     )
 
@@ -64,15 +62,29 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     fun setupAdapter(startIndex: Int) {
         adapter = EducationAdapter(educationSequences, startIndex)
         recyclerView.adapter = adapter
+        recyclerView.setItemViewCacheSize(3)
     }
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
-            adapter.skipToNextWord()
-            scrollToCurrent()
-            resetTimeout()
-            gestureNeedsReset = false  // Reset here as well if user manually skips
-            lastRecognizedGesture = null
+            if (adapter.currentWordIndex < adapter.itemCount - 1) {
+                adapter.skipToNextWord()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
+                updateSkipButton()
+                showTemporaryFeedback("تم تخطي الكلمة")
+            } else {
+                adapter.currentWordIndex = 0
+                adapter.resetSequence()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
+                updateSkipButton()
+                showTemporaryFeedback("تمت إعادة التسلسل من البداية")
+            }
         }
     }
 
@@ -85,12 +97,10 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
             return
         }
 
-        // Require a gesture change before allowing recognition again
         if (gestureNeedsReset) {
             if (word != lastRecognizedGesture) {
                 gestureNeedsReset = false
             } else {
-                // Same gesture still held, ignore
                 return
             }
         }
@@ -125,16 +135,18 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
-
-        // NEW: after successful recognition, require reset before next recognition
+        playSuccessSound()
         gestureNeedsReset = true
 
-        if (adapter.isSequenceCompleted()) {
-            checkSequenceCompletion()
-        } else {
-            showNextGesturePrompt()
-            startTimeoutTimer()
-        }
+        handler.postDelayed({
+            scrollToCurrent()
+            if (adapter.isSequenceCompleted()) {
+                checkSequenceCompletion()
+            } else {
+                showNextGesturePrompt()
+                startTimeoutTimer()
+            }
+        }, 1000)
     }
 
     private fun handleIncorrectGesture() {
@@ -149,10 +161,12 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
                 scrollToCurrent()
                 gestureNeedsReset = false
                 lastRecognizedGesture = null
+                updateSkipButton()
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
             showTemporaryFeedback("أحسنت! اكتملت جميع الكلمات التعليمية!")
+            updateSkipButton()
         }
     }
 
@@ -185,11 +199,30 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     }
 
     private fun scrollToCurrent() {
-        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+        recyclerView.post {
+            val lm = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisible = lm.findFirstVisibleItemPosition()
+            val lastVisible = lm.findLastVisibleItemPosition()
+
+            if (adapter.currentWordIndex < firstVisible ||
+                adapter.currentWordIndex > lastVisible) {
+                recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+            } else {
+                val view = lm.findViewByPosition(adapter.currentWordIndex)
+                if (view != null) {
+                    val left = view.left
+                    val right = view.right
+                    val width = recyclerView.width
+                    if (left < 0 || right > width) {
+                        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+                    }
+                }
+            }
+        }
     }
 
     private fun updateSkipButton() {
-        skipButton.text = "تخطي"
+        skipButton.text = if (adapter.currentWordIndex < adapter.itemCount - 1) "تخطي" else "إعادة"
         skipButton.isEnabled = true
     }
 
@@ -210,6 +243,7 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         handler.removeCallbacksAndMessages(null)
         mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     class HorizontalSpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {

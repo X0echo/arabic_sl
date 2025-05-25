@@ -58,12 +58,12 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     fun setupAdapter(startIndex: Int) {
         adapter = HealthAdapter(healthSequences, startIndex)
         recyclerView.adapter = adapter
+        recyclerView.setItemViewCacheSize(3)
     }
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
             if (adapter.currentWordIndex < adapter.itemCount - 1) {
-                // Normal skip to next word
                 adapter.skipToNextWord()
                 scrollToCurrent()
                 resetTimeout()
@@ -71,7 +71,6 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
                 updateSkipButton()
                 showTemporaryFeedback("تم تخطي الكلمة")
             } else {
-                // Last word reached — this button acts as "Redo"
                 adapter.currentWordIndex = 0
                 adapter.resetSequence()
                 scrollToCurrent()
@@ -83,17 +82,10 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * Call this method whenever a gesture is recognized.
-     * Handles hold duration, success/failure, retries, and reset logic.
-     */
     fun onHealthRecognized(word: String, confidence: Float) {
         val targetGesture = adapter.getCurrentGesture() ?: return
 
-        if (gestureNeedsReset) {
-            // Ignore until reset to prevent repeated recognition
-            return
-        }
+        if (gestureNeedsReset) return
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
@@ -109,7 +101,7 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
                     isHoldingCorrectGesture = false
                     gestureNeedsReset = true
                 }
-                handler.postDelayed(holdGestureRunnable!!, 1000) // Hold 1 second
+                handler.postDelayed(holdGestureRunnable!!, 1000)
             }
         } else {
             cancelHoldTimer()
@@ -138,7 +130,6 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
             showTemporaryFeedback("الجزء التالي: ${adapter.getCurrentGesture()}")
             startTimeoutTimer()
         } else {
-            // Finished all parts of this word
             checkSequenceCompletion()
         }
     }
@@ -182,18 +173,31 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     }
 
     private fun scrollToCurrent() {
-        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+        recyclerView.post {
+            val lm = recyclerView.layoutManager as LinearLayoutManager
+            val firstVisible = lm.findFirstVisibleItemPosition()
+            val lastVisible = lm.findLastVisibleItemPosition()
+
+            if (adapter.currentWordIndex < firstVisible ||
+                adapter.currentWordIndex > lastVisible) {
+                recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+            } else {
+                val view = lm.findViewByPosition(adapter.currentWordIndex)
+                if (view != null) {
+                    val left = view.left
+                    val right = view.right
+                    val width = recyclerView.width
+                    if (left < 0 || right > width) {
+                        recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
+                    }
+                }
+            }
+        }
     }
 
     private fun updateSkipButton() {
-        if (adapter.currentWordIndex < adapter.itemCount - 1) {
-            skipButton.text = "تخطي"
-            skipButton.isEnabled = true
-        } else {
-            // Last word - change to redo button
-            skipButton.text = "إعادة"
-            skipButton.isEnabled = true
-        }
+        skipButton.text = if (adapter.currentWordIndex < adapter.itemCount - 1) "تخطي" else "إعادة"
+        skipButton.isEnabled = true
     }
 
     private fun showTemporaryFeedback(text: String) {

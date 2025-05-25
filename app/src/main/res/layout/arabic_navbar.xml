@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    >
 
     <!-- RecyclerView for displaying letter navigation -->
     <androidx.recyclerview.widget.RecyclerView
