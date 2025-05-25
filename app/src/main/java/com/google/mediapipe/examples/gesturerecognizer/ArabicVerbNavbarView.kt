@@ -11,25 +11,26 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.mediapipe.examples.gesturerecognizer.databinding.ArabicVerbNavbarBinding
 
 class ArabicVerbNavbarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var skipButton: Button
-    private lateinit var feedbackView: TextView
+    private val recyclerView: RecyclerView
+    private val skipButton: Button
+    private val feedbackView: TextView
     private lateinit var adapter: VerbAdapter
+
     private val handler = Handler(Looper.getMainLooper())
     private var timeoutRunnable: Runnable? = null
-    private var confidenceThreshold = 0.8f
-    private var mediaPlayer: MediaPlayer? = null
-
     private var completionRunnable: Runnable? = null
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
+    private var gestureNeedsReset = false
+    private val confidenceThreshold = 0.8f
+
+    private var mediaPlayer: MediaPlayer? = null
 
     private val verbSequences = listOf(
         "يتيمم" to listOf("يتيمما", "يتيممب"),
@@ -42,26 +43,16 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         "يتكلم" to listOf("يتكلم")
     )
 
-    private val binding = ArabicVerbNavbarBinding.inflate(
-        LayoutInflater.from(context),
-        this,
-        true
-    )
+    // New flag to track if we are at the end and showing "Redo"
+    private var isAtEnd = false
 
     init {
-        initView()
-    }
+        LayoutInflater.from(context).inflate(R.layout.arabic_word_navbar, this, true)
+        recyclerView = findViewById(R.id.wordRecyclerView)
+        skipButton = findViewById(R.id.skipWordButton)
+        feedbackView = findViewById(R.id.feedbackText)
 
-    private fun initView() {
-        recyclerView = binding.wordRecyclerView
-        skipButton = binding.skipWordButton
-        feedbackView = binding.feedbackText
-
-        recyclerView.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         setupAdapter(0)
         setupSkipButton()
         updateSkipButton()
@@ -74,32 +65,55 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
-            adapter.skipToNextVerb()
-            scrollToCurrent()
-            resetTimeout()
+            if (isAtEnd) {
+                // Redo pressed: reset everything and restart
+                adapter.currentWordIndex = 0
+                adapter.resetSequence()
+                scrollToCurrent()
+                isAtEnd = false
+                updateSkipButton()
+                resetTimeout()
+                gestureNeedsReset = false
+            } else {
+                // Skip pressed: move to next verb
+                adapter.skipToNextVerb()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+
+                // If reached end, switch button to "Redo"
+                if (adapter.currentWordIndex == adapter.itemCount - 1) {
+                    isAtEnd = true
+                    updateSkipButton()
+                }
+            }
         }
     }
 
-    fun onVerbRecognized(verb: String, confidence: Float) {
-        val targetGesture = adapter.getCurrentVerb() ?: return
+    fun onVerbRecognized(word: String, confidence: Float) {
+        val targetVerb = adapter.getCurrentVerb() ?: return
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
-            handleLowConfidence()
+            showTemporaryFeedback("إشارة غير واضحة")
             return
         }
 
-        if (verb == targetGesture) {
-            if (!isHoldingCorrectGesture) {
+        if (word == targetVerb) {
+            if (!isHoldingCorrectGesture && !gestureNeedsReset) {
                 isHoldingCorrectGesture = true
                 holdGestureRunnable = Runnable {
                     handleCorrectGesture()
                     isHoldingCorrectGesture = false
+                    gestureNeedsReset = true
                 }
                 handler.postDelayed(holdGestureRunnable!!, 1000)
             }
         } else {
             cancelHoldTimer()
+            if (gestureNeedsReset) {
+                gestureNeedsReset = false
+            }
             handleIncorrectGesture()
         }
     }
@@ -110,14 +124,11 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         isHoldingCorrectGesture = false
     }
 
-    private fun handleLowConfidence() {
-        showTemporaryFeedback("إشارة غير واضحة")
-    }
-
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markVerbSuccess()
         scrollToCurrent()
+        playSuccessSound()
 
         if (adapter.currentVerbIndex == 0) {
             checkSequenceCompletion()
@@ -128,7 +139,9 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     }
 
     private fun handleIncorrectGesture() {
-        if (adapter.retryCount > 1) handleSequenceFailure()
+        if (adapter.retryCount > 1) {
+            handleSequenceFailure()
+        }
     }
 
     private fun checkSequenceCompletion() {
@@ -137,10 +150,14 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
             completionRunnable = Runnable {
                 adapter.skipToNextVerb()
                 scrollToCurrent()
+                gestureNeedsReset = false
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
             showTemporaryFeedback("أحسنت! اكتملت جميع الأفعال!")
+            // Mark we are at the end and update button to "Redo"
+            isAtEnd = true
+            updateSkipButton()
         }
     }
 
@@ -153,6 +170,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         showTemporaryFeedback("!خطأ في التسلسل، إعادة المحاولة")
         adapter.resetSequence()
         startTimeoutTimer()
+        gestureNeedsReset = false
     }
 
     private fun startTimeoutTimer() {
@@ -160,6 +178,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         timeoutRunnable = Runnable {
             showTemporaryFeedback("!انتهى الوقت، إعادة التسلسل")
             adapter.resetSequence()
+            gestureNeedsReset = false
         }
         handler.postDelayed(timeoutRunnable!!, 5000)
     }
@@ -173,7 +192,11 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     }
 
     private fun updateSkipButton() {
-        skipButton.text = "تخطي"
+        if (isAtEnd) {
+            skipButton.text = "إعادة"  // Redo button text
+        } else {
+            skipButton.text = "تخطي"  // Skip button text
+        }
         skipButton.isEnabled = true
     }
 

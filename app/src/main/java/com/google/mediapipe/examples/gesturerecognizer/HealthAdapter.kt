@@ -17,6 +17,9 @@ class HealthAdapter(
     var retryCount = 0
     private val gestureStates = mutableMapOf<Pair<Int, Int>, LetterState>()
 
+    private var gestureNeedsReset = false
+    private var lastRecognizedGesture: String? = null
+
     enum class LetterState { PENDING, CORRECT, INCORRECT }
 
     inner class WordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -66,7 +69,37 @@ class HealthAdapter(
     }
 
     fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
+
     fun getCurrentGesture(): String? = getCurrentSequence().getOrNull(currentGestureIndex)
+
+    /**
+     * Call this method when a gesture is recognized with given confidence.
+     * Prevents repeated success if user holds the same gesture.
+     */
+    fun onGestureRecognized(word: String, confidence: Float, confidenceThreshold: Float = 0.8f) {
+        val currentGesture = getCurrentGesture() ?: return
+
+        if (confidence < confidenceThreshold) {
+            // Ignore low confidence gestures or handle elsewhere
+            return
+        }
+
+        // Reset the flag if new gesture detected (user changed hand sign)
+        if (word != lastRecognizedGesture) {
+            gestureNeedsReset = false
+        }
+        lastRecognizedGesture = word
+
+        // If already marked success for this gesture and still holding, ignore
+        if (gestureNeedsReset) return
+
+        if (word == currentGesture) {
+            markGestureSuccess()
+            gestureNeedsReset = true
+        } else {
+            markGestureIncorrect()
+        }
+    }
 
     fun markGestureSuccess() {
         gestureStates[currentWordIndex to currentGestureIndex] = LetterState.CORRECT
@@ -89,6 +122,8 @@ class HealthAdapter(
     fun resetSequence() {
         currentGestureIndex = 0
         retryCount = 0
+        gestureNeedsReset = false
+        lastRecognizedGesture = null
         getCurrentSequence().indices.forEach { index ->
             gestureStates[currentWordIndex to index] = LetterState.PENDING
         }

@@ -32,10 +32,14 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
 
+    // NEW: Prevent multiple triggers while holding the same gesture
+    private var gestureNeedsReset = false
+    private var lastRecognizedGesture: String? = null
+
     private val educationSequences = listOf(
         "جامع" to listOf("جامعا", "جامعب"),
         "جواب" to listOf("جواب"),
-        "عربية" to listOf("عربية"),
+        "لغة عربية" to listOf("عربية"),
         "لغة" to listOf("لغة"),
         "ممتاز" to listOf("ممتاز"),
     )
@@ -67,6 +71,8 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
             adapter.skipToNextWord()
             scrollToCurrent()
             resetTimeout()
+            gestureNeedsReset = false  // Reset here as well if user manually skips
+            lastRecognizedGesture = null
         }
     }
 
@@ -78,6 +84,18 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
             handleLowConfidence()
             return
         }
+
+        // Require a gesture change before allowing recognition again
+        if (gestureNeedsReset) {
+            if (word != lastRecognizedGesture) {
+                gestureNeedsReset = false
+            } else {
+                // Same gesture still held, ignore
+                return
+            }
+        }
+
+        lastRecognizedGesture = word
 
         if (word == targetGesture) {
             if (!isHoldingCorrectGesture) {
@@ -108,6 +126,9 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         resetTimeout()
         adapter.markGestureSuccess()
 
+        // NEW: after successful recognition, require reset before next recognition
+        gestureNeedsReset = true
+
         if (adapter.isSequenceCompleted()) {
             checkSequenceCompletion()
         } else {
@@ -126,6 +147,8 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
             completionRunnable = Runnable {
                 adapter.skipToNextWord()
                 scrollToCurrent()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
@@ -142,6 +165,8 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         showTemporaryFeedback("!خطأ في التسلسل، إعادة المحاولة")
         adapter.resetSequence()
         startTimeoutTimer()
+        gestureNeedsReset = false
+        lastRecognizedGesture = null
     }
 
     private fun startTimeoutTimer() {
@@ -149,6 +174,8 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
         timeoutRunnable = Runnable {
             showTemporaryFeedback("!انتهى الوقت، إعادة التسلسل")
             adapter.resetSequence()
+            gestureNeedsReset = false
+            lastRecognizedGesture = null
         }
         handler.postDelayed(timeoutRunnable!!, 5000)
     }

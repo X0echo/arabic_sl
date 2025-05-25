@@ -44,13 +44,11 @@ class WordAdapter(
             gestureStates[position to index] == LetterState.CORRECT
         }
 
-        // Release any existing player
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
         holder.playerView.visibility = View.GONE
 
-        // Setup video only for current word
         if (isCurrentWord) {
             val context = holder.itemView.context
             val videoName = when (displayName) {
@@ -82,7 +80,6 @@ class WordAdapter(
             }
         }
 
-        // Word text styling
         with(holder.wordText) {
             when {
                 allGesturesCompleted -> setBackgroundResource(R.drawable.success_letter_bg)
@@ -113,11 +110,16 @@ class WordAdapter(
 
     fun markGestureSuccess() {
         gestureStates[currentWordIndex to currentGestureIndex] = LetterState.CORRECT
+        successfulGestures.add(currentWordIndex to currentGestureIndex)
+
         if (currentGestureIndex < getCurrentSequence().lastIndex) {
             currentGestureIndex++
         } else {
-            successfulGestures.add(currentWordIndex to currentGestureIndex)
-            currentGestureIndex = 0
+            if ((0..getCurrentSequence().lastIndex).all { index ->
+                    gestureStates[currentWordIndex to index] == LetterState.CORRECT
+                }) {
+                currentGestureIndex = 0
+            }
         }
         retryCount = 0
         notifyItemChanged(currentWordIndex)

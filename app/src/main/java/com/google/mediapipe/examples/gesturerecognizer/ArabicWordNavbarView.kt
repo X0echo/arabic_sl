@@ -17,6 +17,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
 
+    private var isLoadingNewWord = false
     private lateinit var recyclerView: RecyclerView
     private lateinit var skipButton: Button
     private lateinit var feedbackView: TextView
@@ -27,10 +28,12 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     private var mediaPlayer: MediaPlayer? = null
 
     private var completionRunnable: Runnable? = null
-
-    // Hold timer related
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
+
+    // Fix: track gesture repetition
+    private var lastRecognizedGesture: String? = null
+    private var gestureNeedsReset = false
 
     private val colorSequences = listOf(
         "احمر" to listOf("احمر"),
@@ -42,6 +45,9 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         "ابيض" to listOf("ابيض"),
         "ازرق" to listOf("ازرق"),
     )
+
+    // New flag to track end state for redo button
+    private var isAtEnd = false
 
     init {
         initView()
@@ -66,14 +72,45 @@ class ArabicWordNavbarView @JvmOverloads constructor(
 
     private fun setupSkipButton() {
         skipButton.setOnClickListener {
-            adapter.skipToNextWord()
-            scrollToCurrent()
-            resetTimeout()
+            if (isAtEnd) {
+                // Redo pressed: reset sequence & UI
+                adapter.currentWordIndex = 0
+                adapter.resetSequence()
+                scrollToCurrent()
+                isAtEnd = false
+                updateSkipButton()
+                resetTimeout()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
+            } else {
+                // Skip pressed: next word
+                adapter.skipToNextWord()
+                scrollToCurrent()
+                resetTimeout()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
+
+                // If reached end, switch to redo button
+                if (adapter.currentWordIndex == adapter.itemCount - 1) {
+                    isAtEnd = true
+                    updateSkipButton()
+                }
+            }
         }
     }
 
     fun onColorRecognized(color: String, confidence: Float) {
+        if (isLoadingNewWord) return
+
         val targetGesture = adapter.getCurrentGesture() ?: return
+
+        if (gestureNeedsReset) {
+            if (color != lastRecognizedGesture) {
+                gestureNeedsReset = false
+            } else {
+                return
+            }
+        }
 
         if (confidence < confidenceThreshold) {
             cancelHoldTimer()
@@ -88,7 +125,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
                     handleCorrectGesture()
                     isHoldingCorrectGesture = false
                 }
-                handler.postDelayed(holdGestureRunnable!!, 1000) // 1 second hold time
+                handler.postDelayed(holdGestureRunnable!!, 1000)
             }
         } else {
             cancelHoldTimer()
@@ -109,14 +146,20 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     private fun handleCorrectGesture() {
         resetTimeout()
         adapter.markGestureSuccess()
-        scrollToCurrent()
+        playSuccessSound()
 
-        if (adapter.currentGestureIndex == 0) {
-            checkSequenceCompletion()
-        } else {
-            showNextGesturePrompt()
-            startTimeoutTimer()
-        }
+        gestureNeedsReset = true
+        lastRecognizedGesture = adapter.getCurrentGesture()
+
+        handler.postDelayed({
+            scrollToCurrent()
+            if (adapter.currentGestureIndex == 0) {
+                checkSequenceCompletion()
+            } else {
+                showNextGesturePrompt()
+                startTimeoutTimer()
+            }
+        }, 1000)
     }
 
     private fun handleIncorrectGesture() {
@@ -127,12 +170,19 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         completionRunnable?.let { handler.removeCallbacks(it) }
         if (adapter.currentWordIndex < colorSequences.size - 1) {
             completionRunnable = Runnable {
+                isLoadingNewWord = true
                 adapter.skipToNextWord()
                 scrollToCurrent()
+                gestureNeedsReset = false
+                lastRecognizedGesture = null
+                handler.postDelayed({ isLoadingNewWord = false }, 2000)
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
             showTemporaryFeedback("أحسنت! اكتملت جميع الألوان!")
+            // Mark end and update button to redo
+            isAtEnd = true
+            updateSkipButton()
         }
     }
 
@@ -165,7 +215,11 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     }
 
     private fun updateSkipButton() {
-        skipButton.text = "تخطي"
+        if (isAtEnd) {
+            skipButton.text = "إعادة" // Redo button text
+        } else {
+            skipButton.text = "تخطي" // Skip button text
+        }
         skipButton.isEnabled = true
     }
 
