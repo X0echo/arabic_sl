@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:fillViewport="true">
+    android:background="@color/mp_color_background"
+    android:fillViewport="true"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="#000000"
+        android:background="@color/mp_color_background"
         android:padding="15dp">
 
         <TextView
@@ -19,11 +20,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
             android:text="أي اشارة هذه؟"
-            android:textColor="@android:color/white"
+            android:textColor="@color/text"
             android:textSize="40sp"
+            android:fontFamily="@font/rubik_regular"
             android:textStyle="bold"
             android:gravity="center"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            />
 
         <!-- ✅ VideoView responsive -->
         <VideoView
@@ -79,7 +82,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColor="@color/text"
                         android:textSize="15sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -117,7 +121,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColor="@color/text"
                         android:textSize="15sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -154,7 +159,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/rubik_regular"
+                        android:textColor="@color/text"
                         android:textSize="15sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -167,11 +173,12 @@
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
-            android:backgroundTint="#9C3BC5"
+            android:backgroundTint="@color/med_gray"
             android:elevation="4dp"
-            android:text="Hint"
+            android:text="مساعدة"
+            android:fontFamily="@font/rubik_regular"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/text"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

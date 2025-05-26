@@ -10,7 +10,7 @@
     android:focusable="true"
     android:clipChildren="true"
     android:clipToPadding="true"
-    android:background="@color/purple_header">
+    android:background="@color/mp_color_background">
 
     <TextView
         android:id="@+id/wordText"
@@ -21,7 +21,7 @@
         android:paddingTop="12dp"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/text"
         android:elevation="3dp" />
 
     <androidx.media3.ui.PlayerView
@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:visibility="invisible"
         app:surface_type="texture_view"
-        android:background="#000000"
+        android:background="@color/mp_color_background"
     app:use_controller="false"
     app:resize_mode="fit" />
 
@@ -41,6 +41,6 @@
     android:layout_height="20dp"
     android:layout_marginTop="4dp"
     android:gravity="center"
-    android:textSize="14sp"
-    android:textColor="#444444" />
+    android:textSize="16sp"
+    android:textColor="@color/text" />
 </LinearLayout>

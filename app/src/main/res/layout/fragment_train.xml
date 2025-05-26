@@ -32,15 +32,16 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_training_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:text="التدريبات"
+
+                    android:backgroundTint="@color/med_gray"
                     android:textSize="18sp"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/text"
                     app:icon="@drawable/ic_arrow_down"
-                    app:iconTint="@color/purple"
+                    app:iconTint="@color/text"
                     app:iconGravity="end"
-                    app:strokeColor="@color/mp_color_primary"
-                    app:strokeWidth="1dp"
+
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:fontFamily="@font/rubik_regular"
                     />
@@ -57,13 +58,12 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/lettersButton"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:text="الحروف"
                         android:textSize="16sp"
-                        android:textColor="@color/purple"
-                        app:icon="@drawable/ic_letters"
-                        app:iconTint="@color/purple"
+                        android:textColor="@color/text"
+
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:fontFamily="@font/rubik_regular"
                         />
@@ -71,13 +71,11 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/numbersButton"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:text="الأرقام"
                         android:textSize="16sp"
-                        android:textColor="@color/purple"
-                        app:icon="@drawable/ic_numbers"
-                        app:iconTint="@color/purple"
+                        android:textColor="@color/text"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:fontFamily="@font/rubik_regular"
                         />
@@ -85,13 +83,12 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/wordsButton"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:text="الكلمات"
                         android:textSize="16sp"
-                        android:textColor="@color/purple"
-                        app:icon="@drawable/ic_words"
-                        app:iconTint="@color/purple"
+                        android:textColor="@color/text"
+
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:fontFamily="@font/rubik_regular"
                         />
@@ -118,15 +115,15 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_challenges_expand"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:text="التحديات"
+                    android:backgroundTint="@color/med_gray"
                     android:textSize="18sp"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/text"
                     app:icon="@drawable/ic_arrow_down"
-                    app:iconTint="@color/purple"
+                    app:iconTint="@color/text"
                     app:iconGravity="end"
-                    app:strokeColor="@color/purple"
-                    app:strokeWidth="1dp"
+
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:fontFamily="@font/rubik_regular"
                     />
@@ -143,13 +140,12 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/letters_challenge_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:text="تحدي الحروف"
                         android:textSize="16sp"
-                        android:textColor="@color/purple"
-                        app:icon="@drawable/ic_letters"
-                        app:iconTint="@color/purple"
+                        android:textColor="@color/text"
+
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:fontFamily="@font/rubik_regular"
                         />
@@ -157,13 +153,12 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/numbers_challenge_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:text="تحدي الأرقام"
                         android:textSize="16sp"
-                        android:textColor="@color/purple"
-                        app:icon="@drawable/ic_numbers"
-                        app:iconTint="@color/purple"
+                        android:textColor="@color/text"
+
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:fontFamily="@font/rubik_regular"
                         />
@@ -186,14 +181,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/quizButton"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:text="الإختبارات"
+                android:backgroundTint="@color/med_gray"
                 android:textSize="18sp"
-                android:textColor="@color/purple"
+                android:textColor="@color/text"
 
-                app:iconTint="@color/purple"
-                app:strokeColor="@color/purple"
-                app:strokeWidth="1dp"
+                app:iconTint="@color/text"
+
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:fontFamily="@font/rubik_regular"
                 />
