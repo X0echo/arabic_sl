@@ -61,7 +61,7 @@ class WordAdapter(
                 else -> setBackgroundResource(R.drawable.letter_box_bg)
             }
             textSize = if (isCurrentWord) 20f else 18f
-            setTextColor(android.graphics.Color.WHITE)
+            setTextColor(holder.itemView.context.getColor(R.color.purple_header))
             text = displayName
         }
 

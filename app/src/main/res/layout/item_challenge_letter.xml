@@ -11,7 +11,7 @@
         android:layout_height="140dp"
         android:textSize="64sp"
         android:textStyle="bold"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/purple_header"
         android:gravity="center"
         android:background="@drawable/current_letter_bg"
         android:elevation="4dp"

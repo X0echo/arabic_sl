@@ -70,15 +70,15 @@ class NumberAdapter(
                 position == currentIndex -> {
                     setBackgroundResource(R.drawable.current_letter_bg)
                     textSize = 20f
-                    setTextColor(Color.WHITE)
+                    setTextColor(holder.itemView.context.getColor(R.color.purple_text))
                 }
                 position in successfulNumbers -> {
                     setBackgroundResource(R.drawable.success_letter_bg)
-                    setTextColor(Color.WHITE)
+                    setTextColor(holder.itemView.context.getColor(R.color.purple))
                 }
                 else -> {
                     setBackgroundResource(R.drawable.letter_box_bg)
-                    setTextColor(Color.WHITE)
+                    setTextColor(holder.itemView.context.getColor(R.color.purple))
                     textSize = 18f
                 }
             }
