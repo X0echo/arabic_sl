@@ -232,10 +232,26 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     }
 
     private fun playSuccessSound() {
-        mediaPlayer?.release()
-        mediaPlayer = MediaPlayer.create(context, R.raw.success).apply {
+        try {
+            mediaPlayer?.let {
+                if (it.isPlaying) it.stop()
+                it.reset()
+                it.release()
+            }
+        } catch (e: Exception) {
+            // ignore errors on release/reset
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
             start()
-            setOnCompletionListener { release() }
         }
     }
 

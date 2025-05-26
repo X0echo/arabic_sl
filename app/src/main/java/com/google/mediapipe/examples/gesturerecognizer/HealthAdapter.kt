@@ -46,10 +46,11 @@ class HealthAdapter(
             gestureStates[position to index] == LetterState.CORRECT
         }
 
-        // Clean up previous binding
+        // Clean up any previously bound player
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
+        holder.playerView.visibility = View.INVISIBLE
         holder.boundPosition = position
 
         with(holder.wordText) {
@@ -71,8 +72,6 @@ class HealthAdapter(
 
         if (isCurrentWord) {
             initializeVideoPlayer(holder, displayName)
-        } else {
-            holder.playerView.visibility = View.INVISIBLE
         }
     }
 
@@ -94,9 +93,11 @@ class HealthAdapter(
         if (resId == 0) return
 
         val uri = Uri.parse("android.resource://${context.packageName}/$resId")
-        val vto = holder.playerView.viewTreeObserver
 
-        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        if (holder.player != null && holder.boundPosition == currentWordIndex) return
+
+        holder.playerView.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (holder.boundPosition != currentWordIndex) {
                     holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -105,12 +106,16 @@ class HealthAdapter(
 
                 if (holder.playerView.width > 0 && holder.playerView.height > 0) {
                     holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                    holder.player?.release()
+
                     val player = ExoPlayer.Builder(context).build().apply {
                         setMediaItem(MediaItem.fromUri(uri))
                         repeatMode = Player.REPEAT_MODE_ONE
                         prepare()
                         play()
                     }
+
                     holder.player = player
                     holder.playerView.player = player
                     holder.playerView.visibility = View.VISIBLE
@@ -125,15 +130,17 @@ class HealthAdapter(
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
+        holder.playerView.visibility = View.INVISIBLE
         super.onViewRecycled(holder)
     }
 
-    // Existing HealthAdapter functions
     fun getCurrentSequence(): List<String> = wordData[currentWordIndex].second
     fun getCurrentGesture(): String? = getCurrentSequence().getOrNull(currentGestureIndex)
 
     fun markGestureSuccess() {
         gestureStates[currentWordIndex to currentGestureIndex] = LetterState.CORRECT
+        successfulGestures.add(currentWordIndex to currentGestureIndex)
+
         if (currentGestureIndex < getCurrentSequence().lastIndex) {
             currentGestureIndex++
         } else {

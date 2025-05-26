@@ -50,6 +50,7 @@ class VerbAdapter(
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
+        holder.playerView.visibility = View.INVISIBLE
         holder.boundPosition = position
 
         // Configure view appearance
@@ -70,11 +71,8 @@ class VerbAdapter(
             ""
         }
 
-        // Video initialization
         if (isCurrentVerb) {
             initializeVideoPlayer(holder, displayName)
-        } else {
-            holder.playerView.visibility = View.INVISIBLE
         }
     }
 
@@ -95,9 +93,11 @@ class VerbAdapter(
         if (resId == 0) return
 
         val uri = Uri.parse("android.resource://${context.packageName}/$resId")
-        val vto = holder.playerView.viewTreeObserver
 
-        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        // Avoid reinitialization if already correct
+        if (holder.player != null && holder.boundPosition == currentWordIndex) return
+
+        holder.playerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (holder.boundPosition != currentWordIndex) {
                     holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -106,12 +106,16 @@ class VerbAdapter(
 
                 if (holder.playerView.width > 0 && holder.playerView.height > 0) {
                     holder.playerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                    holder.player?.release()
+
                     val player = ExoPlayer.Builder(context).build().apply {
                         setMediaItem(MediaItem.fromUri(uri))
                         repeatMode = Player.REPEAT_MODE_ONE
                         prepare()
                         play()
                     }
+
                     holder.player = player
                     holder.playerView.player = player
                     holder.playerView.visibility = View.VISIBLE
@@ -126,6 +130,7 @@ class VerbAdapter(
         holder.player?.release()
         holder.player = null
         holder.playerView.player = null
+        holder.playerView.visibility = View.INVISIBLE
         super.onViewRecycled(holder)
     }
 

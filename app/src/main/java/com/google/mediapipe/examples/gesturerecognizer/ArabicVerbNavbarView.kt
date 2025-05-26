@@ -203,8 +203,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
             val firstVisible = lm.findFirstVisibleItemPosition()
             val lastVisible = lm.findLastVisibleItemPosition()
 
-            if (adapter.currentWordIndex < firstVisible ||
-                adapter.currentWordIndex > lastVisible) {
+            if (adapter.currentWordIndex < firstVisible || adapter.currentWordIndex > lastVisible) {
                 recyclerView.smoothScrollToPosition(adapter.currentWordIndex)
             } else {
                 val view = lm.findViewByPosition(adapter.currentWordIndex)
@@ -231,16 +230,29 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     }
 
     private fun playSuccessSound() {
-        mediaPlayer?.release()
-        mediaPlayer = MediaPlayer.create(context, R.raw.success).apply {
-            start()
-            setOnCompletionListener { release() }
+        try {
+            if (mediaPlayer == null) {
+                mediaPlayer = MediaPlayer()
+            } else {
+                mediaPlayer?.reset()
+            }
+
+            val afd = context.resources.openRawResourceFd(R.raw.success)
+            mediaPlayer?.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+            afd.close()
+
+            mediaPlayer?.prepare()
+            mediaPlayer?.start()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         handler.removeCallbacksAndMessages(null)
+        mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
