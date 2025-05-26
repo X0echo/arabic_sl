@@ -60,7 +60,7 @@ class HealthAdapter(
                 else -> setBackgroundResource(R.drawable.letter_box_bg)
             }
             textSize = if (isCurrentWord) 20f else 18f
-            setTextColor(holder.itemView.context.getColor(R.color.purple_header))
+            setTextColor(holder.itemView.context.getColor(R.color.text))
             text = displayName
         }
 

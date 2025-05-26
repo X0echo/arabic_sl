@@ -6,15 +6,16 @@
         android:icon="@drawable/home_icon"
         />
     <item
-        android:id="@+id/nav_dictionary"
-        android:title="@string/dictionary"
-        android:icon="@drawable/menu_book_icon"
-        />
-    <item
         android:id="@+id/nav_translate"
         android:title="@string/translate"
         android:icon="@drawable/translate_icon"
         />
+    <item
+        android:id="@+id/nav_dictionary"
+        android:title="@string/dictionary"
+        android:icon="@drawable/menu_book_icon"
+        />
+
     <item
         android:id="@+id/nav_train"
         android:title="@string/train"

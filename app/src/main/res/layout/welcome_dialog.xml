@@ -9,7 +9,7 @@
     android:layout_gravity="center"
     android:elevation="20dp"
     app:cardCornerRadius="24dp"
-    app:cardBackgroundColor="@android:color/white"
+    app:cardBackgroundColor="@color/mp_color_background"
     app:cardElevation="8dp">
 
     <LinearLayout
@@ -20,11 +20,20 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/app_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginBottom="24dp"
-            android:tint="@color/colorPrimary"
-            tools:ignore="UseAppTint" />
+            android:src="@drawable/ic_app_logo"
+            android:contentDescription="@string/app_logo_desc"
+            android:background="@drawable/logo_background"
+            android:padding="10dp"
+            android:elevation="6dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"/>
+
 
         <TextView
             android:id="@+id/title"
@@ -34,7 +43,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/mp_color_primary_variant"
+            android:textColor="@color/purple"
             android:layout_marginBottom="16dp"
             />
 
@@ -52,7 +61,7 @@
             android:textSize="16sp"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/text"
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="32dp"
             />
@@ -74,8 +83,8 @@
                 android:text="@string/continue_text"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/mp_color_primary_variant"
+                android:textColor="@color/text"
+                android:backgroundTint="@color/purple"
                 app:cornerRadius="16dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -87,9 +96,9 @@
                 android:text="لا"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/text"
                 android:layout_marginStart="16dp"
-                android:backgroundTint="@color/mp_color_primary_variant"
+                android:backgroundTint="@color/purple"
                 app:cornerRadius="16dp"/>
         </LinearLayout>
     </LinearLayout>

@@ -15,22 +15,23 @@
     ~ limitations under the License.
 -->
 <resources>
-    <color name="mp_color_background">#7851a9</color>
+    <color name="mp_color_background">#2B2D31</color>
+    <color name="secondary">#1E1F22</color>
+    <color name="text">#FFFFFF</color>
+    <color name="light_gray">#B5BAC1</color>
+    <color name="med_gray">#313338</color>
+    <color name="danger_red">#ED4245</color>
 
-    <color name="blue">#D4EDFE</color>
-    <color name="blue_header">#143658</color>
-    <color name="blue_text">#5C7997</color>
+    <color name="success_green">#57F287</color>
 
-    <color name="orange">#FFE7C4</color>
-    <color name="orange_header">#693A20</color>
-    <color name="orange_text">#83653C</color>
 
-    <color name="purple">#fceaff</color>
+
+    <color name="purple">#5865F2</color>
     <color name="purple_header">#2C1C53</color>
-    <color name="purple_text">#a68dc0</color>
+    <color name="purple_text">#2B2D31</color>
     <color name="green">#00c9aa</color>
 
-    <color name="bottom_nav_background">#2C2C2C</color> <!-- matches previous style -->
+    <color name="bottom_nav_background">#2B2D31</color> <!-- matches previous style -->
 
 
     <color name="mp_color_primary">@android:color/white</color>

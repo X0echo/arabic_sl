@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="@color/purple_header">
+    android:background="@color/mp_color_background">
 
     <!-- Single centered letter display -->
     <TextView
@@ -11,7 +11,7 @@
         android:layout_height="140dp"
         android:textSize="64sp"
         android:textStyle="bold"
-        android:textColor="@color/purple_header"
+        android:textColor="@color/text"
         android:gravity="center"
         android:background="@drawable/current_letter_bg"
         android:elevation="4dp"
