@@ -28,7 +28,7 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
     private var gestureNeedsReset = false
-    private val confidenceThreshold = 0.8f
+    private val confidenceThreshold = 0.7f
 
     private var mediaPlayer: MediaPlayer? = null
 
@@ -206,10 +206,26 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
     }
 
     private fun playSuccessSound() {
-        mediaPlayer?.release()
-        mediaPlayer = MediaPlayer.create(context, R.raw.success).apply {
+        try {
+            mediaPlayer?.let {
+                it.stop()
+                it.reset()
+                it.release()
+            }
+        } catch (e: Exception) {
+            // Ignore errors on stop/reset/release
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
             start()
-            setOnCompletionListener { release() }
         }
     }
 
@@ -217,5 +233,6 @@ class ArabicHealthNavbarView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         handler.removeCallbacksAndMessages(null)
         mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

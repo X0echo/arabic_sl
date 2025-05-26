@@ -27,6 +27,8 @@ class ChallengesNavbarView @JvmOverloads constructor(
     private var isProcessingSuccess = false
     private var isCheckingHold = false
 
+    private var mediaPlayer: MediaPlayer? = null
+
     private val challengeLetters = listOf(
         "ا", "ب", "ت", "ث", "ج", "ح", "خ",
         "د", "ذ", "ر", "ز", "س", "ش", "ص",
@@ -99,10 +101,7 @@ class ChallengesNavbarView @JvmOverloads constructor(
                 successRunnable = Runnable {
                     pendingAdvancement?.let { handler.removeCallbacks(it) }
 
-                    MediaPlayer.create(context, R.raw.success).apply {
-                        setOnCompletionListener { release() }
-                        start()
-                    }
+                    playSuccessSound()
 
                     adapter.markSuccess()
                     isProcessingSuccess = true
@@ -129,4 +128,32 @@ class ChallengesNavbarView @JvmOverloads constructor(
     }
 
     fun getCurrentChallengeLetter(): String = adapter.getCurrentLetter()
+
+    private fun playSuccessSound() {
+        // Release any previous MediaPlayer before creating a new one
+        mediaPlayer?.let {
+            if (it.isPlaying) it.stop()
+            it.reset()
+            it.release()
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
+            start()
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        handler.removeCallbacksAndMessages(null)
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
 }

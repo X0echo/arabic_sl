@@ -31,6 +31,8 @@ class NumberNavbarView @JvmOverloads constructor(
     private var isSuccessHandled = false
     private var isCheckingHold = false
 
+    private var mediaPlayer: MediaPlayer? = null
+
     init {
         initView()
     }
@@ -117,8 +119,30 @@ class NumberNavbarView @JvmOverloads constructor(
     }
 
     private fun playSuccessSound() {
-        val mediaPlayer = MediaPlayer.create(context, R.raw.success)
-        mediaPlayer.start()
-        mediaPlayer.setOnCompletionListener { it.release() }
+        // Clean up any existing media player before creating a new one
+        mediaPlayer?.let {
+            if (it.isPlaying) it.stop()
+            it.reset()
+            it.release()
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
+            start()
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        handler.removeCallbacksAndMessages(null)
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

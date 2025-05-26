@@ -35,7 +35,7 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
     companion object {
         private const val TAG = "CameraFragment"
         private const val MIN_CONFIDENCE = 0.85
-        private const val GESTURE_HOLD_DURATION = 2000L
+        private const val GESTURE_HOLD_DURATION = 1000L
         private const val GESTURE_COOLDOWN = 1000L
     }
 

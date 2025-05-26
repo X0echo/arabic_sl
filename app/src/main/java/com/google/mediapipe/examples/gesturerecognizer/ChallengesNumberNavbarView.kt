@@ -27,6 +27,8 @@ class ChallengesNumberNavbarView @JvmOverloads constructor(
     private var isProcessingSuccess = false
     private var isCheckingHold = false
 
+    private var mediaPlayer: MediaPlayer? = null
+
     private val challengeNumbers = listOf(
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
         "20", "30", "40", "50", "60", "70", "80", "90", "100"
@@ -96,10 +98,7 @@ class ChallengesNumberNavbarView @JvmOverloads constructor(
                 successRunnable = Runnable {
                     pendingAdvancement?.let { handler.removeCallbacks(it) }
 
-                    MediaPlayer.create(context, R.raw.success).apply {
-                        setOnCompletionListener { release() }
-                        start()
-                    }
+                    playSuccessSound()
 
                     adapter.markSuccess()
                     isProcessingSuccess = true
@@ -126,4 +125,32 @@ class ChallengesNumberNavbarView @JvmOverloads constructor(
     }
 
     fun getCurrentChallengeNumber(): String = adapter.getCurrentNumber()
+
+    private fun playSuccessSound() {
+        // Release any existing player before creating a new one
+        mediaPlayer?.let {
+            if (it.isPlaying) it.stop()
+            it.reset()
+            it.release()
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
+            start()
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        handler.removeCallbacksAndMessages(null)
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
 }

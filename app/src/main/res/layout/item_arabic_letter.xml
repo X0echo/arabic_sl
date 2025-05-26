@@ -30,7 +30,8 @@
         android:paddingTop="12dp"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#000"
+        android:textColor="@color/purple_header"
+
         android:background="@drawable/letter_box_bg"
         android:gravity="start|top"
         android:elevation="3dp" />

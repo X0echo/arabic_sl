@@ -25,7 +25,7 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     private lateinit var adapter: EducationAdapter
     private val handler = Handler(Looper.getMainLooper())
     private var timeoutRunnable: Runnable? = null
-    private var confidenceThreshold = 0.8f
+    private var confidenceThreshold = 0.7f
     private var mediaPlayer: MediaPlayer? = null
 
     private var completionRunnable: Runnable? = null
@@ -36,9 +36,9 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     private var lastRecognizedGesture: String? = null
 
     private val educationSequences = listOf(
-        "جامعة" to listOf("جامعة"),
+        "جامعة" to listOf("جامعا","جامعب"),
         "جواب" to listOf("جواب"),
-        "لغة عربية" to listOf("لغة عربية"),
+        "لغة عربية" to listOf("لغة","عربية"),
         "ممتاز" to listOf("ممتاز"),
     )
 
@@ -232,10 +232,26 @@ class ArabicEducationNavbarView @JvmOverloads constructor(
     }
 
     private fun playSuccessSound() {
-        mediaPlayer?.release()
-        mediaPlayer = MediaPlayer.create(context, R.raw.success).apply {
+        try {
+            mediaPlayer?.let {
+                it.stop()
+                it.reset()
+                it.release()
+            }
+        } catch (e: Exception) {
+            // Ignore errors while releasing media player
+        }
+        mediaPlayer = MediaPlayer.create(context, R.raw.success)?.apply {
+            setOnCompletionListener {
+                it.release()
+                mediaPlayer = null
+            }
+            setOnErrorListener { mp, _, _ ->
+                mp.release()
+                mediaPlayer = null
+                true
+            }
             start()
-            setOnCompletionListener { release() }
         }
     }
 
