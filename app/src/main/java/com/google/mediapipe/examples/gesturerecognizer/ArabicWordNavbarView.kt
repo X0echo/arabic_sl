@@ -24,7 +24,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
     private lateinit var adapter: WordAdapter
     private val handler = Handler(Looper.getMainLooper())
     private var timeoutRunnable: Runnable? = null
-    private var confidenceThreshold = 0.8f
+    private var confidenceThreshold = 0.7f
     private var mediaPlayer: MediaPlayer? = null
 
     private var completionRunnable: Runnable? = null

@@ -30,7 +30,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     private var holdGestureRunnable: Runnable? = null
     private var isHoldingCorrectGesture = false
     private var gestureNeedsReset = false
-    private val confidenceThreshold = 0.8f
+    private val confidenceThreshold = 0.7f
 
     private var mediaPlayer: MediaPlayer? = null
 
