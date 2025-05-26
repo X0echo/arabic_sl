@@ -33,6 +33,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
     private val confidenceThreshold = 0.7f
 
     private var mediaPlayer: MediaPlayer? = null
+    private var lastRecognizedGesture: String? = null
 
     private val verbSequences = listOf(
         "يتيمم" to listOf("يتيمما", "يتيممب"),
@@ -74,11 +75,13 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
                 updateSkipButton()
                 resetTimeout()
                 gestureNeedsReset = false
+                lastRecognizedGesture = null
             } else {
                 adapter.skipToNextVerb()
                 scrollToCurrent()
                 resetTimeout()
                 gestureNeedsReset = false
+                lastRecognizedGesture = null
 
                 if (adapter.currentWordIndex == adapter.itemCount - 1) {
                     isAtEnd = true
@@ -96,6 +99,16 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
             showTemporaryFeedback("إشارة غير واضحة")
             return
         }
+
+        if (gestureNeedsReset) {
+            if (word != lastRecognizedGesture) {
+                gestureNeedsReset = false
+            } else {
+                return
+            }
+        }
+
+        lastRecognizedGesture = word
 
         if (word == targetVerb) {
             if (!isHoldingCorrectGesture) {
@@ -146,6 +159,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
                 adapter.skipToNextVerb()
                 scrollToCurrent()
                 gestureNeedsReset = false
+                lastRecognizedGesture = null
             }
             handler.postDelayed(completionRunnable!!, 1000)
         } else {
@@ -165,6 +179,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
         adapter.resetSequence()
         startTimeoutTimer()
         gestureNeedsReset = false
+        lastRecognizedGesture = null
     }
 
     private fun startTimeoutTimer() {
@@ -173,6 +188,7 @@ class ArabicVerbNavbarView @JvmOverloads constructor(
             showTemporaryFeedback("!انتهى الوقت، إعادة التسلسل")
             adapter.resetSequence()
             gestureNeedsReset = false
+            lastRecognizedGesture = null
         }
         handler.postDelayed(timeoutRunnable!!, 5000)
     }
