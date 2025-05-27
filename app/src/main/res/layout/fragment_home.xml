@@ -98,49 +98,6 @@
                 android:textColor="@color/text"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <!-- Carte Entraînement -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_train"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/purple"
-        app:layout_constraintTop_toBottomOf="@id/card_translate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="14dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="14dp">
-
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:src="@drawable/school_icon"
-                app:tint="@color/text" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/train_title"
-                android:textSize="16sp"
-                android:textColor="@color/text"
-                android:layout_marginTop="6dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/train_subtitle"
-                android:textSize="11sp"
-                android:textColor="@color/text"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <!-- Carte Dictionnaire -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_dictionary"
@@ -149,7 +106,7 @@
         app:cardCornerRadius="20dp"
         app:cardElevation="3dp"
         app:cardBackgroundColor="@color/purple"
-        app:layout_constraintTop_toBottomOf="@id/card_train"
+        app:layout_constraintTop_toBottomOf="@id/card_translate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="14dp"
@@ -183,5 +140,48 @@
                 android:textColor="@color/text"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <!-- Carte Entraînement -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_train"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/purple"
+        app:layout_constraintTop_toBottomOf="@id/card_dictionary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="14dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:padding="14dp">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/school_icon"
+                app:tint="@color/text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/train_title"
+                android:textSize="16sp"
+                android:textColor="@color/text"
+                android:layout_marginTop="6dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/train_subtitle"
+                android:textSize="11sp"
+                android:textColor="@color/text"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
