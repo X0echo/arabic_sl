@@ -35,7 +35,7 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
     companion object {
         private const val TAG = "CameraFragment"
         private const val MIN_CONFIDENCE = 0.85
-        private const val GESTURE_HOLD_DURATION = 1000L
+        private const val GESTURE_HOLD_DURATION = 500L
         private const val GESTURE_COOLDOWN = 1000L
     }
 
@@ -162,10 +162,12 @@ class CameraFragment : Fragment(), GestureRecognizerHelper.GestureRecognizerList
 
     // Clear text area
     private fun clearText() {
-        concatenatedLetters.clear()
-        updateTextDisplay()
-        Toast.makeText(context, getString(R.string.text_cleared), Toast.LENGTH_SHORT).show()
+        if (concatenatedLetters.isNotEmpty()) {
+            concatenatedLetters.deleteCharAt(concatenatedLetters.length - 1)
+            updateTextDisplay()
+        }
     }
+
 
     // Animate and update the text area
     private fun updateTextDisplay() {

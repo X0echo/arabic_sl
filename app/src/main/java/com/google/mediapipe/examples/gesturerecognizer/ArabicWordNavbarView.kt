@@ -39,7 +39,7 @@ class ArabicWordNavbarView @JvmOverloads constructor(
         "احمر" to listOf("احمر"),
         "بنفسجي" to listOf("بنفسجيا", "بنفسجيب"),
         "اخضر" to listOf("اخضر"),
-        //"اسود" to listOf("اسود"),
+        "اسود" to listOf("اسود"),
         "بني" to listOf("بني"),
         "وردي" to listOf("وردي"),
         "ابيض" to listOf("ابيض"),
